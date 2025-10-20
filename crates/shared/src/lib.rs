@@ -6,6 +6,7 @@ pub mod program;
 pub mod rtti;
 mod r#static;
 pub mod task;
+pub mod util;
 
 pub use arxan::*;
 pub use dl_math::*;
@@ -14,5 +15,6 @@ pub use program::*;
 pub use r#static::*;
 pub use rtti::*;
 pub use task::*;
+pub use util::*;
 
 pub use shared_macros::singleton;
