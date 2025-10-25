@@ -275,6 +275,7 @@ dependencies = [
  "encoding_rs",
  "from-singleton",
  "fromsoftware-shared",
+ "ilhook",
  "nalgebra",
  "nalgebra-glm",
  "pelite",
@@ -455,6 +456,29 @@ dependencies = [
 ]
 
 [[package]]
+name = "iced-x86"
+version = "1.21.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7c447cff8c7f384a7d4f741cfcff32f75f3ad02b406432e8d6c878d56b1edf6b"
+dependencies = [
+ "lazy_static",
+]
+
+[[package]]
+name = "ilhook"
+version = "2.3.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c40cf69be52a2e8e2a375673ecfde90b7790aa9d8aa55dd463dc7e8faacb89c9"
+dependencies = [
+ "bitflags 2.9.2",
+ "iced-x86",
+ "libc",
+ "regex",
+ "thiserror",
+ "windows-sys",
+]
+
+[[package]]
 name = "imgui"
 version = "0.12.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -531,9 +555,9 @@ dependencies = [
 
 [[package]]
 name = "log"
-version = "0.4.27"
+version = "0.4.28"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "13dc2df351e3202783a1fe0d44375f7295ffb4049267b0f3018346dc122a1d94"
+checksum = "34080505efa8e45a4b816c349525ebe327ceaa8559756f0356cba97ef3bf7432"
 
 [[package]]
 name = "matchers"

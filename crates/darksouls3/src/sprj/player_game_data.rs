@@ -11,6 +11,21 @@ pub struct EquipGameData {
     pub equip_inventory_data: EquipInventoryData,
 }
 
+impl EquipGameData {
+    /// For whatever reason, DS3 has an EquipGameData active on the main menu as
+    /// well as in the context of an individual game. This function returns
+    /// whether a given instance is for the synthetic loading screen character
+    /// rather than a real loaded world.
+    pub fn is_main_menu(&self) -> bool {
+        // For some even stranger reason, the loading screen save actually does
+        // have a handful of items. However, even a totally fresh save has more
+        // items than that, so we check for 12 items which is exactly how many
+        // the loading screen has. This could be tricked if a player discarded
+        // all their starting equipment, so... don't do that.
+        return self.equip_inventory_data.items_data.normal_items_count == 12;
+    }
+}
+
 #[repr(C)]
 pub struct EquipInventoryData {
     _vftable: usize,
