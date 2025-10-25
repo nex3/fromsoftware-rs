@@ -351,16 +351,18 @@ pub struct InventoryItemsData {
     pub multiplay_key_items_count: u32,
 
     _pad3c: u32,
-    /// Pointers to the active normal item list and its count, all inventory reads and writes in the game
-    /// will go through this.
+    /// Pointers to the active normal item list and its count. All inventory
+    /// reads and writes in the game will go through this.
     ///
-    /// Compared to `key_items_accessor`, this is always the same as `normal_items`.
+    /// Unlike [key_items_accessor], this never changes; it always points to
+    /// [normal_items_head] and [normal_items_count].
     pub normal_items_accessor: InventoryItemListAccessor,
-    /// Pointers to the active key item list and its count, all inventory reads and writes in the game
-    /// will go through this.
+    /// Pointers to the active key item list and its count. All inventory reads
+    /// and writes in the game will go through this.
     ///
-    /// In single-player, this typically points to `key_items`.
-    /// In multiplayer, it switches to `multiplay_key_items`.
+    /// In single-player, this typically points to [key_items_head] and
+    /// [key_items_count]. In multiplayer, it switches to
+    /// [multiplay_key_items_head] and [multiplay_key_items_count].
     pub key_items_accessor: InventoryItemListAccessor,
 
     /// Contains the indices into the item ID mapping list.
@@ -373,6 +375,7 @@ pub struct InventoryItemsData {
 }
 
 impl InventoryItemsData {
+    /// Returns the non-key items in the player's inventory as a slice.
     pub fn normal_items(&self) -> &[EquipInventoryDataListEntry] {
         unsafe {
             std::slice::from_raw_parts(
@@ -381,6 +384,8 @@ impl InventoryItemsData {
             )
         }
     }
+
+    /// Returns the non-key items in the player's inventory as a mutable slice.
     pub fn normal_items_mut(&mut self) -> &mut [EquipInventoryDataListEntry] {
         unsafe {
             std::slice::from_raw_parts_mut(
@@ -389,15 +394,22 @@ impl InventoryItemsData {
             )
         }
     }
+
+    /// Returns whether the player's non-key item inventory is full.
     pub fn is_normal_items_full(&self) -> bool {
         self.normal_items_count >= self.normal_items_capacity
     }
 
+    /// Returns the (non-multiplayer) key items in the player's inventory as a
+    /// slice.
     pub fn key_items(&self) -> &[EquipInventoryDataListEntry] {
         unsafe {
             std::slice::from_raw_parts(self.key_items_head.as_ptr(), self.key_items_count as usize)
         }
     }
+
+    /// Returns the (non-multiplayer) key items in the player's inventory as a
+    /// mutable slice.
     pub fn key_items_mut(&mut self) -> &mut [EquipInventoryDataListEntry] {
         unsafe {
             std::slice::from_raw_parts_mut(
@@ -406,6 +418,8 @@ impl InventoryItemsData {
             )
         }
     }
+
+    /// Returns whether the player's (non-multiplayer) key item inventory is full.
     pub fn is_key_items_full(&self) -> bool {
         self.key_items_count >= self.key_items_capacity
     }
