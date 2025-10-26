@@ -1,4 +1,8 @@
 [[patterns]]
+pattern = "48 8b ce 48 8b f8 e8 $ { 48 89 0d $ { ' } c3 }"
+captures = ["", "global_hinstance"]
+
+[[patterns]]
 pattern = "[16] 48 8d 6c 24 d9 48 81 ec 00 01 00 00 48 c7 45 cf fe ff ff ff"
 captures = ["map_item_man_grant_item"]
 
