@@ -11,6 +11,7 @@ use super::RvaBundle;
 pub const RVAS: RvaBundle = RvaBundle {
     equip_game_data_deserialize: 0x5843f0,
     equip_game_data_serialize: 0x584b60,
+    global_hinstance: 0x489d5a0,
     map_item_man_grant_item: 0x7c4080,
     map_item_man_ptr: 0x4769240,
     register_task: 0xf0fa50,
