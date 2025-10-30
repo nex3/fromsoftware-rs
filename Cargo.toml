@@ -28,6 +28,7 @@ eldenring = { path = "crates/eldenring", version = "0.11.0", package = "eldenrin
 darksouls3 = { path = "crates/darksouls3", version = "0.11.0", package = "darksouls3" }
 nightreign = { path = "crates/nightreign", version = "0.11.0", package = "nightreign" }
 binary_mapper = { path = "crates/binary-mapper" }
+bitflags = "2.10.0"
 from-singleton = { version = "2" }
 thiserror = "1"
 tracing = "0.1"

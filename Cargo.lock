@@ -131,9 +131,9 @@ checksum = "bef38d45163c2f1dde094a7dfd33ccf595c92905c8f8f4fdc18d06fb1037718a"
 
 [[package]]
 name = "bitflags"
-version = "2.9.2"
+version = "2.10.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6a65b545ab31d687cff52899d4890855fec459eb6afe0da6417b8a18da87aa29"
+checksum = "812e12b5285cc515a9c72a5c1d3b6d46a19dac5acfef5265968c166106e31dd3"
 
 [[package]]
 name = "bumpalo"
@@ -270,7 +270,7 @@ dependencies = [
 name = "darksouls3"
 version = "0.11.0"
 dependencies = [
- "bitfield",
+ "bitflags 2.10.0",
  "cxx-stl",
  "encoding_rs",
  "from-singleton",
@@ -444,7 +444,7 @@ name = "hudhook"
 version = "0.8.1"
 source = "git+https://github.com/veeenu/hudhook#142348c081e78cd0a37b0a78b7437f9c9078ca4f"
 dependencies = [
- "bitflags 2.9.2",
+ "bitflags 2.10.0",
  "cc",
  "gl_generator",
  "imgui",
@@ -470,7 +470,7 @@ version = "2.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c40cf69be52a2e8e2a375673ecfde90b7790aa9d8aa55dd463dc7e8faacb89c9"
 dependencies = [
- "bitflags 2.9.2",
+ "bitflags 2.10.0",
  "iced-x86",
  "libc",
  "regex",
@@ -874,7 +874,7 @@ version = "0.5.17"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "5407465600fb0548f1442edf71dd20683c6ed326200ace4b1ef0763521bb3b77"
 dependencies = [
- "bitflags 2.9.2",
+ "bitflags 2.10.0",
 ]
 
 [[package]]
@@ -1241,7 +1241,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "39c24bc2141770ebc4a3703143f0cbdf275ed8d03cf7f5dda754c2f60c758ed4"
 dependencies = [
  "arrayvec",
- "bitflags 2.9.2",
+ "bitflags 2.10.0",
  "bumpalo",
  "nonmax",
  "smallvec",

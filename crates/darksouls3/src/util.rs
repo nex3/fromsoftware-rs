@@ -12,5 +12,6 @@
 //! so there's a higher risk that these APIs will break when new patches are
 //! released.
 
+pub mod input;
 pub mod save;
 pub mod system;
