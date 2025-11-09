@@ -17,4 +17,4 @@ pub use rtti::*;
 pub use task::*;
 pub use util::*;
 
-pub use shared_macros::singleton;
+pub use shared_macros::*;
