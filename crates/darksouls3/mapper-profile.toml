@@ -19,6 +19,10 @@ pattern = "[20] 48 8b d9 41 b8 58 00 00 00 48 8b ? ff 50 18 48 83 f8 58"
 captures = ["equip_game_data_serialize"]
 
 [[patterns]]
+pattern = "48 8b cd e8 ? ? ? ? 84 c0 74 ? 48 8b 05 $ { ' } 48 8b 48 10"
+captures = ["", "game_data_man_ptr"]
+
+[[patterns]]
 pattern = "48 8b ce 48 8b f8 e8 $ { 48 89 0d $ { ' } c3 }"
 captures = ["", "global_hinstance"]
 

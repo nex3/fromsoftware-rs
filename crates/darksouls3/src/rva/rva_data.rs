@@ -14,6 +14,7 @@ pub const RVAS: RvaBundle = RvaBundle {
     dluid_pad_device_should_block_input: 0x183d300,
     equip_game_data_deserialize: 0x5843f0,
     equip_game_data_serialize: 0x584b60,
+    game_data_man_ptr: 0x47572b8,
     global_hinstance: 0x489d5a0,
     map_item_man_grant_item: 0x7c4080,
     map_item_man_ptr: 0x4769240,
