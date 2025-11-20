@@ -7,11 +7,11 @@ that ordinarily reside in foreign memory, as well as some naming/documentation g
 ## Projects goals
 
 Fromsoftware-rs aims to be a sane bindings library for various FromSoftware games.
-The project's goal is to thoroughly describe the game's binaries such that the community can interact with the engine as well as gameplay aspects while avoiding the tedium of having to reverse-engineer the binaries for themselves.
+The project's goal is to thoroughly describe the game's binaries such that the community can interact with the engine as well as gameplay aspects while avoiding the tedium of having to reverse-engineer binaries and reimplement common functionality.
 
 ## Submitting pull requests
 
-When submitting pull requests you are expected to fix any clippy lints, code style lints, and any feedback from the projects maintainers.
+When submitting pull requests you are expected to run `cargo fmt`, fix any clippy lints, and resolve any feedback from the projects maintainers.
 Review times will vary especially when you are PRing new game structures since these need to be verified.
 To make review easier in these situations, please include a list of relevant RVAs and tell us what game version the RVA is for.
 
@@ -20,6 +20,7 @@ To make review easier in these situations, please include a list of relevant RVA
 ### Struct layouts
 
 Always annotate game structs with `#[repr(C)]` to force C-style struct layouts. Padding should be implicit.
+In most cases, meaningful fields are assigned in a type's constructor and padding is not.
 
 Bad:
 ```rust
@@ -93,8 +94,12 @@ Pointers in structures are usually expressed with either `NonNull` or `OwnedPtr`
 
 `OwnedPtr` is a custom pointer type that indicates that the structure containing it owns the memory backing the referenced structure.
 Determining if your pointer should be an `OwnedPtr` can be hard, but there are a few things you can look for:
-1. The game itself only mutates the referenced structure through this pointer.
-2. The referenced structure is constructed and destructed as part of the parent structure's constructor and destructor. This implies that the lifecycles of the two objects are the same.
+
+* The clearest signal is that a referenced structure is constructed and destructed as part of the parent structure's constructor and destructor.
+  In this case, you can be confident that the two objects share a lifecycle.
+
+* Otherwise, it's likely that the parent structure does not own the referenced structure. However, if the game only ever mutates the referenced
+  structure through the parent structure's pointer, it can still be considered owned.
 
 `OwnedPtr` implements `Sync` and `Send`. Because of this you should never use `OwnedPtr` with pointers that can lead to stack memory.
 `OwnedPtr` also allows for a single mutable borrow and multiple immutable ones. Because of this, you should never have two `OwnedPtr`s referencing to the same memory, since this would create the possibility for undefined behavior.
