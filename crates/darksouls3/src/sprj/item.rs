@@ -123,9 +123,93 @@ impl TryFrom<u32> for CategorizedItemID {
     }
 }
 
+impl TryFrom<MaybeInvalidCategorizedItemID> for CategorizedItemID {
+    type Error = TryFromItemIDError;
+
+    fn try_from(value: MaybeInvalidCategorizedItemID) -> Result<CategorizedItemID, Self::Error> {
+        value.0.try_into()
+    }
+}
+
 impl fmt::Debug for CategorizedItemID {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> Result<(), fmt::Error> {
-        write!(f, "{:?}:{}", self.category(), self.uncategorized().value())
+        if MaybeInvalidCategorizedItemID(self.0).is_valid() {
+            write!(f, "{:?}:{}", self.category(), self.uncategorized().value())
+        } else {
+            // This shouldn't be possible, but if we misunderstand where the
+            // game guarantees valid item IDs we don't want to crash if we try
+            // to debug an invalid ID.
+            write!(f, "<invalid>")
+        }
+    }
+}
+
+/// Like [CategorizedItemID], but may also represent the special invalid value
+/// [MaybeInvalidCategorizedItemID::INVALID].
+///
+/// This would ideally be represented by `Optional<CategorizedItemID>`, but
+/// currently there's no way to ensure that represents `None` with the same
+/// value the game uses to represent an invalid ID.
+#[repr(transparent)]
+#[derive(Copy, Clone, Eq, PartialEq)]
+pub struct MaybeInvalidCategorizedItemID(u32);
+
+impl MaybeInvalidCategorizedItemID {
+    /// The raw ID used by the game to indicate a "null" item ID.
+    pub const INVALID: MaybeInvalidCategorizedItemID = MaybeInvalidCategorizedItemID(0xFFFFFFFF);
+
+    /// If this is a valid ID, returns it as a [CategorizedItemID]. Otherwise,
+    /// returns `None`.
+    pub fn as_valid(&self) -> Option<CategorizedItemID> {
+        // Don't just check against INVALID in case this is loaded from game
+        // memory and has some other invalid bit pattern.
+        CategorizedItemID::try_from(*self).ok()
+    }
+
+    /// Whether this represents a valid [CategorizedItemID].
+    pub const fn is_valid(&self) -> bool {
+        match self.0 & 0xF0000000 {
+            0x00000000 | 0x10000000 | 0x20000000 | 0x30000000 | 0x40000000 | 0x80000000 => true,
+            _ => false,
+        }
+    }
+
+    /// Returns the numeric value of this ID, including its category
+    /// information.
+    pub const fn value(&self) -> u32 {
+        self.0
+    }
+}
+
+impl From<u32> for MaybeInvalidCategorizedItemID {
+    /// Converts a [u32] into a [CategorizedItemID].
+    ///
+    /// This normalizes any invalid item IDs into the single
+    /// [MaybeInvalidCategorizedItemID::INVALID] value.
+    fn from(value: u32) -> MaybeInvalidCategorizedItemID {
+        match CategorizedItemID::try_from(value) {
+            Ok(_) => MaybeInvalidCategorizedItemID(value),
+            Err(_) => MaybeInvalidCategorizedItemID::INVALID,
+        }
+    }
+}
+
+impl From<CategorizedItemID> for MaybeInvalidCategorizedItemID {
+    /// Converts a [u32] into a [CategorizedItemID].
+    ///
+    /// This normalizes any invalid item IDs into the single
+    /// [MaybeInvalidCategorizedItemID::INVALID] value.
+    fn from(value: CategorizedItemID) -> MaybeInvalidCategorizedItemID {
+        MaybeInvalidCategorizedItemID(value.0)
+    }
+}
+
+impl fmt::Debug for MaybeInvalidCategorizedItemID {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> Result<(), fmt::Error> {
+        match self.as_valid() {
+            Some(valid) => valid.fmt(f),
+            None => write!(f, "<invalid>"),
+        }
     }
 }
 

@@ -270,6 +270,7 @@ dependencies = [
 name = "darksouls3"
 version = "0.11.0"
 dependencies = [
+ "bitfield",
  "bitflags 2.10.0",
  "cxx-stl",
  "encoding_rs",
