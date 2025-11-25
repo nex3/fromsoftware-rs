@@ -5,7 +5,6 @@
 /// Trait to perform safe param lookups.
 pub trait ParamDef {
     const NAME: &str;
-    const INDEX: usize;
 }
 
 #[derive(Debug, Clone)]
@@ -47,7 +46,6 @@ pub struct ACROSS_DAY_CORRECT_PARAM_ST {
 
 impl ParamDef for ACROSS_DAY_CORRECT_PARAM_ST {
     const NAME: &str = "ACROSS_DAY_CORRECT_PARAM_ST";
-    const INDEX: usize = 0;
 }
 
 impl ACROSS_DAY_CORRECT_PARAM_ST {}
@@ -87,7 +85,6 @@ pub struct ACTIONBUTTON_PARAM_ST {
 
 impl ParamDef for ACTIONBUTTON_PARAM_ST {
     const NAME: &str = "ACTIONBUTTON_PARAM_ST";
-    const INDEX: usize = 1;
 }
 
 impl ACTIONBUTTON_PARAM_ST {
@@ -304,7 +301,6 @@ pub struct AI_SOUND_PARAM_ST {
 
 impl ParamDef for AI_SOUND_PARAM_ST {
     const NAME: &str = "AI_SOUND_PARAM_ST";
-    const INDEX: usize = 2;
 }
 
 impl AI_SOUND_PARAM_ST {
@@ -446,7 +442,6 @@ pub struct ANTIQUE_STAND_PARAM_ST {
 
 impl ParamDef for ANTIQUE_STAND_PARAM_ST {
     const NAME: &str = "ANTIQUE_STAND_PARAM_ST";
-    const INDEX: usize = 3;
 }
 
 impl ANTIQUE_STAND_PARAM_ST {
@@ -629,7 +624,6 @@ pub struct ASSET_GEOMETORY_PARAM_ST {
 
 impl ParamDef for ASSET_GEOMETORY_PARAM_ST {
     const NAME: &str = "ASSET_GEOMETORY_PARAM_ST";
-    const INDEX: usize = 4;
 }
 
 impl ASSET_GEOMETORY_PARAM_ST {
@@ -1660,7 +1654,6 @@ pub struct ASSET_MATERIAL_SFX_PARAM_ST {
 
 impl ParamDef for ASSET_MATERIAL_SFX_PARAM_ST {
     const NAME: &str = "ASSET_MATERIAL_SFX_PARAM_ST";
-    const INDEX: usize = 5;
 }
 
 impl ASSET_MATERIAL_SFX_PARAM_ST {
@@ -1954,7 +1947,6 @@ pub struct ASSET_MODEL_SFX_PARAM_ST {
 
 impl ParamDef for ASSET_MODEL_SFX_PARAM_ST {
     const NAME: &str = "ASSET_MODEL_SFX_PARAM_ST";
-    const INDEX: usize = 6;
 }
 
 impl ASSET_MODEL_SFX_PARAM_ST {
@@ -2302,7 +2294,6 @@ pub struct ATK_PARAM_ST {
 
 impl ParamDef for ATK_PARAM_ST {
     const NAME: &str = "ATK_PARAM_ST";
-    const INDEX: usize = 7;
 }
 
 impl ATK_PARAM_ST {
@@ -3985,7 +3976,6 @@ pub struct ATTACHEFFECT_FILTER_CATEGORY_PARAM_ST {
 
 impl ParamDef for ATTACHEFFECT_FILTER_CATEGORY_PARAM_ST {
     const NAME: &str = "ATTACHEFFECT_FILTER_CATEGORY_PARAM_ST";
-    const INDEX: usize = 8;
 }
 
 impl ATTACHEFFECT_FILTER_CATEGORY_PARAM_ST {
@@ -4020,7 +4010,6 @@ pub struct ATTACHEFFECT_FILTER_PARAM_ST {
 
 impl ParamDef for ATTACHEFFECT_FILTER_PARAM_ST {
     const NAME: &str = "ATTACHEFFECT_FILTER_PARAM_ST";
-    const INDEX: usize = 9;
 }
 
 impl ATTACHEFFECT_FILTER_PARAM_ST {
@@ -4098,7 +4087,6 @@ pub struct ATTACHEFFECT_PARAM_ST {
 
 impl ParamDef for ATTACHEFFECT_PARAM_ST {
     const NAME: &str = "ATTACHEFFECT_PARAM_ST";
-    const INDEX: usize = 10;
 }
 
 impl ATTACHEFFECT_PARAM_ST {
@@ -4336,7 +4324,6 @@ pub struct ATTACHEFFECT_TABLE_PARAM_ST {
 
 impl ParamDef for ATTACHEFFECT_TABLE_PARAM_ST {
     const NAME: &str = "ATTACHEFFECT_TABLE_PARAM_ST";
-    const INDEX: usize = 11;
 }
 
 impl ATTACHEFFECT_TABLE_PARAM_ST {
@@ -4420,7 +4407,6 @@ pub struct ATTACK_ELEMENT_CORRECT_PARAM_ST {
 
 impl ParamDef for ATTACK_ELEMENT_CORRECT_PARAM_ST {
     const NAME: &str = "ATTACK_ELEMENT_CORRECT_PARAM_ST";
-    const INDEX: usize = 12;
 }
 
 impl ATTACK_ELEMENT_CORRECT_PARAM_ST {
@@ -5091,7 +5077,6 @@ pub struct AUTO_CREATE_ENV_SOUND_PARAM_ST {
 
 impl ParamDef for AUTO_CREATE_ENV_SOUND_PARAM_ST {
     const NAME: &str = "AUTO_CREATE_ENV_SOUND_PARAM_ST";
-    const INDEX: usize = 13;
 }
 
 impl AUTO_CREATE_ENV_SOUND_PARAM_ST {
@@ -5180,7 +5165,6 @@ pub struct BEHAVIOR_PARAM_ST {
 
 impl ParamDef for BEHAVIOR_PARAM_ST {
     const NAME: &str = "BEHAVIOR_PARAM_ST";
-    const INDEX: usize = 14;
 }
 
 impl BEHAVIOR_PARAM_ST {
@@ -5348,7 +5332,6 @@ pub struct BONFIRE_WARP_PARAM_ST {
 
 impl ParamDef for BONFIRE_WARP_PARAM_ST {
     const NAME: &str = "BONFIRE_WARP_PARAM_ST";
-    const INDEX: usize = 15;
 }
 
 impl BONFIRE_WARP_PARAM_ST {
@@ -5985,7 +5968,6 @@ pub struct BUDDY_PARAM_ST {
 
 impl ParamDef for BUDDY_PARAM_ST {
     const NAME: &str = "BUDDY_PARAM_ST";
-    const INDEX: usize = 16;
 }
 
 impl BUDDY_PARAM_ST {
@@ -6230,7 +6212,6 @@ pub struct BUDDY_STONE_PARAM_ST {
 
 impl ParamDef for BUDDY_STONE_PARAM_ST {
     const NAME: &str = "BUDDY_STONE_PARAM_ST";
-    const INDEX: usize = 17;
 }
 
 impl BUDDY_STONE_PARAM_ST {
@@ -6363,7 +6344,6 @@ pub struct BUDGET_PARAM_ST {
 
 impl ParamDef for BUDGET_PARAM_ST {
     const NAME: &str = "BUDGET_PARAM_ST";
-    const INDEX: usize = 18;
 }
 
 impl BUDGET_PARAM_ST {
@@ -6587,7 +6567,6 @@ pub struct BULLET_CREATE_LIMIT_PARAM_ST {
 
 impl ParamDef for BULLET_CREATE_LIMIT_PARAM_ST {
     const NAME: &str = "BULLET_CREATE_LIMIT_PARAM_ST";
-    const INDEX: usize = 19;
 }
 
 impl BULLET_CREATE_LIMIT_PARAM_ST {
@@ -6728,7 +6707,6 @@ pub struct BULLET_PARAM_ST {
 
 impl ParamDef for BULLET_PARAM_ST {
     const NAME: &str = "BULLET_PARAM_ST";
-    const INDEX: usize = 20;
 }
 
 impl BULLET_PARAM_ST {
@@ -7741,7 +7719,6 @@ pub struct CACL_CORRECT_GRAPH_ST {
 
 impl ParamDef for CACL_CORRECT_GRAPH_ST {
     const NAME: &str = "CACL_CORRECT_GRAPH_ST";
-    const INDEX: usize = 21;
 }
 
 impl CACL_CORRECT_GRAPH_ST {
@@ -7912,7 +7889,6 @@ pub struct CAMERA_FADE_PARAM_ST {
 
 impl ParamDef for CAMERA_FADE_PARAM_ST {
     const NAME: &str = "CAMERA_FADE_PARAM_ST";
-    const INDEX: usize = 22;
 }
 
 impl CAMERA_FADE_PARAM_ST {
@@ -7971,7 +7947,6 @@ pub struct CEREMONY_PARAM_ST {
 
 impl ParamDef for CEREMONY_PARAM_ST {
     const NAME: &str = "CEREMONY_PARAM_ST";
-    const INDEX: usize = 23;
 }
 
 impl CEREMONY_PARAM_ST {
@@ -8164,7 +8139,6 @@ pub struct CHARACTER_INIT_PARAM {
 
 impl ParamDef for CHARACTER_INIT_PARAM {
     const NAME: &str = "CHARACTER_INIT_PARAM";
-    const INDEX: usize = 24;
 }
 
 impl CHARACTER_INIT_PARAM {
@@ -8982,7 +8956,6 @@ pub struct CHARMAKEMENUTOP_PARAM_ST {
 
 impl ParamDef for CHARMAKEMENUTOP_PARAM_ST {
     const NAME: &str = "CHARMAKEMENUTOP_PARAM_ST";
-    const INDEX: usize = 25;
 }
 
 impl CHARMAKEMENUTOP_PARAM_ST {
@@ -9087,7 +9060,6 @@ pub struct CHARMAKEMENU_LISTITEM_PARAM_ST {
 
 impl ParamDef for CHARMAKEMENU_LISTITEM_PARAM_ST {
     const NAME: &str = "CHARMAKEMENU_LISTITEM_PARAM_ST";
-    const INDEX: usize = 26;
 }
 
 impl CHARMAKEMENU_LISTITEM_PARAM_ST {
@@ -9131,7 +9103,6 @@ pub struct CHR_MODEL_PARAM_ST {
 
 impl ParamDef for CHR_MODEL_PARAM_ST {
     const NAME: &str = "CHR_MODEL_PARAM_ST";
-    const INDEX: usize = 27;
 }
 
 impl CHR_MODEL_PARAM_ST {
@@ -9197,7 +9168,6 @@ pub struct CHR_PHYSICS_VELOCITY_CHANGE_ST {
 
 impl ParamDef for CHR_PHYSICS_VELOCITY_CHANGE_ST {
     const NAME: &str = "CHR_PHYSICS_VELOCITY_CHANGE_ST";
-    const INDEX: usize = 28;
 }
 
 impl CHR_PHYSICS_VELOCITY_CHANGE_ST {
@@ -9282,7 +9252,6 @@ pub struct CLEAR_COUNT_CORRECT_PARAM_ST {
 
 impl ParamDef for CLEAR_COUNT_CORRECT_PARAM_ST {
     const NAME: &str = "CLEAR_COUNT_CORRECT_PARAM_ST";
-    const INDEX: usize = 29;
 }
 
 impl CLEAR_COUNT_CORRECT_PARAM_ST {
@@ -9545,7 +9514,6 @@ pub struct COMMON_SYSTEM_PARAM_ST {
 
 impl ParamDef for COMMON_SYSTEM_PARAM_ST {
     const NAME: &str = "COMMON_SYSTEM_PARAM_ST";
-    const INDEX: usize = 30;
 }
 
 impl COMMON_SYSTEM_PARAM_ST {
@@ -9574,7 +9542,6 @@ pub struct COOL_TIME_PARAM_ST {
 
 impl ParamDef for COOL_TIME_PARAM_ST {
     const NAME: &str = "COOL_TIME_PARAM_ST";
-    const INDEX: usize = 31;
 }
 
 impl COOL_TIME_PARAM_ST {
@@ -9654,7 +9621,6 @@ pub struct CS_AA_QUALITY_DETAIL {
 
 impl ParamDef for CS_AA_QUALITY_DETAIL {
     const NAME: &str = "CS_AA_QUALITY_DETAIL";
-    const INDEX: usize = 32;
 }
 
 impl CS_AA_QUALITY_DETAIL {
@@ -9685,7 +9651,6 @@ pub struct CS_DECAL_QUALITY_DETAIL {
 
 impl ParamDef for CS_DECAL_QUALITY_DETAIL {
     const NAME: &str = "CS_DECAL_QUALITY_DETAIL";
-    const INDEX: usize = 33;
 }
 
 impl CS_DECAL_QUALITY_DETAIL {
@@ -9710,7 +9675,6 @@ pub struct CS_DOF_QUALITY_DETAIL {
 
 impl ParamDef for CS_DOF_QUALITY_DETAIL {
     const NAME: &str = "CS_DOF_QUALITY_DETAIL";
-    const INDEX: usize = 34;
 }
 
 impl CS_DOF_QUALITY_DETAIL {
@@ -9759,7 +9723,6 @@ pub struct CS_EFFECT_QUALITY_DETAIL {
 
 impl ParamDef for CS_EFFECT_QUALITY_DETAIL {
     const NAME: &str = "CS_EFFECT_QUALITY_DETAIL";
-    const INDEX: usize = 35;
 }
 
 impl CS_EFFECT_QUALITY_DETAIL {
@@ -9875,7 +9838,6 @@ pub struct CS_GRAPHICS_CONFIG_PARAM_ST {
 
 impl ParamDef for CS_GRAPHICS_CONFIG_PARAM_ST {
     const NAME: &str = "CS_GRAPHICS_CONFIG_PARAM_ST";
-    const INDEX: usize = 36;
 }
 
 impl CS_GRAPHICS_CONFIG_PARAM_ST {
@@ -10010,7 +9972,6 @@ pub struct CS_KEY_ASSIGN_MENUITEM_PARAM {
 
 impl ParamDef for CS_KEY_ASSIGN_MENUITEM_PARAM {
     const NAME: &str = "CS_KEY_ASSIGN_MENUITEM_PARAM";
-    const INDEX: usize = 37;
 }
 
 impl CS_KEY_ASSIGN_MENUITEM_PARAM {
@@ -10100,7 +10061,6 @@ pub struct CS_LIGHTING_QUALITY_DETAIL {
 
 impl ParamDef for CS_LIGHTING_QUALITY_DETAIL {
     const NAME: &str = "CS_LIGHTING_QUALITY_DETAIL";
-    const INDEX: usize = 38;
 }
 
 impl CS_LIGHTING_QUALITY_DETAIL {
@@ -10152,7 +10112,6 @@ pub struct CS_MOTION_BLUR_QUALITY_DETAIL {
 
 impl ParamDef for CS_MOTION_BLUR_QUALITY_DETAIL {
     const NAME: &str = "CS_MOTION_BLUR_QUALITY_DETAIL";
-    const INDEX: usize = 39;
 }
 
 impl CS_MOTION_BLUR_QUALITY_DETAIL {
@@ -10231,7 +10190,6 @@ pub struct CS_RAYTRACING_QUALITY_DETAIL {
 
 impl ParamDef for CS_RAYTRACING_QUALITY_DETAIL {
     const NAME: &str = "CS_RAYTRACING_QUALITY_DETAIL";
-    const INDEX: usize = 40;
 }
 
 impl CS_RAYTRACING_QUALITY_DETAIL {
@@ -10288,7 +10246,6 @@ pub struct CS_REFLECTION_QUALITY_DETAIL {
 
 impl ParamDef for CS_REFLECTION_QUALITY_DETAIL {
     const NAME: &str = "CS_REFLECTION_QUALITY_DETAIL";
-    const INDEX: usize = 41;
 }
 
 impl CS_REFLECTION_QUALITY_DETAIL {
@@ -10385,7 +10342,6 @@ pub struct CS_SHADER_QUALITY_DETAIL {
 
 impl ParamDef for CS_SHADER_QUALITY_DETAIL {
     const NAME: &str = "CS_SHADER_QUALITY_DETAIL";
-    const INDEX: usize = 42;
 }
 
 impl CS_SHADER_QUALITY_DETAIL {
@@ -10438,7 +10394,6 @@ pub struct CS_SHADOW_QUALITY_DETAIL {
 
 impl ParamDef for CS_SHADOW_QUALITY_DETAIL {
     const NAME: &str = "CS_SHADOW_QUALITY_DETAIL";
-    const INDEX: usize = 43;
 }
 
 impl CS_SHADOW_QUALITY_DETAIL {
@@ -10512,7 +10467,6 @@ pub struct CS_SSAO_QUALITY_DETAIL {
 
 impl ParamDef for CS_SSAO_QUALITY_DETAIL {
     const NAME: &str = "CS_SSAO_QUALITY_DETAIL";
-    const INDEX: usize = 44;
 }
 
 impl CS_SSAO_QUALITY_DETAIL {
@@ -10560,7 +10514,6 @@ pub struct CS_TEXTURE_FILTER_QUALITY_DETAIL {
 
 impl ParamDef for CS_TEXTURE_FILTER_QUALITY_DETAIL {
     const NAME: &str = "CS_TEXTURE_FILTER_QUALITY_DETAIL";
-    const INDEX: usize = 45;
 }
 
 impl CS_TEXTURE_FILTER_QUALITY_DETAIL {
@@ -10606,7 +10559,6 @@ pub struct CS_VOLUMETRIC_EFFECT_QUALITY_DETAIL {
 
 impl ParamDef for CS_VOLUMETRIC_EFFECT_QUALITY_DETAIL {
     const NAME: &str = "CS_VOLUMETRIC_EFFECT_QUALITY_DETAIL";
-    const INDEX: usize = 46;
 }
 
 impl CS_VOLUMETRIC_EFFECT_QUALITY_DETAIL {
@@ -10741,7 +10693,6 @@ pub struct CS_WATER_QUALITY_DETAIL {
 
 impl ParamDef for CS_WATER_QUALITY_DETAIL {
     const NAME: &str = "CS_WATER_QUALITY_DETAIL";
-    const INDEX: usize = 47;
 }
 
 impl CS_WATER_QUALITY_DETAIL {
@@ -10773,7 +10724,6 @@ pub struct CUTSCENE_GPARAM_TIME_PARAM_ST {
 
 impl ParamDef for CUTSCENE_GPARAM_TIME_PARAM_ST {
     const NAME: &str = "CUTSCENE_GPARAM_TIME_PARAM_ST";
-    const INDEX: usize = 48;
 }
 
 impl CUTSCENE_GPARAM_TIME_PARAM_ST {
@@ -10923,7 +10873,6 @@ pub struct CUTSCENE_GPARAM_WEATHER_PARAM_ST {
 
 impl ParamDef for CUTSCENE_GPARAM_WEATHER_PARAM_ST {
     const NAME: &str = "CUTSCENE_GPARAM_WEATHER_PARAM_ST";
-    const INDEX: usize = 49;
 }
 
 impl CUTSCENE_GPARAM_WEATHER_PARAM_ST {
@@ -11257,7 +11206,6 @@ pub struct CUTSCENE_MAP_ID_PARAM_ST {
 
 impl ParamDef for CUTSCENE_MAP_ID_PARAM_ST {
     const NAME: &str = "CUTSCENE_MAP_ID_PARAM_ST";
-    const INDEX: usize = 50;
 }
 
 impl CUTSCENE_MAP_ID_PARAM_ST {
@@ -11372,7 +11320,6 @@ pub struct CUTSCENE_TEXTURE_LOAD_PARAM_ST {
 
 impl ParamDef for CUTSCENE_TEXTURE_LOAD_PARAM_ST {
     const NAME: &str = "CUTSCENE_TEXTURE_LOAD_PARAM_ST";
-    const INDEX: usize = 51;
 }
 
 impl CUTSCENE_TEXTURE_LOAD_PARAM_ST {
@@ -11535,7 +11482,6 @@ pub struct CUTSCENE_TIMEZONE_CONVERT_PARAM_ST {
 
 impl ParamDef for CUTSCENE_TIMEZONE_CONVERT_PARAM_ST {
     const NAME: &str = "CUTSCENE_TIMEZONE_CONVERT_PARAM_ST";
-    const INDEX: usize = 52;
 }
 
 impl CUTSCENE_TIMEZONE_CONVERT_PARAM_ST {
@@ -11565,7 +11511,6 @@ pub struct CUTSCENE_WEATHER_OVERRIDE_GPARAM_ID_CONVERT_PARAM_ST {
 
 impl ParamDef for CUTSCENE_WEATHER_OVERRIDE_GPARAM_ID_CONVERT_PARAM_ST {
     const NAME: &str = "CUTSCENE_WEATHER_OVERRIDE_GPARAM_ID_CONVERT_PARAM_ST";
-    const INDEX: usize = 53;
 }
 
 impl CUTSCENE_WEATHER_OVERRIDE_GPARAM_ID_CONVERT_PARAM_ST {
@@ -11662,7 +11607,6 @@ pub struct DECAL_PARAM_ST {
 
 impl ParamDef for DECAL_PARAM_ST {
     const NAME: &str = "DECAL_PARAM_ST";
-    const INDEX: usize = 54;
 }
 
 impl DECAL_PARAM_ST {
@@ -12422,7 +12366,6 @@ pub struct DEFAULT_KEY_ASSIGN {
 
 impl ParamDef for DEFAULT_KEY_ASSIGN {
     const NAME: &str = "DEFAULT_KEY_ASSIGN";
-    const INDEX: usize = 55;
 }
 
 impl DEFAULT_KEY_ASSIGN {
@@ -13525,7 +13468,6 @@ pub struct DEFEAT_BOSS_SOUL_PARAM_ST {
 
 impl ParamDef for DEFEAT_BOSS_SOUL_PARAM_ST {
     const NAME: &str = "DEFEAT_BOSS_SOUL_PARAM_ST";
-    const INDEX: usize = 56;
 }
 
 impl DEFEAT_BOSS_SOUL_PARAM_ST {}
@@ -13540,7 +13482,6 @@ pub struct DIRECTION_CAMERA_PARAM_ST {
 
 impl ParamDef for DIRECTION_CAMERA_PARAM_ST {
     const NAME: &str = "DIRECTION_CAMERA_PARAM_ST";
-    const INDEX: usize = 57;
 }
 
 impl DIRECTION_CAMERA_PARAM_ST {
@@ -13602,7 +13543,6 @@ pub struct ENEMY_COMMON_PARAM_ST {
 
 impl ParamDef for ENEMY_COMMON_PARAM_ST {
     const NAME: &str = "ENEMY_COMMON_PARAM_ST";
-    const INDEX: usize = 58;
 }
 
 impl ENEMY_COMMON_PARAM_ST {
@@ -13680,7 +13620,6 @@ pub struct ENV_OBJ_LOT_PARAM_ST {
 
 impl ParamDef for ENV_OBJ_LOT_PARAM_ST {
     const NAME: &str = "ENV_OBJ_LOT_PARAM_ST";
-    const INDEX: usize = 59;
 }
 
 impl ENV_OBJ_LOT_PARAM_ST {
@@ -13844,7 +13783,6 @@ pub struct EQUIP_MTRL_SET_PARAM_ST {
 
 impl ParamDef for EQUIP_MTRL_SET_PARAM_ST {
     const NAME: &str = "EQUIP_MTRL_SET_PARAM_ST";
-    const INDEX: usize = 60;
 }
 
 impl EQUIP_MTRL_SET_PARAM_ST {
@@ -14075,7 +14013,6 @@ pub struct EQUIP_PARAM_ACCESSORY_ST {
 
 impl ParamDef for EQUIP_PARAM_ACCESSORY_ST {
     const NAME: &str = "EQUIP_PARAM_ACCESSORY_ST";
-    const INDEX: usize = 61;
 }
 
 impl EQUIP_PARAM_ACCESSORY_ST {
@@ -14163,7 +14100,6 @@ pub struct EQUIP_PARAM_ANTIQUE_ST {
 
 impl ParamDef for EQUIP_PARAM_ANTIQUE_ST {
     const NAME: &str = "EQUIP_PARAM_ANTIQUE_ST";
-    const INDEX: usize = 62;
 }
 
 impl EQUIP_PARAM_ANTIQUE_ST {
@@ -14245,7 +14181,6 @@ pub struct EQUIP_PARAM_CUSTOM_WEAPON_ST {
 
 impl ParamDef for EQUIP_PARAM_CUSTOM_WEAPON_ST {
     const NAME: &str = "EQUIP_PARAM_CUSTOM_WEAPON_ST";
-    const INDEX: usize = 63;
 }
 
 impl EQUIP_PARAM_CUSTOM_WEAPON_ST {
@@ -14408,7 +14343,6 @@ pub struct EQUIP_PARAM_GOODS_ST {
 
 impl ParamDef for EQUIP_PARAM_GOODS_ST {
     const NAME: &str = "EQUIP_PARAM_GOODS_ST";
-    const INDEX: usize = 64;
 }
 
 impl EQUIP_PARAM_GOODS_ST {
@@ -15608,7 +15542,6 @@ pub struct EQUIP_PARAM_PROTECTOR_ST {
 
 impl ParamDef for EQUIP_PARAM_PROTECTOR_ST {
     const NAME: &str = "EQUIP_PARAM_PROTECTOR_ST";
-    const INDEX: usize = 65;
 }
 
 impl EQUIP_PARAM_PROTECTOR_ST {
@@ -17873,7 +17806,6 @@ pub struct EQUIP_PARAM_WEAPON_ST {
 
 impl ParamDef for EQUIP_PARAM_WEAPON_ST {
     const NAME: &str = "EQUIP_PARAM_WEAPON_ST";
-    const INDEX: usize = 66;
 }
 
 impl EQUIP_PARAM_WEAPON_ST {
@@ -20107,7 +20039,6 @@ pub struct ESTUS_FLASK_RECOVERY_PARAM_ST {
 
 impl ParamDef for ESTUS_FLASK_RECOVERY_PARAM_ST {
     const NAME: &str = "ESTUS_FLASK_RECOVERY_PARAM_ST";
-    const INDEX: usize = 67;
 }
 
 impl ESTUS_FLASK_RECOVERY_PARAM_ST {
@@ -20284,7 +20215,6 @@ pub struct EVENT_BGM_BOSSCHRID_CONVERT_PARAM_ST {
 
 impl ParamDef for EVENT_BGM_BOSSCHRID_CONVERT_PARAM_ST {
     const NAME: &str = "EVENT_BGM_BOSSCHRID_CONVERT_PARAM_ST";
-    const INDEX: usize = 68;
 }
 
 impl EVENT_BGM_BOSSCHRID_CONVERT_PARAM_ST {
@@ -20320,7 +20250,6 @@ pub struct EVENT_FLAG_USAGE_PARAM_ST {
 
 impl ParamDef for EVENT_FLAG_USAGE_PARAM_ST {
     const NAME: &str = "EVENT_FLAG_USAGE_PARAM_ST";
-    const INDEX: usize = 69;
 }
 
 impl EVENT_FLAG_USAGE_PARAM_ST {
@@ -20593,7 +20522,6 @@ pub struct FACE_PARAM_ST {
 
 impl ParamDef for FACE_PARAM_ST {
     const NAME: &str = "FACE_PARAM_ST";
-    const INDEX: usize = 70;
 }
 
 impl FACE_PARAM_ST {
@@ -22744,7 +22672,6 @@ pub struct FACE_RANGE_PARAM_ST {
 
 impl ParamDef for FACE_RANGE_PARAM_ST {
     const NAME: &str = "FACE_RANGE_PARAM_ST";
-    const INDEX: usize = 71;
 }
 
 impl FACE_RANGE_PARAM_ST {
@@ -24409,7 +24336,6 @@ pub struct FALL_CONTROL_PARAM_ST {
 
 impl ParamDef for FALL_CONTROL_PARAM_ST {
     const NAME: &str = "FALL_CONTROL_PARAM_ST";
-    const INDEX: usize = 72;
 }
 
 impl FALL_CONTROL_PARAM_ST {}
@@ -24428,7 +24354,6 @@ pub struct FE_TEXT_EFFECT_PARAM_ST {
 
 impl ParamDef for FE_TEXT_EFFECT_PARAM_ST {
     const NAME: &str = "FE_TEXT_EFFECT_PARAM_ST";
-    const INDEX: usize = 73;
 }
 
 impl FE_TEXT_EFFECT_PARAM_ST {
@@ -24675,7 +24600,6 @@ pub struct FOOT_SFX_PARAM_ST {
 
 impl ParamDef for FOOT_SFX_PARAM_ST {
     const NAME: &str = "FOOT_SFX_PARAM_ST";
-    const INDEX: usize = 74;
 }
 
 impl FOOT_SFX_PARAM_ST {
@@ -26684,7 +26608,6 @@ pub struct GAME_SYSTEM_COMMON_PARAM_ST {
 
 impl ParamDef for GAME_SYSTEM_COMMON_PARAM_ST {
     const NAME: &str = "GAME_SYSTEM_COMMON_PARAM_ST";
-    const INDEX: usize = 75;
 }
 
 impl GAME_SYSTEM_COMMON_PARAM_ST {
@@ -29105,7 +29028,6 @@ pub struct GESTURE_PARAM_ST {
 
 impl ParamDef for GESTURE_PARAM_ST {
     const NAME: &str = "GESTURE_PARAM_ST";
-    const INDEX: usize = 76;
 }
 
 impl GESTURE_PARAM_ST {
@@ -29158,7 +29080,6 @@ pub struct GPARAM_REF_SETTINGS_PARAM_ST {
 
 impl ParamDef for GPARAM_REF_SETTINGS_PARAM_ST {
     const NAME: &str = "GPARAM_REF_SETTINGS_PARAM_ST";
-    const INDEX: usize = 77;
 }
 
 impl GPARAM_REF_SETTINGS_PARAM_ST {
@@ -29193,7 +29114,6 @@ pub struct GRAPHICS_COMMON_PARAM_ST {
 
 impl ParamDef for GRAPHICS_COMMON_PARAM_ST {
     const NAME: &str = "GRAPHICS_COMMON_PARAM_ST";
-    const INDEX: usize = 78;
 }
 
 impl GRAPHICS_COMMON_PARAM_ST {
@@ -29228,7 +29148,6 @@ pub struct GRASS_LOD_RANGE_PARAM_ST {
 
 impl ParamDef for GRASS_LOD_RANGE_PARAM_ST {
     const NAME: &str = "GRASS_LOD_RANGE_PARAM_ST";
-    const INDEX: usize = 79;
 }
 
 impl GRASS_LOD_RANGE_PARAM_ST {
@@ -29327,7 +29246,6 @@ pub struct GRASS_TYPE_PARAM_ST {
 
 impl ParamDef for GRASS_TYPE_PARAM_ST {
     const NAME: &str = "GRASS_TYPE_PARAM_ST";
-    const INDEX: usize = 80;
 }
 
 impl GRASS_TYPE_PARAM_ST {
@@ -29632,7 +29550,6 @@ pub struct HERO_MENU_CAMERA_PARAM_ST {
 
 impl ParamDef for HERO_MENU_CAMERA_PARAM_ST {
     const NAME: &str = "HERO_MENU_CAMERA_PARAM_ST";
-    const INDEX: usize = 81;
 }
 
 impl HERO_MENU_CAMERA_PARAM_ST {}
@@ -29654,7 +29571,6 @@ pub struct HERO_MENU_PARAM_ST {
 
 impl ParamDef for HERO_MENU_PARAM_ST {
     const NAME: &str = "HERO_MENU_PARAM_ST";
-    const INDEX: usize = 82;
 }
 
 impl HERO_MENU_PARAM_ST {
@@ -29701,7 +29617,6 @@ pub struct HERO_OPERATION_EXPLANATION_PARAM_ST {
 
 impl ParamDef for HERO_OPERATION_EXPLANATION_PARAM_ST {
     const NAME: &str = "HERO_OPERATION_EXPLANATION_PARAM_ST";
-    const INDEX: usize = 83;
 }
 
 impl HERO_OPERATION_EXPLANATION_PARAM_ST {
@@ -29796,7 +29711,6 @@ pub struct HERO_PARAM_ST {
 
 impl ParamDef for HERO_PARAM_ST {
     const NAME: &str = "HERO_PARAM_ST";
-    const INDEX: usize = 84;
 }
 
 impl HERO_PARAM_ST {
@@ -30003,7 +29917,6 @@ pub struct HERO_STATUS_PARAM {
 
 impl ParamDef for HERO_STATUS_PARAM {
     const NAME: &str = "HERO_STATUS_PARAM";
-    const INDEX: usize = 85;
 }
 
 impl HERO_STATUS_PARAM {
@@ -30112,7 +30025,6 @@ pub struct HIT_EFFECT_SFX_CONCEPT_PARAM_ST {
 
 impl ParamDef for HIT_EFFECT_SFX_CONCEPT_PARAM_ST {
     const NAME: &str = "HIT_EFFECT_SFX_CONCEPT_PARAM_ST";
-    const INDEX: usize = 86;
 }
 
 impl HIT_EFFECT_SFX_CONCEPT_PARAM_ST {
@@ -30241,7 +30153,6 @@ pub struct HIT_EFFECT_SFX_PARAM_ST {
 
 impl ParamDef for HIT_EFFECT_SFX_PARAM_ST {
     const NAME: &str = "HIT_EFFECT_SFX_PARAM_ST";
-    const INDEX: usize = 87;
 }
 
 impl HIT_EFFECT_SFX_PARAM_ST {
@@ -30441,7 +30352,6 @@ pub struct HIT_MTRL_PARAM_ST {
 
 impl ParamDef for HIT_MTRL_PARAM_ST {
     const NAME: &str = "HIT_MTRL_PARAM_ST";
-    const INDEX: usize = 88;
 }
 
 impl HIT_MTRL_PARAM_ST {
@@ -30753,7 +30663,6 @@ pub struct ITEMLOT_PARAM_ST {
 
 impl ParamDef for ITEMLOT_PARAM_ST {
     const NAME: &str = "ITEMLOT_PARAM_ST";
-    const INDEX: usize = 89;
 }
 
 impl ITEMLOT_PARAM_ST {
@@ -31381,7 +31290,6 @@ pub struct ITEMTABLE_PARAM_ST {
 
 impl ParamDef for ITEMTABLE_PARAM_ST {
     const NAME: &str = "ITEMTABLE_PARAM_ST";
-    const INDEX: usize = 90;
 }
 
 impl ITEMTABLE_PARAM_ST {
@@ -31447,7 +31355,6 @@ pub struct KEY_ASSIGN_PARAM_ST {
 
 impl ParamDef for KEY_ASSIGN_PARAM_ST {
     const NAME: &str = "KEY_ASSIGN_PARAM_ST";
-    const INDEX: usize = 91;
 }
 
 impl KEY_ASSIGN_PARAM_ST {
@@ -31539,7 +31446,6 @@ pub struct KNOCKBACK_PARAM_ST {
 
 impl ParamDef for KNOCKBACK_PARAM_ST {
     const NAME: &str = "KNOCKBACK_PARAM_ST";
-    const INDEX: usize = 92;
 }
 
 impl KNOCKBACK_PARAM_ST {
@@ -31797,7 +31703,6 @@ pub struct KNOWLEDGE_LOADSCREEN_ITEM_PARAM_ST {
 
 impl ParamDef for KNOWLEDGE_LOADSCREEN_ITEM_PARAM_ST {
     const NAME: &str = "KNOWLEDGE_LOADSCREEN_ITEM_PARAM_ST";
-    const INDEX: usize = 93;
 }
 
 impl KNOWLEDGE_LOADSCREEN_ITEM_PARAM_ST {
@@ -31863,7 +31768,6 @@ pub struct LEGACY_DISTANT_VIEW_PARTS_REPLACE_PARAM {
 
 impl ParamDef for LEGACY_DISTANT_VIEW_PARTS_REPLACE_PARAM {
     const NAME: &str = "LEGACY_DISTANT_VIEW_PARTS_REPLACE_PARAM";
-    const INDEX: usize = 94;
 }
 
 impl LEGACY_DISTANT_VIEW_PARTS_REPLACE_PARAM {
@@ -32036,7 +31940,6 @@ pub struct LIMITED_DAY_ASSET_PARAM_ST {
 
 impl ParamDef for LIMITED_DAY_ASSET_PARAM_ST {
     const NAME: &str = "LIMITED_DAY_ASSET_PARAM_ST";
-    const INDEX: usize = 95;
 }
 
 impl LIMITED_DAY_ASSET_PARAM_ST {}
@@ -32071,7 +31974,6 @@ pub struct LOAD_BALANCER_DRAW_DIST_SCALE_PARAM_ST {
 
 impl ParamDef for LOAD_BALANCER_DRAW_DIST_SCALE_PARAM_ST {
     const NAME: &str = "LOAD_BALANCER_DRAW_DIST_SCALE_PARAM_ST";
-    const INDEX: usize = 96;
 }
 
 impl LOAD_BALANCER_DRAW_DIST_SCALE_PARAM_ST {
@@ -32263,7 +32165,6 @@ pub struct LOAD_BALANCER_NEW_DRAW_DIST_SCALE_PARAM_ST {
 
 impl ParamDef for LOAD_BALANCER_NEW_DRAW_DIST_SCALE_PARAM_ST {
     const NAME: &str = "LOAD_BALANCER_NEW_DRAW_DIST_SCALE_PARAM_ST";
-    const INDEX: usize = 97;
 }
 
 impl LOAD_BALANCER_NEW_DRAW_DIST_SCALE_PARAM_ST {
@@ -32373,7 +32274,6 @@ pub struct LOAD_BALANCER_PARAM_ST {
 
 impl ParamDef for LOAD_BALANCER_PARAM_ST {
     const NAME: &str = "LOAD_BALANCER_PARAM_ST";
-    const INDEX: usize = 98;
 }
 
 impl LOAD_BALANCER_PARAM_ST {
@@ -32639,7 +32539,6 @@ pub struct LOBBY_MENU_NPC_PARAM_ST {
 
 impl ParamDef for LOBBY_MENU_NPC_PARAM_ST {
     const NAME: &str = "LOBBY_MENU_NPC_PARAM_ST";
-    const INDEX: usize = 99;
 }
 
 impl LOBBY_MENU_NPC_PARAM_ST {
@@ -32685,7 +32584,6 @@ pub struct LOBBY_MENU_PARAM_ST {
 
 impl ParamDef for LOBBY_MENU_PARAM_ST {
     const NAME: &str = "LOBBY_MENU_PARAM_ST";
-    const INDEX: usize = 100;
 }
 
 impl LOBBY_MENU_PARAM_ST {
@@ -32727,7 +32625,6 @@ pub struct LOCK_CAM_PARAM_ST {
 
 impl ParamDef for LOCK_CAM_PARAM_ST {
     const NAME: &str = "LOCK_CAM_PARAM_ST";
-    const INDEX: usize = 101;
 }
 
 impl LOCK_CAM_PARAM_ST {
@@ -32909,7 +32806,6 @@ pub struct LOT_BASE_MAP_PATTERN_FLAG_ST {
 
 impl ParamDef for LOT_BASE_MAP_PATTERN_FLAG_ST {
     const NAME: &str = "LOT_BASE_MAP_PATTERN_FLAG_ST";
-    const INDEX: usize = 102;
 }
 
 impl LOT_BASE_MAP_PATTERN_FLAG_ST {
@@ -32936,7 +32832,6 @@ pub struct LOT_BASE_SMALBASE_AND_SPOT_ST {
 
 impl ParamDef for LOT_BASE_SMALBASE_AND_SPOT_ST {
     const NAME: &str = "LOT_BASE_SMALBASE_AND_SPOT_ST";
-    const INDEX: usize = 103;
 }
 
 impl LOT_BASE_SMALBASE_AND_SPOT_ST {
@@ -32975,7 +32870,6 @@ pub struct LOT_RESULT_MAP_PATTERN_FLAG_ST {
 
 impl ParamDef for LOT_RESULT_MAP_PATTERN_FLAG_ST {
     const NAME: &str = "LOT_RESULT_MAP_PATTERN_FLAG_ST";
-    const INDEX: usize = 104;
 }
 
 impl LOT_RESULT_MAP_PATTERN_FLAG_ST {
@@ -33008,7 +32902,6 @@ pub struct LOT_RESULT_PLAYAREA_PARAM_ST {
 
 impl ParamDef for LOT_RESULT_PLAYAREA_PARAM_ST {
     const NAME: &str = "LOT_RESULT_PLAYAREA_PARAM_ST";
-    const INDEX: usize = 105;
 }
 
 impl LOT_RESULT_PLAYAREA_PARAM_ST {
@@ -33035,7 +32928,6 @@ pub struct LOT_RESULT_SMALLBASE_AND_SPOT_ST {
 
 impl ParamDef for LOT_RESULT_SMALLBASE_AND_SPOT_ST {
     const NAME: &str = "LOT_RESULT_SMALLBASE_AND_SPOT_ST";
-    const INDEX: usize = 106;
 }
 
 impl LOT_RESULT_SMALLBASE_AND_SPOT_ST {
@@ -33157,7 +33049,6 @@ pub struct MAGIC_PARAM_ST {
 
 impl ParamDef for MAGIC_PARAM_ST {
     const NAME: &str = "MAGIC_PARAM_ST";
-    const INDEX: usize = 107;
 }
 
 impl MAGIC_PARAM_ST {
@@ -34102,7 +33993,6 @@ pub struct MAGIC_TABLE_PARAM_ST {
 
 impl ParamDef for MAGIC_TABLE_PARAM_ST {
     const NAME: &str = "MAGIC_TABLE_PARAM_ST";
-    const INDEX: usize = 108;
 }
 
 impl MAGIC_TABLE_PARAM_ST {
@@ -34144,7 +34034,6 @@ pub struct MAIN_SCENARIO_MENU_PARAM_ST {
 
 impl ParamDef for MAIN_SCENARIO_MENU_PARAM_ST {
     const NAME: &str = "MAIN_SCENARIO_MENU_PARAM_ST";
-    const INDEX: usize = 109;
 }
 
 impl MAIN_SCENARIO_MENU_PARAM_ST {}
@@ -34184,7 +34073,6 @@ pub struct MANUAL_MAP_PATTERN_INFO_ST {
 
 impl ParamDef for MANUAL_MAP_PATTERN_INFO_ST {
     const NAME: &str = "MANUAL_MAP_PATTERN_INFO_ST";
-    const INDEX: usize = 110;
 }
 
 impl MANUAL_MAP_PATTERN_INFO_ST {}
@@ -34225,7 +34113,6 @@ pub struct MAP_DEFAULT_INFO_PARAM_ST {
 
 impl ParamDef for MAP_DEFAULT_INFO_PARAM_ST {
     const NAME: &str = "MAP_DEFAULT_INFO_PARAM_ST";
-    const INDEX: usize = 111;
 }
 
 impl MAP_DEFAULT_INFO_PARAM_ST {
@@ -34427,7 +34314,6 @@ pub struct MAP_GD_REGION_DRAW_PARAM {
 
 impl ParamDef for MAP_GD_REGION_DRAW_PARAM {
     const NAME: &str = "MAP_GD_REGION_DRAW_PARAM";
-    const INDEX: usize = 112;
 }
 
 impl MAP_GD_REGION_DRAW_PARAM {
@@ -34462,7 +34348,6 @@ pub struct MAP_GD_REGION_ID_PARAM_ST {
 
 impl ParamDef for MAP_GD_REGION_ID_PARAM_ST {
     const NAME: &str = "MAP_GD_REGION_ID_PARAM_ST";
-    const INDEX: usize = 113;
 }
 
 impl MAP_GD_REGION_ID_PARAM_ST {
@@ -34496,7 +34381,6 @@ pub struct MAP_GRID_CREATE_HEIGHT_LIMIT_INFO_PARAM_ST {
 
 impl ParamDef for MAP_GRID_CREATE_HEIGHT_LIMIT_INFO_PARAM_ST {
     const NAME: &str = "MAP_GRID_CREATE_HEIGHT_LIMIT_INFO_PARAM_ST";
-    const INDEX: usize = 114;
 }
 
 impl MAP_GRID_CREATE_HEIGHT_LIMIT_INFO_PARAM_ST {
@@ -34538,7 +34422,6 @@ pub struct MAP_MIMICRY_ESTABLISHMENT_PARAM_ST {
 
 impl ParamDef for MAP_MIMICRY_ESTABLISHMENT_PARAM_ST {
     const NAME: &str = "MAP_MIMICRY_ESTABLISHMENT_PARAM_ST";
-    const INDEX: usize = 115;
 }
 
 impl MAP_MIMICRY_ESTABLISHMENT_PARAM_ST {
@@ -34655,7 +34538,6 @@ pub struct MAP_NAME_TEX_PARAM_ST {
 
 impl ParamDef for MAP_NAME_TEX_PARAM_ST {
     const NAME: &str = "MAP_NAME_TEX_PARAM_ST";
-    const INDEX: usize = 116;
 }
 
 impl MAP_NAME_TEX_PARAM_ST {
@@ -34717,7 +34599,6 @@ pub struct MAP_PATTERN_COMMON_ST {
 
 impl ParamDef for MAP_PATTERN_COMMON_ST {
     const NAME: &str = "MAP_PATTERN_COMMON_ST";
-    const INDEX: usize = 117;
 }
 
 impl MAP_PATTERN_COMMON_ST {}
@@ -34738,7 +34619,6 @@ pub struct MAP_PATTERN_MAP_LOT_CONDITION_ST {
 
 impl ParamDef for MAP_PATTERN_MAP_LOT_CONDITION_ST {
     const NAME: &str = "MAP_PATTERN_MAP_LOT_CONDITION_ST";
-    const INDEX: usize = 118;
 }
 
 impl MAP_PATTERN_MAP_LOT_CONDITION_ST {}
@@ -34833,7 +34713,6 @@ pub struct MAP_PATTERN_SET_PARAM_ST {
 
 impl ParamDef for MAP_PATTERN_SET_PARAM_ST {
     const NAME: &str = "MAP_PATTERN_SET_PARAM_ST";
-    const INDEX: usize = 119;
 }
 
 impl MAP_PATTERN_SET_PARAM_ST {}
@@ -34854,7 +34733,6 @@ pub struct MAP_PIECE_TEX_PARAM_ST {
 
 impl ParamDef for MAP_PIECE_TEX_PARAM_ST {
     const NAME: &str = "MAP_PIECE_TEX_PARAM_ST";
-    const INDEX: usize = 120;
 }
 
 impl MAP_PIECE_TEX_PARAM_ST {
@@ -34925,7 +34803,6 @@ pub struct MATERIAL_EX_PARAM_ST {
 
 impl ParamDef for MATERIAL_EX_PARAM_ST {
     const NAME: &str = "MATERIAL_EX_PARAM_ST";
-    const INDEX: usize = 121;
 }
 
 impl MATERIAL_EX_PARAM_ST {
@@ -34999,7 +34876,6 @@ pub struct MENUPROPERTY_LAYOUT {
 
 impl ParamDef for MENUPROPERTY_LAYOUT {
     const NAME: &str = "MENUPROPERTY_LAYOUT";
-    const INDEX: usize = 122;
 }
 
 impl MENUPROPERTY_LAYOUT {
@@ -35061,7 +34937,6 @@ pub struct MENUPROPERTY_SPEC {
 
 impl ParamDef for MENUPROPERTY_SPEC {
     const NAME: &str = "MENUPROPERTY_SPEC";
-    const INDEX: usize = 123;
 }
 
 impl MENUPROPERTY_SPEC {
@@ -35188,7 +35063,6 @@ pub struct MENU_COMMON_PARAM_ST {
 
 impl ParamDef for MENU_COMMON_PARAM_ST {
     const NAME: &str = "MENU_COMMON_PARAM_ST";
-    const INDEX: usize = 124;
 }
 
 impl MENU_COMMON_PARAM_ST {
@@ -35673,7 +35547,6 @@ pub struct MENU_OFFSCR_REND_PARAM_ST {
 
 impl ParamDef for MENU_OFFSCR_REND_PARAM_ST {
     const NAME: &str = "MENU_OFFSCR_REND_PARAM_ST";
-    const INDEX: usize = 125;
 }
 
 impl MENU_OFFSCR_REND_PARAM_ST {
@@ -35816,7 +35689,6 @@ pub struct MENU_PARAM_COLOR_TABLE_ST {
 
 impl ParamDef for MENU_PARAM_COLOR_TABLE_ST {
     const NAME: &str = "MENU_PARAM_COLOR_TABLE_ST";
-    const INDEX: usize = 126;
 }
 
 impl MENU_PARAM_COLOR_TABLE_ST {
@@ -35897,7 +35769,6 @@ pub struct MENU_VALUE_TABLE_SPEC {
 
 impl ParamDef for MENU_VALUE_TABLE_SPEC {
     const NAME: &str = "MENU_VALUE_TABLE_SPEC";
-    const INDEX: usize = 127;
 }
 
 impl MENU_VALUE_TABLE_SPEC {
@@ -35948,7 +35819,6 @@ pub struct MENU_WINDOW_PARAM_ST {
 
 impl ParamDef for MENU_WINDOW_PARAM_ST {
     const NAME: &str = "MENU_WINDOW_PARAM_ST";
-    const INDEX: usize = 128;
 }
 
 impl MENU_WINDOW_PARAM_ST {
@@ -35970,7 +35840,6 @@ pub struct MESSAGEBOX_PARAM_ST {
 
 impl ParamDef for MESSAGEBOX_PARAM_ST {
     const NAME: &str = "MESSAGEBOX_PARAM_ST";
-    const INDEX: usize = 129;
 }
 
 impl MESSAGEBOX_PARAM_ST {}
@@ -35991,7 +35860,6 @@ pub struct MIMICRY_ESTABLISHMENT_TEX_PARAM_ST {
 
 impl ParamDef for MIMICRY_ESTABLISHMENT_TEX_PARAM_ST {
     const NAME: &str = "MIMICRY_ESTABLISHMENT_TEX_PARAM_ST";
-    const INDEX: usize = 130;
 }
 
 impl MIMICRY_ESTABLISHMENT_TEX_PARAM_ST {
@@ -36050,7 +35918,6 @@ pub struct MISSION_MANAGEMENT_PARAM_ST {
 
 impl ParamDef for MISSION_MANAGEMENT_PARAM_ST {
     const NAME: &str = "MISSION_MANAGEMENT_PARAM_ST";
-    const INDEX: usize = 131;
 }
 
 impl MISSION_MANAGEMENT_PARAM_ST {}
@@ -36069,7 +35936,6 @@ pub struct MIXCRAFT_MAGIC_PARAM_ST {
 
 impl ParamDef for MIXCRAFT_MAGIC_PARAM_ST {
     const NAME: &str = "MIXCRAFT_MAGIC_PARAM_ST";
-    const INDEX: usize = 132;
 }
 
 impl MIXCRAFT_MAGIC_PARAM_ST {
@@ -36153,7 +36019,6 @@ pub struct MOVE_PARAM_ST {
 
 impl ParamDef for MOVE_PARAM_ST {
     const NAME: &str = "MOVE_PARAM_ST";
-    const INDEX: usize = 133;
 }
 
 impl MOVE_PARAM_ST {
@@ -36495,7 +36360,6 @@ pub struct MULTI_ESTUS_FLASK_BONUS_PARAM_ST {
 
 impl ParamDef for MULTI_ESTUS_FLASK_BONUS_PARAM_ST {
     const NAME: &str = "MULTI_ESTUS_FLASK_BONUS_PARAM_ST";
-    const INDEX: usize = 134;
 }
 
 impl MULTI_ESTUS_FLASK_BONUS_PARAM_ST {
@@ -36643,7 +36507,6 @@ pub struct MULTI_PLAY_CORRECTION_PARAM_ST {
 
 impl ParamDef for MULTI_PLAY_CORRECTION_PARAM_ST {
     const NAME: &str = "MULTI_PLAY_CORRECTION_PARAM_ST";
-    const INDEX: usize = 135;
 }
 
 impl MULTI_PLAY_CORRECTION_PARAM_ST {
@@ -36715,7 +36578,6 @@ pub struct MULTI_SOUL_BONUS_RATE_PARAM_ST {
 
 impl ParamDef for MULTI_SOUL_BONUS_RATE_PARAM_ST {
     const NAME: &str = "MULTI_SOUL_BONUS_RATE_PARAM_ST";
-    const INDEX: usize = 136;
 }
 
 impl MULTI_SOUL_BONUS_RATE_PARAM_ST {
@@ -36905,7 +36767,6 @@ pub struct NETWORK_MSG_PARAM_ST {
 
 impl ParamDef for NETWORK_MSG_PARAM_ST {
     const NAME: &str = "NETWORK_MSG_PARAM_ST";
-    const INDEX: usize = 137;
 }
 
 impl NETWORK_MSG_PARAM_ST {
@@ -37427,7 +37288,6 @@ pub struct NETWORK_PARAM_ST {
 
 impl ParamDef for NETWORK_PARAM_ST {
     const NAME: &str = "NETWORK_PARAM_ST";
-    const INDEX: usize = 138;
 }
 
 impl NETWORK_PARAM_ST {
@@ -38608,7 +38468,6 @@ pub struct NIGHT_BOSS_MENU_PARAM_ST {
 
 impl ParamDef for NIGHT_BOSS_MENU_PARAM_ST {
     const NAME: &str = "NIGHT_BOSS_MENU_PARAM_ST";
-    const INDEX: usize = 139;
 }
 
 impl NIGHT_BOSS_MENU_PARAM_ST {
@@ -38705,7 +38564,6 @@ pub struct NPCBOT_TABLE_PARAM_ST {
 
 impl ParamDef for NPCBOT_TABLE_PARAM_ST {
     const NAME: &str = "NPCBOT_TABLE_PARAM_ST";
-    const INDEX: usize = 140;
 }
 
 impl NPCBOT_TABLE_PARAM_ST {
@@ -38753,7 +38611,6 @@ pub struct NPC_AI_ACTION_PARAM_ST {
 
 impl ParamDef for NPC_AI_ACTION_PARAM_ST {
     const NAME: &str = "NPC_AI_ACTION_PARAM_ST";
-    const INDEX: usize = 141;
 }
 
 impl NPC_AI_ACTION_PARAM_ST {
@@ -39046,7 +38903,6 @@ pub struct NPC_AI_BEHAVIOR_PROBABILITY_PARAM_ST {
 
 impl ParamDef for NPC_AI_BEHAVIOR_PROBABILITY_PARAM_ST {
     const NAME: &str = "NPC_AI_BEHAVIOR_PROBABILITY_PARAM_ST";
-    const INDEX: usize = 142;
 }
 
 impl NPC_AI_BEHAVIOR_PROBABILITY_PARAM_ST {
@@ -40937,7 +40793,6 @@ pub struct NPC_PARAM_ST {
 
 impl ParamDef for NPC_PARAM_ST {
     const NAME: &str = "NPC_PARAM_ST";
-    const INDEX: usize = 143;
 }
 
 impl NPC_PARAM_ST {
@@ -43696,7 +43551,6 @@ pub struct NPC_THINK_PARAM_ST {
 
 impl ParamDef for NPC_THINK_PARAM_ST {
     const NAME: &str = "NPC_THINK_PARAM_ST";
-    const INDEX: usize = 144;
 }
 
 impl NPC_THINK_PARAM_ST {
@@ -44532,7 +44386,6 @@ pub struct OBJ_ACT_PARAM_ST {
 
 impl ParamDef for OBJ_ACT_PARAM_ST {
     const NAME: &str = "OBJ_ACT_PARAM_ST";
-    const INDEX: usize = 145;
 }
 
 impl OBJ_ACT_PARAM_ST {
@@ -44721,7 +44574,6 @@ pub struct OPERATION_GUIDE_PARAM_ST {
 
 impl ParamDef for OPERATION_GUIDE_PARAM_ST {
     const NAME: &str = "OPERATION_GUIDE_PARAM_ST";
-    const INDEX: usize = 146;
 }
 
 impl OPERATION_GUIDE_PARAM_ST {
@@ -44747,7 +44599,6 @@ pub struct OVERLAY_MATERIAL_PARAM_ST {
 
 impl ParamDef for OVERLAY_MATERIAL_PARAM_ST {
     const NAME: &str = "OVERLAY_MATERIAL_PARAM_ST";
-    const INDEX: usize = 147;
 }
 
 impl OVERLAY_MATERIAL_PARAM_ST {
@@ -44831,7 +44682,6 @@ pub struct PARTS_DRAW_PARAM_ST {
 
 impl ParamDef for PARTS_DRAW_PARAM_ST {
     const NAME: &str = "PARTS_DRAW_PARAM_ST";
-    const INDEX: usize = 148;
 }
 
 impl PARTS_DRAW_PARAM_ST {
@@ -45157,7 +45007,6 @@ pub struct PERMANENT_BUFF_PARAM_ST {
 
 impl ParamDef for PERMANENT_BUFF_PARAM_ST {
     const NAME: &str = "PERMANENT_BUFF_PARAM_ST";
-    const INDEX: usize = 149;
 }
 
 impl PERMANENT_BUFF_PARAM_ST {
@@ -45241,7 +45090,6 @@ pub struct PERSONAL_SCENARIO_PARAM_ST {
 
 impl ParamDef for PERSONAL_SCENARIO_PARAM_ST {
     const NAME: &str = "PERSONAL_SCENARIO_PARAM_ST";
-    const INDEX: usize = 150;
 }
 
 impl PERSONAL_SCENARIO_PARAM_ST {
@@ -45315,7 +45163,6 @@ pub struct PHANTOM_PARAM_ST {
 
 impl ParamDef for PHANTOM_PARAM_ST {
     const NAME: &str = "PHANTOM_PARAM_ST";
-    const INDEX: usize = 151;
 }
 
 impl PHANTOM_PARAM_ST {
@@ -45564,7 +45411,6 @@ pub struct PIN_TYPE_PARAM_ST {
 
 impl ParamDef for PIN_TYPE_PARAM_ST {
     const NAME: &str = "PIN_TYPE_PARAM_ST";
-    const INDEX: usize = 152;
 }
 
 impl PIN_TYPE_PARAM_ST {}
@@ -45593,7 +45439,6 @@ pub struct PLAYAREA_GIANT_ASSET_CTRL_PARAM_ST {
 
 impl ParamDef for PLAYAREA_GIANT_ASSET_CTRL_PARAM_ST {
     const NAME: &str = "PLAYAREA_GIANT_ASSET_CTRL_PARAM_ST";
-    const INDEX: usize = 153;
 }
 
 impl PLAYAREA_GIANT_ASSET_CTRL_PARAM_ST {}
@@ -45718,7 +45563,6 @@ pub struct PLAYER_COMMON_PARAM_ST {
 
 impl ParamDef for PLAYER_COMMON_PARAM_ST {
     const NAME: &str = "PLAYER_COMMON_PARAM_ST";
-    const INDEX: usize = 154;
 }
 
 impl PLAYER_COMMON_PARAM_ST {
@@ -46231,7 +46075,6 @@ pub struct PLAY_AREA_CREATE_COMMON_PARAM_ST {
 
 impl ParamDef for PLAY_AREA_CREATE_COMMON_PARAM_ST {
     const NAME: &str = "PLAY_AREA_CREATE_COMMON_PARAM_ST";
-    const INDEX: usize = 155;
 }
 
 impl PLAY_AREA_CREATE_COMMON_PARAM_ST {
@@ -46389,7 +46232,6 @@ pub struct PLAY_AREA_CREATE_DEFAULT_PARAM_ST {
 
 impl ParamDef for PLAY_AREA_CREATE_DEFAULT_PARAM_ST {
     const NAME: &str = "PLAY_AREA_CREATE_DEFAULT_PARAM_ST";
-    const INDEX: usize = 156;
 }
 
 impl PLAY_AREA_CREATE_DEFAULT_PARAM_ST {}
@@ -46418,7 +46260,6 @@ pub struct PLAY_AREA_CREATE_PARAM_ST {
 
 impl ParamDef for PLAY_AREA_CREATE_PARAM_ST {
     const NAME: &str = "PLAY_AREA_CREATE_PARAM_ST";
-    const INDEX: usize = 157;
 }
 
 impl PLAY_AREA_CREATE_PARAM_ST {
@@ -46516,7 +46357,6 @@ pub struct PLAY_REGION_PARAM_ST {
 
 impl ParamDef for PLAY_REGION_PARAM_ST {
     const NAME: &str = "PLAY_REGION_PARAM_ST";
-    const INDEX: usize = 158;
 }
 
 impl PLAY_REGION_PARAM_ST {
@@ -47229,7 +47069,6 @@ pub struct POSTURE_CONTROL_PARAM_PRO_ST {
 
 impl ParamDef for POSTURE_CONTROL_PARAM_PRO_ST {
     const NAME: &str = "POSTURE_CONTROL_PARAM_PRO_ST";
-    const INDEX: usize = 159;
 }
 
 impl POSTURE_CONTROL_PARAM_PRO_ST {
@@ -47513,7 +47352,6 @@ pub struct POSTURE_CONTROL_PARAM_WEP_LEFT_ST {
 
 impl ParamDef for POSTURE_CONTROL_PARAM_WEP_LEFT_ST {
     const NAME: &str = "POSTURE_CONTROL_PARAM_WEP_LEFT_ST";
-    const INDEX: usize = 160;
 }
 
 impl POSTURE_CONTROL_PARAM_WEP_LEFT_ST {
@@ -47655,7 +47493,6 @@ pub struct POSTURE_CONTROL_PARAM_WEP_RIGHT_ST {
 
 impl ParamDef for POSTURE_CONTROL_PARAM_WEP_RIGHT_ST {
     const NAME: &str = "POSTURE_CONTROL_PARAM_WEP_RIGHT_ST";
-    const INDEX: usize = 161;
 }
 
 impl POSTURE_CONTROL_PARAM_WEP_RIGHT_ST {
@@ -48129,7 +47966,6 @@ pub struct RANDOM_APPEAR_PARAM_ST {
 
 impl ParamDef for RANDOM_APPEAR_PARAM_ST {
     const NAME: &str = "RANDOM_APPEAR_PARAM_ST";
-    const INDEX: usize = 162;
 }
 
 impl RANDOM_APPEAR_PARAM_ST {
@@ -49145,7 +48981,6 @@ pub struct RARE_MAP_INFO_MENU_PARAM_ST {
 
 impl ParamDef for RARE_MAP_INFO_MENU_PARAM_ST {
     const NAME: &str = "RARE_MAP_INFO_MENU_PARAM_ST";
-    const INDEX: usize = 163;
 }
 
 impl RARE_MAP_INFO_MENU_PARAM_ST {
@@ -49193,7 +49028,6 @@ pub struct REINFORCE_PARAM_PROTECTOR_ST {
 
 impl ParamDef for REINFORCE_PARAM_PROTECTOR_ST {
     const NAME: &str = "REINFORCE_PARAM_PROTECTOR_ST";
-    const INDEX: usize = 164;
 }
 
 impl REINFORCE_PARAM_PROTECTOR_ST {
@@ -49398,7 +49232,6 @@ pub struct REINFORCE_PARAM_WEAPON_ST {
 
 impl ParamDef for REINFORCE_PARAM_WEAPON_ST {
     const NAME: &str = "REINFORCE_PARAM_WEAPON_ST";
-    const INDEX: usize = 165;
 }
 
 impl REINFORCE_PARAM_WEAPON_ST {
@@ -49725,7 +49558,6 @@ pub struct RESIST_CORRECT_PARAM_ST {
 
 impl ParamDef for RESIST_CORRECT_PARAM_ST {
     const NAME: &str = "RESIST_CORRECT_PARAM_ST";
-    const INDEX: usize = 166;
 }
 
 impl RESIST_CORRECT_PARAM_ST {
@@ -49821,7 +49653,6 @@ pub struct RESULT_MENU_PLAY_SPEED_PARAM_ST {
 
 impl ParamDef for RESULT_MENU_PLAY_SPEED_PARAM_ST {
     const NAME: &str = "RESULT_MENU_PLAY_SPEED_PARAM_ST";
-    const INDEX: usize = 167;
 }
 
 impl RESULT_MENU_PLAY_SPEED_PARAM_ST {
@@ -49851,7 +49682,6 @@ pub struct REVERB_AUX_SEND_BUS_PARAM_ST {
 
 impl ParamDef for REVERB_AUX_SEND_BUS_PARAM_ST {
     const NAME: &str = "REVERB_AUX_SEND_BUS_PARAM_ST";
-    const INDEX: usize = 168;
 }
 
 impl REVERB_AUX_SEND_BUS_PARAM_ST {
@@ -49886,7 +49716,6 @@ pub struct RIDE_PARAM_ST {
 
 impl ParamDef for RIDE_PARAM_ST {
     const NAME: &str = "RIDE_PARAM_ST";
-    const INDEX: usize = 169;
 }
 
 impl RIDE_PARAM_ST {
@@ -50022,7 +49851,6 @@ pub struct ROLLING_OBJ_LOT_PARAM_ST {
 
 impl ParamDef for ROLLING_OBJ_LOT_PARAM_ST {
     const NAME: &str = "ROLLING_OBJ_LOT_PARAM_ST";
-    const INDEX: usize = 170;
 }
 
 impl ROLLING_OBJ_LOT_PARAM_ST {
@@ -50179,7 +50007,6 @@ pub struct RUNTIME_BONE_CONTROL_PARAM_ST {
 
 impl ParamDef for RUNTIME_BONE_CONTROL_PARAM_ST {
     const NAME: &str = "RUNTIME_BONE_CONTROL_PARAM_ST";
-    const INDEX: usize = 171;
 }
 
 impl RUNTIME_BONE_CONTROL_PARAM_ST {
@@ -50244,7 +50071,6 @@ pub struct SCENARIO_PLACEMENT_PARAM_ST {
 
 impl ParamDef for SCENARIO_PLACEMENT_PARAM_ST {
     const NAME: &str = "SCENARIO_PLACEMENT_PARAM_ST";
-    const INDEX: usize = 172;
 }
 
 impl SCENARIO_PLACEMENT_PARAM_ST {
@@ -50287,7 +50113,6 @@ pub struct SCRATCHED_PARTS_PARAM_ST {
 
 impl ParamDef for SCRATCHED_PARTS_PARAM_ST {
     const NAME: &str = "SCRATCHED_PARTS_PARAM_ST";
-    const INDEX: usize = 173;
 }
 
 impl SCRATCHED_PARTS_PARAM_ST {
@@ -50318,7 +50143,6 @@ pub struct SESSION_RANDOM_ASSET_TEX_REPLACE_PARAM_ST {
 
 impl ParamDef for SESSION_RANDOM_ASSET_TEX_REPLACE_PARAM_ST {
     const NAME: &str = "SESSION_RANDOM_ASSET_TEX_REPLACE_PARAM_ST";
-    const INDEX: usize = 174;
 }
 
 impl SESSION_RANDOM_ASSET_TEX_REPLACE_PARAM_ST {}
@@ -50332,7 +50156,6 @@ pub struct SE_ACTIVATION_RANGE_PARAM_ST {
 
 impl ParamDef for SE_ACTIVATION_RANGE_PARAM_ST {
     const NAME: &str = "SE_ACTIVATION_RANGE_PARAM_ST";
-    const INDEX: usize = 175;
 }
 
 impl SE_ACTIVATION_RANGE_PARAM_ST {
@@ -50355,7 +50178,6 @@ pub struct SE_MATERIAL_CONVERT_PARAM_ST {
 
 impl ParamDef for SE_MATERIAL_CONVERT_PARAM_ST {
     const NAME: &str = "SE_MATERIAL_CONVERT_PARAM_ST";
-    const INDEX: usize = 176;
 }
 
 impl SE_MATERIAL_CONVERT_PARAM_ST {
@@ -50377,7 +50199,6 @@ pub struct SFX_BLOCK_RES_SHARE_PARAM {
 
 impl ParamDef for SFX_BLOCK_RES_SHARE_PARAM {
     const NAME: &str = "SFX_BLOCK_RES_SHARE_PARAM";
-    const INDEX: usize = 177;
 }
 
 impl SFX_BLOCK_RES_SHARE_PARAM {}
@@ -50414,7 +50235,6 @@ pub struct SHOP_LINEUP_PARAM {
 
 impl ParamDef for SHOP_LINEUP_PARAM {
     const NAME: &str = "SHOP_LINEUP_PARAM";
-    const INDEX: usize = 178;
 }
 
 impl SHOP_LINEUP_PARAM {
@@ -50561,7 +50381,6 @@ pub struct SIGN_PUDDLE_PARAM_ST {
 
 impl ParamDef for SIGN_PUDDLE_PARAM_ST {
     const NAME: &str = "SIGN_PUDDLE_PARAM_ST";
-    const INDEX: usize = 179;
 }
 
 impl SIGN_PUDDLE_PARAM_ST {
@@ -50593,7 +50412,6 @@ pub struct SMALBASE_SFX_LOD_EXCLUSION_LIST_PARAM_ST {
 
 impl ParamDef for SMALBASE_SFX_LOD_EXCLUSION_LIST_PARAM_ST {
     const NAME: &str = "SMALBASE_SFX_LOD_EXCLUSION_LIST_PARAM_ST";
-    const INDEX: usize = 180;
 }
 
 impl SMALBASE_SFX_LOD_EXCLUSION_LIST_PARAM_ST {}
@@ -50634,7 +50452,6 @@ pub struct SMALLBASE_AND_SPOT_ATTACH_POINT_ST {
 
 impl ParamDef for SMALLBASE_AND_SPOT_ATTACH_POINT_ST {
     const NAME: &str = "SMALLBASE_AND_SPOT_ATTACH_POINT_ST";
-    const INDEX: usize = 181;
 }
 
 impl SMALLBASE_AND_SPOT_ATTACH_POINT_ST {
@@ -50727,7 +50544,6 @@ pub struct SMALLBASE_AND_SPOT_DEFINE_ST {
 
 impl ParamDef for SMALLBASE_AND_SPOT_DEFINE_ST {
     const NAME: &str = "SMALLBASE_AND_SPOT_DEFINE_ST";
-    const INDEX: usize = 182;
 }
 
 impl SMALLBASE_AND_SPOT_DEFINE_ST {}
@@ -50745,7 +50561,6 @@ pub struct SMALLBASE_INVATION_NPC_PARAM_ST {
 
 impl ParamDef for SMALLBASE_INVATION_NPC_PARAM_ST {
     const NAME: &str = "SMALLBASE_INVATION_NPC_PARAM_ST";
-    const INDEX: usize = 183;
 }
 
 impl SMALLBASE_INVATION_NPC_PARAM_ST {
@@ -50788,7 +50603,6 @@ pub struct SMALLBASE_LOT_MAP_COMBINATION_PARAM_ST {
 
 impl ParamDef for SMALLBASE_LOT_MAP_COMBINATION_PARAM_ST {
     const NAME: &str = "SMALLBASE_LOT_MAP_COMBINATION_PARAM_ST";
-    const INDEX: usize = 184;
 }
 
 impl SMALLBASE_LOT_MAP_COMBINATION_PARAM_ST {}
@@ -50817,7 +50631,6 @@ pub struct SMALLBASE_MAP_VARIATION_PARAM_ST {
 
 impl ParamDef for SMALLBASE_MAP_VARIATION_PARAM_ST {
     const NAME: &str = "SMALLBASE_MAP_VARIATION_PARAM_ST";
-    const INDEX: usize = 185;
 }
 
 impl SMALLBASE_MAP_VARIATION_PARAM_ST {}
@@ -50841,7 +50654,6 @@ pub struct SORTIE_STARTING_POINT_ST {
 
 impl ParamDef for SORTIE_STARTING_POINT_ST {
     const NAME: &str = "SORTIE_STARTING_POINT_ST";
-    const INDEX: usize = 186;
 }
 
 impl SORTIE_STARTING_POINT_ST {}
@@ -50855,7 +50667,6 @@ pub struct SOUND_ASSET_SOUND_OBJ_ENABLE_DIST_PARAM_ST {
 
 impl ParamDef for SOUND_ASSET_SOUND_OBJ_ENABLE_DIST_PARAM_ST {
     const NAME: &str = "SOUND_ASSET_SOUND_OBJ_ENABLE_DIST_PARAM_ST";
-    const INDEX: usize = 187;
 }
 
 impl SOUND_ASSET_SOUND_OBJ_ENABLE_DIST_PARAM_ST {
@@ -50880,7 +50691,6 @@ pub struct SOUND_AUTO_ENV_SOUND_GROUP_PARAM_ST {
 
 impl ParamDef for SOUND_AUTO_ENV_SOUND_GROUP_PARAM_ST {
     const NAME: &str = "SOUND_AUTO_ENV_SOUND_GROUP_PARAM_ST";
-    const INDEX: usize = 188;
 }
 
 impl SOUND_AUTO_ENV_SOUND_GROUP_PARAM_ST {
@@ -50933,7 +50743,6 @@ pub struct SOUND_AUTO_REVERB_EVALUATION_DIST_PARAM_ST {
 
 impl ParamDef for SOUND_AUTO_REVERB_EVALUATION_DIST_PARAM_ST {
     const NAME: &str = "SOUND_AUTO_REVERB_EVALUATION_DIST_PARAM_ST";
-    const INDEX: usize = 189;
 }
 
 impl SOUND_AUTO_REVERB_EVALUATION_DIST_PARAM_ST {
@@ -51021,7 +50830,6 @@ pub struct SOUND_AUTO_REVERB_SELECT_PARAM_ST {
 
 impl ParamDef for SOUND_AUTO_REVERB_SELECT_PARAM_ST {
     const NAME: &str = "SOUND_AUTO_REVERB_SELECT_PARAM_ST";
-    const INDEX: usize = 190;
 }
 
 impl SOUND_AUTO_REVERB_SELECT_PARAM_ST {
@@ -51142,7 +50950,6 @@ pub struct SOUND_CHR_PHYSICS_SE_PARAM_ST {
 
 impl ParamDef for SOUND_CHR_PHYSICS_SE_PARAM_ST {
     const NAME: &str = "SOUND_CHR_PHYSICS_SE_PARAM_ST";
-    const INDEX: usize = 191;
 }
 
 impl SOUND_CHR_PHYSICS_SE_PARAM_ST {
@@ -51367,7 +51174,6 @@ pub struct SOUND_COMMON_INGAME_PARAM_ST {
 
 impl ParamDef for SOUND_COMMON_INGAME_PARAM_ST {
     const NAME: &str = "SOUND_COMMON_INGAME_PARAM_ST";
-    const INDEX: usize = 192;
 }
 
 impl SOUND_COMMON_INGAME_PARAM_ST {
@@ -51398,7 +51204,6 @@ pub struct SOUND_COMMON_SYSTEM_PARAM_ST {
 
 impl ParamDef for SOUND_COMMON_SYSTEM_PARAM_ST {
     const NAME: &str = "SOUND_COMMON_SYSTEM_PARAM_ST";
-    const INDEX: usize = 193;
 }
 
 impl SOUND_COMMON_SYSTEM_PARAM_ST {
@@ -51438,7 +51243,6 @@ pub struct SOUND_CUTSCENE_PARAM_ST {
 
 impl ParamDef for SOUND_CUTSCENE_PARAM_ST {
     const NAME: &str = "SOUND_CUTSCENE_PARAM_ST";
-    const INDEX: usize = 194;
 }
 
 impl SOUND_CUTSCENE_PARAM_ST {
@@ -51519,7 +51323,6 @@ pub struct SPEEDTREE_MODEL_PARAM_ST {
 
 impl ParamDef for SPEEDTREE_MODEL_PARAM_ST {
     const NAME: &str = "SPEEDTREE_MODEL_PARAM_ST";
-    const INDEX: usize = 195;
 }
 
 impl SPEEDTREE_MODEL_PARAM_ST {
@@ -51923,7 +51726,6 @@ pub struct SP_EFFECT_PARAM_ST {
 
 impl ParamDef for SP_EFFECT_PARAM_ST {
     const NAME: &str = "SP_EFFECT_PARAM_ST";
-    const INDEX: usize = 196;
 }
 
 impl SP_EFFECT_PARAM_ST {
@@ -55034,7 +54836,6 @@ pub struct SP_EFFECT_SET_PARAM_ST {
 
 impl ParamDef for SP_EFFECT_SET_PARAM_ST {
     const NAME: &str = "SP_EFFECT_SET_PARAM_ST";
-    const INDEX: usize = 197;
 }
 
 impl SP_EFFECT_SET_PARAM_ST {
@@ -55132,7 +54933,6 @@ pub struct SP_EFFECT_VFX_PARAM_ST {
 
 impl ParamDef for SP_EFFECT_VFX_PARAM_ST {
     const NAME: &str = "SP_EFFECT_VFX_PARAM_ST";
-    const INDEX: usize = 198;
 }
 
 impl SP_EFFECT_VFX_PARAM_ST {
@@ -55681,7 +55481,6 @@ pub struct SUBSTORY_LINK_PARAM_ST {
 
 impl ParamDef for SUBSTORY_LINK_PARAM_ST {
     const NAME: &str = "SUBSTORY_LINK_PARAM_ST";
-    const INDEX: usize = 199;
 }
 
 impl SUBSTORY_LINK_PARAM_ST {}
@@ -55697,7 +55496,6 @@ pub struct SWORDARTS_TABLE_PARAM_ST {
 
 impl ParamDef for SWORDARTS_TABLE_PARAM_ST {
     const NAME: &str = "SWORDARTS_TABLE_PARAM_ST";
-    const INDEX: usize = 200;
 }
 
 impl SWORDARTS_TABLE_PARAM_ST {
@@ -55742,7 +55540,6 @@ pub struct SWORD_ARTS_PARAM_ST {
 
 impl ParamDef for SWORD_ARTS_PARAM_ST {
     const NAME: &str = "SWORD_ARTS_PARAM_ST";
-    const INDEX: usize = 201;
 }
 
 impl SWORD_ARTS_PARAM_ST {
@@ -55888,7 +55685,6 @@ pub struct TALK_PARAM_ST {
 
 impl ParamDef for TALK_PARAM_ST {
     const NAME: &str = "TALK_PARAM_ST";
-    const INDEX: usize = 202;
 }
 
 impl TALK_PARAM_ST {
@@ -56003,7 +55799,6 @@ pub struct TEXT_EMBED_IMAGE_PARAM_ST {
 
 impl ParamDef for TEXT_EMBED_IMAGE_PARAM_ST {
     const NAME: &str = "TEXT_EMBED_IMAGE_PARAM_ST";
-    const INDEX: usize = 203;
 }
 
 impl TEXT_EMBED_IMAGE_PARAM_ST {}
@@ -56020,7 +55815,6 @@ pub struct THROW_COUNTER_PARAM_ST {
 
 impl ParamDef for THROW_COUNTER_PARAM_ST {
     const NAME: &str = "THROW_COUNTER_PARAM_ST";
-    const INDEX: usize = 204;
 }
 
 impl THROW_COUNTER_PARAM_ST {
@@ -56073,7 +55867,6 @@ pub struct THROW_DIRECTION_SFX_PARAM_ST {
 
 impl ParamDef for THROW_DIRECTION_SFX_PARAM_ST {
     const NAME: &str = "THROW_DIRECTION_SFX_PARAM_ST";
-    const INDEX: usize = 205;
 }
 
 impl THROW_DIRECTION_SFX_PARAM_ST {
@@ -56370,7 +56163,6 @@ pub struct THROW_PARAM_ST {
 
 impl ParamDef for THROW_PARAM_ST {
     const NAME: &str = "THROW_PARAM_ST";
-    const INDEX: usize = 206;
 }
 
 impl THROW_PARAM_ST {
@@ -56706,7 +56498,6 @@ pub struct TOUGHNESS_PARAM_ST {
 
 impl ParamDef for TOUGHNESS_PARAM_ST {
     const NAME: &str = "TOUGHNESS_PARAM_ST";
-    const INDEX: usize = 207;
 }
 
 impl TOUGHNESS_PARAM_ST {
@@ -56762,7 +56553,6 @@ pub struct TUTORIAL_CATEGORY_PARAM_ST {
 
 impl ParamDef for TUTORIAL_CATEGORY_PARAM_ST {
     const NAME: &str = "TUTORIAL_CATEGORY_PARAM_ST";
-    const INDEX: usize = 208;
 }
 
 impl TUTORIAL_CATEGORY_PARAM_ST {
@@ -56801,7 +56591,6 @@ pub struct TUTORIAL_PARAM_ST {
 
 impl ParamDef for TUTORIAL_PARAM_ST {
     const NAME: &str = "TUTORIAL_PARAM_ST";
-    const INDEX: usize = 209;
 }
 
 impl TUTORIAL_PARAM_ST {
@@ -56905,7 +56694,6 @@ pub struct USER_DISP_LOG_PARAM_ST {
 
 impl ParamDef for USER_DISP_LOG_PARAM_ST {
     const NAME: &str = "USER_DISP_LOG_PARAM_ST";
-    const INDEX: usize = 210;
 }
 
 impl USER_DISP_LOG_PARAM_ST {
@@ -56939,7 +56727,6 @@ pub struct WAYPOINT_PARAM_ST {
 
 impl ParamDef for WAYPOINT_PARAM_ST {
     const NAME: &str = "WAYPOINT_PARAM_ST";
-    const INDEX: usize = 211;
 }
 
 impl WAYPOINT_PARAM_ST {
@@ -57008,7 +56795,6 @@ pub struct WEATHER_ASSET_CREATE_PARAM_ST {
 
 impl ParamDef for WEATHER_ASSET_CREATE_PARAM_ST {
     const NAME: &str = "WEATHER_ASSET_CREATE_PARAM_ST";
-    const INDEX: usize = 212;
 }
 
 impl WEATHER_ASSET_CREATE_PARAM_ST {
@@ -57209,7 +56995,6 @@ pub struct WEATHER_ASSET_REPLACE_PARAM_ST {
 
 impl ParamDef for WEATHER_ASSET_REPLACE_PARAM_ST {
     const NAME: &str = "WEATHER_ASSET_REPLACE_PARAM_ST";
-    const INDEX: usize = 213;
 }
 
 impl WEATHER_ASSET_REPLACE_PARAM_ST {
@@ -57382,7 +57167,6 @@ pub struct WEATHER_LOT_PARAM_ST {
 
 impl ParamDef for WEATHER_LOT_PARAM_ST {
     const NAME: &str = "WEATHER_LOT_PARAM_ST";
-    const INDEX: usize = 214;
 }
 
 impl WEATHER_LOT_PARAM_ST {
@@ -57709,7 +57493,6 @@ pub struct WEATHER_LOT_TEX_PARAM_ST {
 
 impl ParamDef for WEATHER_LOT_TEX_PARAM_ST {
     const NAME: &str = "WEATHER_LOT_TEX_PARAM_ST";
-    const INDEX: usize = 215;
 }
 
 impl WEATHER_LOT_TEX_PARAM_ST {
@@ -57782,7 +57565,6 @@ pub struct WEATHER_PARAM_ST {
 
 impl ParamDef for WEATHER_PARAM_ST {
     const NAME: &str = "WEATHER_PARAM_ST";
-    const INDEX: usize = 216;
 }
 
 impl WEATHER_PARAM_ST {
@@ -57989,7 +57771,6 @@ pub struct WEP_ABSORP_POS_PARAM_ST {
 
 impl ParamDef for WEP_ABSORP_POS_PARAM_ST {
     const NAME: &str = "WEP_ABSORP_POS_PARAM_ST";
-    const INDEX: usize = 217;
 }
 
 impl WEP_ABSORP_POS_PARAM_ST {
@@ -58457,7 +58238,6 @@ pub struct WET_ASPECT_PARAM_ST {
 
 impl ParamDef for WET_ASPECT_PARAM_ST {
     const NAME: &str = "WET_ASPECT_PARAM_ST";
-    const INDEX: usize = 218;
 }
 
 impl WET_ASPECT_PARAM_ST {
@@ -58538,7 +58318,6 @@ pub struct WHITE_SIGN_COOL_TIME_PARAM_ST {
 
 impl ParamDef for WHITE_SIGN_COOL_TIME_PARAM_ST {
     const NAME: &str = "WHITE_SIGN_COOL_TIME_PARAM_ST";
-    const INDEX: usize = 219;
 }
 
 impl WHITE_SIGN_COOL_TIME_PARAM_ST {
@@ -58601,7 +58380,6 @@ pub struct WORLD_MAP_LEGACY_CONV_PARAM_ST {
 
 impl ParamDef for WORLD_MAP_LEGACY_CONV_PARAM_ST {
     const NAME: &str = "WORLD_MAP_LEGACY_CONV_PARAM_ST";
-    const INDEX: usize = 220;
 }
 
 impl WORLD_MAP_LEGACY_CONV_PARAM_ST {
@@ -58745,7 +58523,6 @@ pub struct WORLD_MAP_PIECE_PARAM_ST {
 
 impl ParamDef for WORLD_MAP_PIECE_PARAM_ST {
     const NAME: &str = "WORLD_MAP_PIECE_PARAM_ST";
-    const INDEX: usize = 221;
 }
 
 impl WORLD_MAP_PIECE_PARAM_ST {
@@ -58876,7 +58653,6 @@ pub struct WORLD_MAP_PLACE_NAME_PARAM_ST {
 
 impl ParamDef for WORLD_MAP_PLACE_NAME_PARAM_ST {
     const NAME: &str = "WORLD_MAP_PLACE_NAME_PARAM_ST";
-    const INDEX: usize = 222;
 }
 
 impl WORLD_MAP_PLACE_NAME_PARAM_ST {
@@ -58964,7 +58740,6 @@ pub struct WORLD_MAP_POINT_ICON_PARAM_ST {
 
 impl ParamDef for WORLD_MAP_POINT_ICON_PARAM_ST {
     const NAME: &str = "WORLD_MAP_POINT_ICON_PARAM_ST";
-    const INDEX: usize = 223;
 }
 
 impl WORLD_MAP_POINT_ICON_PARAM_ST {
@@ -59021,7 +58796,6 @@ pub struct WORLD_MAP_POINT_PARAM_ST {
 
 impl ParamDef for WORLD_MAP_POINT_PARAM_ST {
     const NAME: &str = "WORLD_MAP_POINT_PARAM_ST";
-    const INDEX: usize = 224;
 }
 
 impl WORLD_MAP_POINT_PARAM_ST {
@@ -59225,7 +58999,6 @@ pub struct WWISE_VALUE_TO_STR_CONVERT_PARAM_ST {
 
 impl ParamDef for WWISE_VALUE_TO_STR_CONVERT_PARAM_ST {
     const NAME: &str = "WWISE_VALUE_TO_STR_CONVERT_PARAM_ST";
-    const INDEX: usize = 225;
 }
 
 impl WWISE_VALUE_TO_STR_CONVERT_PARAM_ST {
