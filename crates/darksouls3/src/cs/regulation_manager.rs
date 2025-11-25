@@ -1,67 +1,289 @@
 use std::ffi::{c_char, c_str::CStr, c_void};
 use std::marker::PhantomData;
 use std::ops::{Index, IndexMut};
-use std::{mem, num::NonZero, ptr::NonNull, slice};
+use std::{mem, num::NonZero, ptr, ptr::NonNull, slice};
 
 use cxx_stl::vec::msvc2012::CxxVec;
 use shared::{util::IncompleteArrayField, OwnedPtr};
 
-use crate::dltx::{DLString, DLUTF8StringKind};
-use crate::param::ParamDef;
+use crate::fd4::FD4BasicHashString;
+use crate::param::{
+    EquipParam, ParamDef, ATK_PARAM_ST, BEHAVIOR_PARAM_ST, EQUIP_PARAM_ACCESSORY_ST,
+    EQUIP_PARAM_GOODS_ST, EQUIP_PARAM_PROTECTOR_ST, EQUIP_PARAM_WEAPON_ST,
+};
+use crate::sprj::{CategorizedItemID, ItemCategory};
 
 #[repr(C)]
 #[shared::singleton("CSRegulationManager")]
 pub struct CSRegulationManager {
     _vftable: usize,
-    _unk8: [u8; 0x8],
-    pub params: CxxVec<ParamResCap>,
+    _unk8: u64,
+    pub params: CxxVec<OwnedPtr<ParamResCap>>,
 }
 
 impl CSRegulationManager {
-    /// Returns the parameter table for [T].
+    /// Returns the first parameter table that uses the definition [T].
+    ///
+    /// In most cases, each definition has a unique table associated with it.
+    /// Structs with multiple tables have explicit accessors defined.
     pub fn get_param<T: ParamDef>(&self) -> &Parameter<T> {
-        let table = &self.params[T::INDEX].param.table;
+        self.get_param_by_index(T::INDEX)
+    }
+
+    /// Returns the first mutable parameter table that uses the definition [T].
+    ///
+    /// In most cases, each definition has a unique table associated with it.
+    /// Structs with multiple tables have explicit accessors defined.
+    pub fn get_mut_param<T: ParamDef>(&mut self) -> &mut Parameter<T> {
+        self.get_mut_param_by_index(T::INDEX)
+    }
+
+    /// Returns the [ATK_PARAM_ST] struct for NPCs.
+    ///
+    /// There are multiple parameters that use [ATK_PARAM_ST], so it's
+    /// unreliable to use it with [get_param].
+    pub fn atk_param_npc(&self) -> &Parameter<ATK_PARAM_ST> {
+        self.get_param_by_index(ATK_PARAM_ST::INDEX)
+    }
+
+    /// Returns the mutable [ATK_PARAM_ST] struct for NPCs.
+    ///
+    /// There are multiple parameters that use [ATK_PARAM_ST], so it's
+    /// unreliable to use it with [get_param].
+    pub fn atk_param_npc_mut(&mut self) -> &mut Parameter<ATK_PARAM_ST> {
+        self.get_mut_param_by_index(ATK_PARAM_ST::INDEX)
+    }
+
+    /// Returns the [ATK_PARAM_ST] struct for PCs.
+    ///
+    /// There are multiple parameters that use [ATK_PARAM_ST], so it's
+    /// unreliable to use it with [get_param].
+    pub fn atk_param_pc(&self) -> &Parameter<ATK_PARAM_ST> {
+        self.get_param_by_index(ATK_PARAM_ST::INDEX + 1)
+    }
+
+    /// Returns the mutable [ATK_PARAM_ST] struct for PCs.
+    ///
+    /// There are multiple parameters that use [ATK_PARAM_ST], so it's
+    /// unreliable to use it with [get_param].
+    pub fn atk_param_pc_mut(&mut self) -> &mut Parameter<ATK_PARAM_ST> {
+        self.get_mut_param_by_index(ATK_PARAM_ST::INDEX + 1)
+    }
+
+    /// Returns the [BEHAVIOR_PARAM_ST] struct for NPCs.
+    ///
+    /// There are multiple parameters that use [BEHAVIOR_PARAM_ST], so it's
+    /// unreliable to use it with [get_param].
+    pub fn behavior_param_npc(&self) -> &Parameter<BEHAVIOR_PARAM_ST> {
+        self.get_param_by_index(BEHAVIOR_PARAM_ST::INDEX)
+    }
+
+    /// Returns the mutable [BEHAVIOR_PARAM_ST] struct for NPCs.
+    ///
+    /// There are multiple parameters that use [BEHAVIOR_PARAM_ST], so it's
+    /// unreliable to use it with [get_param].
+    pub fn behavior_param_npc_mut(&mut self) -> &mut Parameter<BEHAVIOR_PARAM_ST> {
+        self.get_mut_param_by_index(BEHAVIOR_PARAM_ST::INDEX)
+    }
+
+    /// Returns the [BEHAVIOR_PARAM_ST] struct for PCs.
+    ///
+    /// There are multiple parameters that use [BEHAVIOR_PARAM_ST], so it's
+    /// unreliable to use it with [get_param].
+    pub fn behavior_param_pc(&self) -> &Parameter<BEHAVIOR_PARAM_ST> {
+        self.get_param_by_index(BEHAVIOR_PARAM_ST::INDEX + 1)
+    }
+
+    /// Returns the mutable [BEHAVIOR_PARAM_ST] struct for PCs.
+    ///
+    /// There are multiple parameters that use [BEHAVIOR_PARAM_ST], so it's
+    /// unreliable to use it with [get_param].
+    pub fn behavior_param_pc_mut(&mut self) -> &mut Parameter<BEHAVIOR_PARAM_ST> {
+        self.get_mut_param_by_index(BEHAVIOR_PARAM_ST::INDEX + 1)
+    }
+
+    /// Returns the generic [LOD_PARAM_ST] struct.
+    ///
+    /// There are multiple parameters that use [LOD_PARAM_ST], so it's
+    /// unreliable to use it with [get_param].
+    pub fn lod_param(&self) -> &Parameter<LOD_PARAM_ST> {
+        self.get_param_by_index(LOD_PARAM_ST::INDEX)
+    }
+
+    /// Returns the mutable generic [LOD_PARAM_ST] struct.
+    ///
+    /// There are multiple parameters that use [LOD_PARAM_ST], so it's
+    /// unreliable to use it with [get_param].
+    pub fn lod_param_mut(&mut self) -> &mut Parameter<LOD_PARAM_ST> {
+        self.get_mut_param_by_index(LOD_PARAM_ST::INDEX)
+    }
+
+    /// Returns the [LOD_PARAM_ST] struct for PS4.
+    ///
+    /// There are multiple parameters that use [LOD_PARAM_ST], so it's
+    /// unreliable to use it with [get_param].
+    pub fn lod_param_ps4(&self) -> &Parameter<LOD_PARAM_ST> {
+        self.get_param_by_index(LOD_PARAM_ST::INDEX + 1)
+    }
+
+    /// Returns the mutable [LOD_PARAM_ST] struct for PS4.
+    ///
+    /// There are multiple parameters that use [LOD_PARAM_ST], so it's
+    /// unreliable to use it with [get_param].
+    pub fn lod_param_ps4_mut(&mut self) -> &mut Parameter<LOD_PARAM_ST> {
+        self.get_mut_param_by_index(LOD_PARAM_ST::INDEX + 1)
+    }
+
+    /// Returns the [LOD_PARAM_ST] struct for XBox.
+    ///
+    /// There are multiple parameters that use [LOD_PARAM_ST], so it's
+    /// unreliable to use it with [get_param].
+    pub fn lod_param_xbl(&self) -> &Parameter<LOD_PARAM_ST> {
+        self.get_param_by_index(LOD_PARAM_ST::INDEX + 2)
+    }
+
+    /// Returns the mutable [LOD_PARAM_ST] struct for XBox.
+    ///
+    /// There are multiple parameters that use [LOD_PARAM_ST], so it's
+    /// unreliable to use it with [get_param].
+    pub fn lod_param_xbl_mut(&mut self) -> &mut Parameter<LOD_PARAM_ST> {
+        self.get_mut_param_by_index(LOD_PARAM_ST::INDEX + 2)
+    }
+
+    /// Returns the [MULTI_ESTUS_FLASK_BONUS_PARAM_ST] struct for the normal
+    /// estus flask.
+    ///
+    /// There are multiple parameters that use [MULTI_ESTUS_FLASK_BONUS_PARAM_ST], so it's
+    /// unreliable to use it with [get_param].
+    pub fn multi_hp_estus_flask_bonus_param(&self) -> &Parameter<MULTI_ESTUS_FLASK_BONUS_PARAM_ST> {
+        self.get_param_by_index(MULTI_ESTUS_FLASK_BONUS_PARAM_ST::INDEX)
+    }
+
+    /// Returns the mutable [MULTI_ESTUS_FLASK_BONUS_PARAM_ST] struct for the
+    /// normal estus flask.
+    ///
+    /// There are multiple parameters that use [MULTI_ESTUS_FLASK_BONUS_PARAM_ST], so it's
+    /// unreliable to use it with [get_param].
+    pub fn multi_hp_estus_flask_bonus_param_mut(
+        &mut self,
+    ) -> &mut Parameter<MULTI_ESTUS_FLASK_BONUS_PARAM_ST> {
+        self.get_mut_param_by_index(MULTI_ESTUS_FLASK_BONUS_PARAM_ST::INDEX)
+    }
+
+    /// Returns the [MULTI_ESTUS_FLASK_BONUS_PARAM_ST] struct for the ashen
+    /// estus flask.
+    ///
+    /// There are multiple parameters that use [MULTI_ESTUS_FLASK_BONUS_PARAM_ST], so it's
+    /// unreliable to use it with [get_param].
+    pub fn multi_mp_estus_flask_bonus_param(&self) -> &Parameter<MULTI_ESTUS_FLASK_BONUS_PARAM_ST> {
+        self.get_param_by_index(MULTI_ESTUS_FLASK_BONUS_PARAM_ST::INDEX + 1)
+    }
+
+    /// Returns the mutable [MULTI_ESTUS_FLASK_BONUS_PARAM_ST] struct for the
+    /// ashen estus flask.
+    ///
+    /// There are multiple parameters that use [MULTI_ESTUS_FLASK_BONUS_PARAM_ST], so it's
+    /// unreliable to use it with [get_param].
+    pub fn multi_mp_estus_flask_bonus_param_mut(
+        &mut self,
+    ) -> &mut Parameter<MULTI_ESTUS_FLASK_BONUS_PARAM_ST> {
+        self.get_mut_param_by_index(MULTI_ESTUS_FLASK_BONUS_PARAM_ST::INDEX + 1)
+    }
+
+    /// Returns the parameter at the given [index]. Panics if it doesn't match
+    /// [T].
+    fn get_param_by_index<T: ParamDef>(&self, index: usize) -> &Parameter<T> {
+        let table = &self.params[index].param.table;
         table.as_param().unwrap_or_else(|| {
             panic!(
                 "Expected param index {} to be {}, was {}",
-                T::INDEX,
+                index,
                 T::NAME,
                 table.name()
             )
         })
     }
 
-    /// Returns the mutable parameter table for [T].
-    pub fn get_mut_param<T: ParamDef>(&mut self) -> &mut Parameter<T> {
-        let mut table = &mut self.params[T::INDEX].param.table;
+    /// Returns the parameter at the given [index]. Panics if it doesn't match
+    /// [T].
+    fn get_mut_param_by_index<T: ParamDef>(&mut self, index: usize) -> &mut Parameter<T> {
+        let mut table = &mut self.params[index].param.table;
         table
             .as_mut_param()
-            // The borrow checker won't let us include the actual name ere
-            .unwrap_or_else(|| panic!("Expected param index {} to be {}", T::INDEX, T::NAME))
+            // The borrow checker won't let us include the  actual name ere
+            .unwrap_or_else(|| panic!("Expected param index {} to be {}", index, T::NAME))
+    }
+
+    /// Returns a dynamically-dispatched equipment parameter row for the given
+    /// item ID, or `None` if the row doesn't exit.
+    pub fn get_equip_param(&self, id: CategorizedItemID) -> Option<&dyn EquipParam> {
+        use ItemCategory::*;
+        match id.category() {
+            Weapon => self
+                .get_param::<EQUIP_PARAM_WEAPON_ST>()
+                .get(id.uncategorized().value().into())
+                .map(|p| p as &dyn EquipParam),
+            Protector => self
+                .get_param::<EQUIP_PARAM_PROTECTOR_ST>()
+                .get(id.uncategorized().value().into())
+                .map(|p| p as &dyn EquipParam),
+            Accessory => self
+                .get_param::<EQUIP_PARAM_ACCESSORY_ST>()
+                .get(id.uncategorized().value().into())
+                .map(|p| p as &dyn EquipParam),
+            Goods => self
+                .get_param::<EQUIP_PARAM_GOODS_ST>()
+                .get(id.uncategorized().value().into())
+                .map(|p| p as &dyn EquipParam),
+            _ => None,
+        }
+    }
+
+    /// Returns a dynamically-dispatched mutable equipment parameter row for the
+    /// given item ID, or `None` if the row doesn't exit.
+    pub fn get_equip_param_mut(&mut self, id: CategorizedItemID) -> Option<&mut dyn EquipParam> {
+        use ItemCategory::*;
+        match id.category() {
+            Weapon => self
+                .get_mut_param::<EQUIP_PARAM_WEAPON_ST>()
+                .get_mut(id.uncategorized().value().into())
+                .map(|p| p as &mut dyn EquipParam),
+            Protector => self
+                .get_mut_param::<EQUIP_PARAM_PROTECTOR_ST>()
+                .get_mut(id.uncategorized().value().into())
+                .map(|p| p as &mut dyn EquipParam),
+            Accessory => self
+                .get_mut_param::<EQUIP_PARAM_ACCESSORY_ST>()
+                .get_mut(id.uncategorized().value().into())
+                .map(|p| p as &mut dyn EquipParam),
+            Goods => self
+                .get_mut_param::<EQUIP_PARAM_GOODS_ST>()
+                .get_mut(id.uncategorized().value().into())
+                .map(|p| p as &mut dyn EquipParam),
+            _ => None,
+        }
     }
 }
 
 #[repr(C)]
 pub struct ParamResCap {
     _vftable: usize,
-    _unk8: [u8; 0x8],
 
     /// The camel-case name of the parameter.
-    pub name: DLString<DLUTF8StringKind>,
+    pub name: FD4BasicHashString,
 
-    _unk40: [u8; 0x28],
+    _unk48: [u8; 0x20],
     pub param: OwnedPtr<FD4ParamResCap>,
 }
 
 #[repr(C)]
 pub struct FD4ParamResCap {
     _vftable: usize,
-    _unk8: [u8; 0x8],
 
     /// The camel-case name of the parameter.
-    pub name: DLString<DLUTF8StringKind>,
+    pub name: FD4BasicHashString,
 
-    _unk40: [u8; 0x20],
+    _unk48: [u8; 0x18],
 
     /// The total size of [table] in bytes.
     pub table_size: usize,
@@ -93,7 +315,7 @@ impl ParamTable {
     ///
     /// Panics if this string isn't valid UTF-8.
     pub fn name(&self) -> &str {
-        let name_ptr = (&raw const self)
+        let name_ptr = ptr::from_ref(self)
             .map_addr(|addr| addr + self.name_offset)
             .cast::<c_char>();
         // Safety: We trust the game's memory layout.
@@ -280,5 +502,17 @@ impl<'a, T: ParamDef> Iterator for ParamIterMut<'a, T> {
             .cast();
         // Safety: We trust DS3's memory layout.
         unsafe { Some((info.id, ptr.as_mut())) }
+    }
+}
+
+#[cfg(test)]
+mod test {
+    use super::*;
+
+    #[test]
+    fn proper_sizes() {
+        assert_eq!(0x70, size_of::<ParamResCap>());
+        assert_eq!(0x70, size_of::<FD4ParamResCap>());
+        assert_eq!(0x40, size_of::<ParamTable>());
     }
 }
