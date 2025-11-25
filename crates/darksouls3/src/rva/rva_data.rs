@@ -16,6 +16,7 @@ pub const RVAS: RvaBundle = RvaBundle {
     equip_game_data_serialize: 0x584b60,
     game_data_man_ptr: 0x47572b8,
     global_hinstance: 0x489d5a0,
+    lua_event_man_give_or_remove_item: 0x46cad0,
     map_item_man_grant_item: 0x7c4080,
     map_item_man_ptr: 0x4769240,
     register_task: 0xf0fa50,

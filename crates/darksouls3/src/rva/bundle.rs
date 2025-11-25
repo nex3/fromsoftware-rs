@@ -16,6 +16,7 @@ pub struct RvaBundle {
     pub equip_game_data_serialize: u32,
     pub game_data_man_ptr: u32,
     pub global_hinstance: u32,
+    pub lua_event_man_give_or_remove_item: u32,
     pub map_item_man_grant_item: u32,
     pub map_item_man_ptr: u32,
     pub register_task: u32,
