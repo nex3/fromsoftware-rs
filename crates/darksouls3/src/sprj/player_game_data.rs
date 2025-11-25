@@ -503,7 +503,7 @@ mod test {
 
     #[test]
     fn proper_sizes() {
-        assert_eq!(0x10, size_of::<RawEquipInventoryDataListEntry>());
+        assert_eq!(0x10, size_of::<EquipInventoryDataListEntry>());
         assert_eq!(0x118, size_of::<FaceData>());
         assert_eq!(0x78, size_of::<InventoryItemsData>());
         assert_eq!(0xa0, size_of::<EquipInventoryData>());
