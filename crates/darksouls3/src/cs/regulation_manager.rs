@@ -9,7 +9,8 @@ use shared::{util::IncompleteArrayField, OwnedPtr};
 use crate::fd4::FD4BasicHashString;
 use crate::param::{
     EquipParam, ParamDef, ATK_PARAM_ST, BEHAVIOR_PARAM_ST, EQUIP_PARAM_ACCESSORY_ST,
-    EQUIP_PARAM_GOODS_ST, EQUIP_PARAM_PROTECTOR_ST, EQUIP_PARAM_WEAPON_ST,
+    EQUIP_PARAM_GOODS_ST, EQUIP_PARAM_PROTECTOR_ST, EQUIP_PARAM_WEAPON_ST, LOD_BANK,
+    MULTI_ESTUS_FLASK_BONUS_PARAM_ST,
 };
 use crate::sprj::{CategorizedItemID, ItemCategory};
 
@@ -102,52 +103,52 @@ impl CSRegulationManager {
         self.get_mut_param_by_index(BEHAVIOR_PARAM_ST::INDEX + 1)
     }
 
-    /// Returns the generic [LOD_PARAM_ST] struct.
+    /// Returns the generic [LOD_BANK] struct.
     ///
-    /// There are multiple parameters that use [LOD_PARAM_ST], so it's
+    /// There are multiple parameters that use [LOD_BANK], so it's
     /// unreliable to use it with [get_param].
-    pub fn lod_param(&self) -> &Parameter<LOD_PARAM_ST> {
-        self.get_param_by_index(LOD_PARAM_ST::INDEX)
+    pub fn lod_param(&self) -> &Parameter<LOD_BANK> {
+        self.get_param_by_index(LOD_BANK::INDEX)
     }
 
-    /// Returns the mutable generic [LOD_PARAM_ST] struct.
+    /// Returns the mutable generic [LOD_BANK] struct.
     ///
-    /// There are multiple parameters that use [LOD_PARAM_ST], so it's
+    /// There are multiple parameters that use [LOD_BANK], so it's
     /// unreliable to use it with [get_param].
-    pub fn lod_param_mut(&mut self) -> &mut Parameter<LOD_PARAM_ST> {
-        self.get_mut_param_by_index(LOD_PARAM_ST::INDEX)
+    pub fn lod_param_mut(&mut self) -> &mut Parameter<LOD_BANK> {
+        self.get_mut_param_by_index(LOD_BANK::INDEX)
     }
 
-    /// Returns the [LOD_PARAM_ST] struct for PS4.
+    /// Returns the [LOD_BANK] struct for PS4.
     ///
-    /// There are multiple parameters that use [LOD_PARAM_ST], so it's
+    /// There are multiple parameters that use [LOD_BANK], so it's
     /// unreliable to use it with [get_param].
-    pub fn lod_param_ps4(&self) -> &Parameter<LOD_PARAM_ST> {
-        self.get_param_by_index(LOD_PARAM_ST::INDEX + 1)
+    pub fn lod_param_ps4(&self) -> &Parameter<LOD_BANK> {
+        self.get_param_by_index(LOD_BANK::INDEX + 1)
     }
 
-    /// Returns the mutable [LOD_PARAM_ST] struct for PS4.
+    /// Returns the mutable [LOD_BANK] struct for PS4.
     ///
-    /// There are multiple parameters that use [LOD_PARAM_ST], so it's
+    /// There are multiple parameters that use [LOD_BANK], so it's
     /// unreliable to use it with [get_param].
-    pub fn lod_param_ps4_mut(&mut self) -> &mut Parameter<LOD_PARAM_ST> {
-        self.get_mut_param_by_index(LOD_PARAM_ST::INDEX + 1)
+    pub fn lod_param_ps4_mut(&mut self) -> &mut Parameter<LOD_BANK> {
+        self.get_mut_param_by_index(LOD_BANK::INDEX + 1)
     }
 
-    /// Returns the [LOD_PARAM_ST] struct for XBox.
+    /// Returns the [LOD_BANK] struct for XBox.
     ///
-    /// There are multiple parameters that use [LOD_PARAM_ST], so it's
+    /// There are multiple parameters that use [LOD_BANK], so it's
     /// unreliable to use it with [get_param].
-    pub fn lod_param_xbl(&self) -> &Parameter<LOD_PARAM_ST> {
-        self.get_param_by_index(LOD_PARAM_ST::INDEX + 2)
+    pub fn lod_param_xbl(&self) -> &Parameter<LOD_BANK> {
+        self.get_param_by_index(LOD_BANK::INDEX + 2)
     }
 
-    /// Returns the mutable [LOD_PARAM_ST] struct for XBox.
+    /// Returns the mutable [LOD_BANK] struct for XBox.
     ///
-    /// There are multiple parameters that use [LOD_PARAM_ST], so it's
+    /// There are multiple parameters that use [LOD_BANK], so it's
     /// unreliable to use it with [get_param].
-    pub fn lod_param_xbl_mut(&mut self) -> &mut Parameter<LOD_PARAM_ST> {
-        self.get_mut_param_by_index(LOD_PARAM_ST::INDEX + 2)
+    pub fn lod_param_xbl_mut(&mut self) -> &mut Parameter<LOD_BANK> {
+        self.get_mut_param_by_index(LOD_BANK::INDEX + 2)
     }
 
     /// Returns the [MULTI_ESTUS_FLASK_BONUS_PARAM_ST] struct for the normal
