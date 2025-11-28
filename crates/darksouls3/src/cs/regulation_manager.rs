@@ -3,7 +3,6 @@ use std::marker::PhantomData;
 use std::ops::{Index, IndexMut};
 use std::{mem, num::NonZero, ptr, ptr::NonNull, slice};
 
-use cxx_stl::vec::msvc2012::CxxVec;
 use shared::{util::IncompleteArrayField, OwnedPtr};
 
 use crate::fd4::FD4BasicHashString;
@@ -13,6 +12,7 @@ use crate::param::{
     MULTI_ESTUS_FLASK_BONUS_PARAM_ST,
 };
 use crate::sprj::{CategorizedItemID, ItemCategory};
+use crate::CxxVec;
 
 #[repr(C)]
 #[shared::singleton("CSRegulationManager")]

@@ -1,7 +1,6 @@
-use cxx_stl::vec::msvc2012::CxxVec;
-
 use crate::dlkr::{DLAllocatorRef, DLPlainLightMutex};
 use crate::dlui::DynamicBitset;
+use crate::CxxVec;
 
 #[repr(C)]
 pub struct DLUserInputDevice {

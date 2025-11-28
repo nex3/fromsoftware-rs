@@ -7,10 +7,10 @@ use std::slice;
 use std::{iter, iter::FusedIterator};
 
 use bitfield::bitfield;
-use cxx_stl::vec::msvc2012::CxxVec;
 use shared::OwnedPtr;
 
 use crate::sprj::{CategorizedItemID, MaybeInvalidCategorizedItemID};
+use crate::CxxVec;
 
 #[repr(C)]
 /// Source of name: RTTI
@@ -30,7 +30,7 @@ pub struct PlayerGameData {
     _gesture_data: usize,
     _unk7c0: [u8; 0x58],
     _unk810: CxxVec<u64>,
-    _unk830: [u8; 0xf0],
+    _unk830: [u8; 0xe8],
     _menu_ref_special_effect_1: usize,
     _menu_ref_special_effect_2: usize,
     _unk930: [u8; 0x20],

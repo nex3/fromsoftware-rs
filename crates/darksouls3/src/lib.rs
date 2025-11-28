@@ -8,3 +8,6 @@ pub mod param;
 pub mod rva;
 pub mod sprj;
 pub mod util;
+
+mod cxx_stl;
+pub(crate) use cxx_stl::*;

@@ -1,12 +1,12 @@
 use std::sync::LazyLock;
 
-use cxx_stl::vec::msvc2012::CxxVec;
 use pelite::pe64::Pe;
 use shared::{FromStatic, InstanceError, InstanceResult};
 use shared::{OwnedPtr, Program};
 
 use crate::dlkr::{DLAllocatorRef, DLPlainLightMutex};
 use crate::dlui::DLUserInputDeviceImpl;
+use crate::CxxVec;
 
 #[repr(C)]
 pub struct DLUserInputManager {

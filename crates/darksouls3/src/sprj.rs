@@ -1,9 +1,19 @@
+mod chr_ins;
+mod field_ins;
 mod game_data_man;
 mod item;
 mod player_game_data;
 mod task;
+mod world_block;
+mod world_chr_man;
+mod world_info;
 
+pub use chr_ins::*;
+pub use field_ins::*;
 pub use game_data_man::*;
 pub use item::*;
 pub use player_game_data::*;
 pub use task::*;
+pub use world_block::*;
+pub use world_chr_man::*;
+pub use world_info::*;
