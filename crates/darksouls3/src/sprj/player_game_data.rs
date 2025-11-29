@@ -39,7 +39,73 @@ pub struct PlayerGameData {
 #[repr(C)]
 /// Source of name: chosen by us
 pub struct PlayerInfo {
-    _unk00: [u8; 0x78],
+    pub id: u32,
+    _unk04: u32,
+
+    /// The player's current health.
+    pub hp: u32,
+
+    /// The player's maximum health.
+    pub max_hp: u32,
+
+    /// The player's maximum health before any dynamic adjustments.
+    pub base_max_hp: u32,
+
+    /// The player's current MP.
+    pub mp: u32,
+
+    /// The player's maximum MP.
+    pub max_mp: u32,
+
+    /// The player's maximum MP before any dynamic adjustments.
+    pub base_max_mp: u32,
+
+    _unk20: u32,
+
+    /// The player's current stamina.
+    pub stamina: u32,
+
+    /// The player's maximum stamina.
+    pub max_stamina: u32,
+
+    /// The player's maximum stamina before any dynamic adjustments.
+    pub base_max_stamina: u32,
+
+    _unk30: u32,
+
+    /// The player's vigor stat.
+    pub vigor: u32,
+
+    /// The player's attunement stat.
+    pub attunement: u32,
+
+    /// The player's endurance stat.
+    pub endurance: u32,
+
+    /// The player's strength stat.
+    pub strength: u32,
+
+    /// The player's dexterity stat.
+    pub dexterity: u32,
+
+    /// The player's intelligence stat.
+    pub intelligence: u32,
+
+    /// The player's faith stat.
+    pub faith: u32,
+
+    /// The player's luck stat.
+    pub luck: u32,
+
+    _unk54: u32,
+    _unk58: u32,
+
+    /// The player's vitality stat.
+    pub vitality: u32,
+
+    _unk60: u64,
+    _unk68: u64,
+    _unk70: u64,
 
     /// The character's name, in UTF-16. The final word is always 0, to ensure
     /// the string is null-terminated.

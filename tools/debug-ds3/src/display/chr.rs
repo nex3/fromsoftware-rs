@@ -37,7 +37,22 @@ impl DebugDisplay for PlayerGameData {
 
 impl DebugDisplay for PlayerInfo {
     fn render_debug(&self, ui: &&mut Ui) {
-        ui.text(format!("Name: {}", self.name()));
+        ui.text(format!("ID: {}", self.id));
+        if self.name().len() > 0 {
+            ui.text(format!("Name: {}", self.name()));
+        }
+        ui.text(format!("HP: {}/{}", self.hp, self.max_hp));
+        ui.text(format!("MP: {}/{}", self.mp, self.max_mp));
+        ui.text(format!("Stamina: {}/{}", self.stamina, self.max_stamina));
+        ui.text(format!("Vigor: {}", self.vigor));
+        ui.text(format!("Attunement: {}", self.attunement));
+        ui.text(format!("Endurance: {}", self.endurance));
+        ui.text(format!("Vitality: {}", self.vitality));
+        ui.text(format!("Strength: {}", self.strength));
+        ui.text(format!("Dexterity: {}", self.dexterity));
+        ui.text(format!("Intelligence: {}", self.intelligence));
+        ui.text(format!("Faith: {}", self.faith));
+        ui.text(format!("Luck: {}", self.luck));
     }
 }
 
