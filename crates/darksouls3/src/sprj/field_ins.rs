@@ -1,5 +1,6 @@
+use std::{fmt, mem};
+
 use bitfield::bitfield;
-use std::mem;
 
 #[repr(u8)]
 #[derive(Copy, Clone, PartialEq, Eq, Hash, Debug)]
@@ -15,14 +16,13 @@ pub enum FieldInsType {
 bitfield! {
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct FieldInsSelector(u32);
-    impl Debug;
 
     /// The index of this FieldIns in its container.
     pub u32, index, _: 19, 0;
     u32, _, set_index: 19, 0;
 
     /// The index of the container that holds this FieldIns.
-    pub u32, container, _: 19, 0;
+    pub u32, container, _: 27, 20;
     u32, _, set_container: 27, 20;
 
     u8, type_raw, set_type_raw: 31, 28;
@@ -44,5 +44,21 @@ impl FieldInsSelector {
         // Safety: Rust can't construct an invalid selector, and we don't know
         // any game APIs that provide one.
         unsafe { mem::transmute(self.type_raw()) }
+    }
+}
+
+impl fmt::Debug for FieldInsSelector {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        if self.type_raw() > 3 {
+            write!(f, "<invalid 0x{:x}>", self.0)
+        } else {
+            write!(
+                f,
+                "{:?}:{:x}:{:x}",
+                self.field_ins_type(),
+                self.container(),
+                self.index()
+            )
+        }
     }
 }
