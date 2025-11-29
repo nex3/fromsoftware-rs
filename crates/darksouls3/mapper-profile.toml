@@ -10,6 +10,18 @@ captures = { "dluid_mouse_device_should_block_input" = 27 }
 class = "DLUID::PadDevice<DLKR::DLMultiThreadingPolicy>"
 captures = { "dluid_pad_device_should_block_input" = 27 }
 
+[[vmts]]
+class = "NS_SPRJ::ChrIns"
+vftable = "chr_ins_vmt"
+
+[[vmts]]
+class = "NS_SPRJ::PlayerIns"
+vftable = "player_ins_vmt"
+
+[[vmts]]
+class = "NS_SPRJ::ReplayGhostIns"
+vftable = "replay_ghost_ins_vmt"
+
 [[patterns]]
 pattern = "[23] 41 b8 58 00 00 00 48 8b ? ff 50 18 83 f8 58"
 captures = ["equip_game_data_deserialize"]

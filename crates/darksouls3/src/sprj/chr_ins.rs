@@ -1,11 +1,12 @@
 use std::ptr::NonNull;
 
-use shared::{FromStatic, InstanceError, InstanceResult, OwnedPtr, UnknownStruct};
+use shared::{
+    FromStatic, InstanceError, InstanceResult, OwnedPtr, Subclass, Superclass, UnknownStruct,
+};
 use vtable_rs::VPtr;
 
 use super::{ChrSetEntry, PlayerGameData, WorldChrMan};
-use crate::dlkr::DLAllocatorRef;
-use crate::fd4::FD4Time;
+use crate::{dlkr::DLAllocatorRef, fd4::FD4Time, rva};
 
 #[repr(C)]
 /// Source of name: RTTI
@@ -171,6 +172,12 @@ pub struct ChrIns {
     _unk1f98: [u8; 8],
 }
 
+unsafe impl Superclass for ChrIns {
+    fn vmt_rva() -> u32 {
+        rva::get().chr_ins_vmt
+    }
+}
+
 type MdlMtx = UnknownStruct<0x10>;
 type SprjClothState = UnknownStruct<0x30>;
 type FD4SlotBaseSeed = UnknownStruct<0xa8>;
@@ -230,6 +237,12 @@ pub struct PlayerIns {
     _unk2188: [u8; 0x18],
 }
 
+unsafe impl Subclass<ChrIns> for PlayerIns {
+    fn vmt_rva() -> u32 {
+        rva::get().player_ins_vmt
+    }
+}
+
 impl FromStatic for PlayerIns {
     /// Returns the singleton instance of `PlayerIns` for the main player
     /// character, if it exists.
@@ -246,6 +259,12 @@ impl FromStatic for PlayerIns {
 /// Source of name: RTTI
 pub struct ReplayGhostIns {
     pub super_chr_ins: ChrIns,
+}
+
+unsafe impl Subclass<ChrIns> for ReplayGhostIns {
+    fn vmt_rva() -> u32 {
+        rva::get().replay_ghost_ins_vmt
+    }
 }
 
 #[repr(C)]

@@ -1,8 +1,7 @@
 use std::mem::MaybeUninit;
 use std::ptr::NonNull;
 
-use shared::OwnedPtr;
-use shared::UnknownStruct;
+use shared::{OwnedPtr, Subclass, UnknownStruct};
 
 use super::{ChrIns, PlayerIns, ReplayGhostIns, WorldBlockChr, WorldInfoOwner};
 use crate::CxxVec;
@@ -106,7 +105,10 @@ pub struct WorldAreaChr {
 
 #[repr(C)]
 /// Source of name: Copied from ER RTTI
-pub struct ChrSet<T> {
+pub struct ChrSet<T>
+where
+    T: Subclass<ChrIns>,
+{
     /// The size of the set.
     pub length: u32,
 
@@ -118,7 +120,10 @@ pub struct ChrSet<T> {
 
 #[repr(C)]
 /// Source of name: Copied from ER RTTI
-pub struct ChrSetEntry<T> {
+pub struct ChrSetEntry<T>
+where
+    T: Subclass<ChrIns>,
+{
     /// The character this entry refers to.
     pub chr: OwnedPtr<T>,
 
