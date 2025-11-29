@@ -1,6 +1,6 @@
 use std::{mem::MaybeUninit, ptr::NonNull, slice};
 
-use shared::{OwnedPtr, Subclass, UnknownStruct};
+use shared::{empty::*, OwnedPtr, Subclass, UnknownStruct};
 
 use super::{ChrIns, PlayerIns, ReplayGhostIns, WorldBlockChr, WorldInfoOwner};
 use crate::CxxVec;
@@ -112,7 +112,7 @@ where
     pub length: u32,
 
     /// The contents of the set.
-    pub entries: OwnedPtr<ChrSetEntry<T>>,
+    pub entries: OwnedPtr<MaybeEmpty<ChrSetEntry<T>>>,
 
     _unk10: u32,
 }
@@ -121,29 +121,32 @@ impl<T> ChrSet<T>
 where
     T: Subclass<ChrIns>,
 {
-    /// Returns a slice over all the entries in this set.
-    pub fn entries(&self) -> &[ChrSetEntry<T>] {
+    /// Returns a slice over all the entries in this set, whether or not they're
+    /// empty.
+    pub fn entries(&self) -> &[MaybeEmpty<ChrSetEntry<T>>] {
         unsafe { slice::from_raw_parts(self.entries.as_ptr(), self.length as usize) }
     }
 
     /// Returns a mutable slice over all the entries in this set.
-    pub fn entries_mut(&mut self) -> &mut [ChrSetEntry<T>] {
+    pub fn entries_mut(&mut self) -> &mut [MaybeEmpty<ChrSetEntry<T>>] {
         unsafe { slice::from_raw_parts_mut(self.entries.as_ptr(), self.length as usize) }
     }
 
     /// Returns an iterator over all the [T]s in this set.
     pub fn iter(&self) -> ChrSetIter<'_, T> {
-        ChrSetIter(self.entries().into_iter())
+        ChrSetIter(self.entries().into_iter().non_empty())
     }
 
     /// Returns a mutable iterator over all the [T]s in this set.
     pub fn iter_mut(&mut self) -> ChrSetIterMut<'_, T> {
-        ChrSetIterMut(self.entries_mut().into_iter())
+        ChrSetIterMut(self.entries_mut().into_iter().non_empty())
     }
 }
 
 /// An iterator over a [ChrSet].
-pub struct ChrSetIter<'a, T>(slice::Iter<'a, ChrSetEntry<T>>)
+pub struct ChrSetIter<'a, T>(
+    NonEmptyIter<'a, ChrSetEntry<T>, slice::Iter<'a, MaybeEmpty<ChrSetEntry<T>>>>,
+)
 where
     T: Subclass<ChrIns>;
 
@@ -159,7 +162,9 @@ where
 }
 
 /// An iterator over a [ChrSet].
-pub struct ChrSetIterMut<'a, T>(slice::IterMut<'a, ChrSetEntry<T>>)
+pub struct ChrSetIterMut<'a, T>(
+    NonEmptyIterMut<'a, ChrSetEntry<T>, slice::IterMut<'a, MaybeEmpty<ChrSetEntry<T>>>>,
+)
 where
     T: Subclass<ChrIns>;
 
@@ -212,6 +217,15 @@ where
     _unk20: [u8; 8],
     _chr_physics_module: usize,
     _unk30: usize,
+}
+
+unsafe impl<T> IsEmpty for ChrSetEntry<T>
+where
+    T: Subclass<ChrIns>,
+{
+    fn is_empty(value: &MaybeEmpty<ChrSetEntry<T>>) -> bool {
+        *unsafe { value.as_non_null().cast::<usize>().as_ref() } == 0
+    }
 }
 
 #[cfg(test)]

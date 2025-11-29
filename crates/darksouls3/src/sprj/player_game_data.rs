@@ -7,7 +7,7 @@ use std::slice;
 use std::{iter, iter::FusedIterator};
 
 use bitfield::bitfield;
-use shared::OwnedPtr;
+use shared::{empty::*, OwnedPtr};
 
 use crate::sprj::{CategorizedItemID, MaybeInvalidCategorizedItemID};
 use crate::CxxVec;
@@ -105,7 +105,7 @@ pub struct EquipInventoryData {
 
 #[repr(C)]
 pub struct InventoryItemListAccessor {
-    pub head: NonNull<EquipInventoryDataListEntry>,
+    pub head: NonNull<MaybeEmpty<EquipInventoryDataListEntry>>,
     pub len: NonNull<u32>,
 }
 
@@ -122,7 +122,7 @@ pub struct InventoryItemsData {
     /// **Note:** This array is not dense. If an entry in the middle is emptied
     /// due to an item being removed from the player's inventory, other items
     /// are *not* rearranged to fill the hole.
-    pub normal_items_head: OwnedPtr<EquipInventoryDataListEntry>,
+    pub normal_items_head: OwnedPtr<MaybeEmpty<EquipInventoryDataListEntry>>,
 
     /// The number of normal items in the inventory.
     pub normal_items_count: u32,
@@ -135,7 +135,7 @@ pub struct InventoryItemsData {
     /// **Note:** This array is not dense. If an entry in the middle is emptied
     /// due to an item being removed from the player's inventory, other items
     /// are *not* rearranged to fill the hole.
-    pub key_items_head: OwnedPtr<EquipInventoryDataListEntry>,
+    pub key_items_head: OwnedPtr<MaybeEmpty<EquipInventoryDataListEntry>>,
 
     /// The number of key items in the inventory.
     pub key_items_count: u32,
@@ -179,11 +179,10 @@ impl InventoryItemsData {
     ///
     /// This iterates over key items first, followed by normal items.
     pub fn items(&self) -> ItemsIterator<'_> {
-        ItemsIterator(
-            self.key_entries()
-                .iter()
-                .chain(self.normal_entries().iter()),
-        )
+        self.key_entries()
+            .iter()
+            .chain(self.normal_entries().iter())
+            .non_empty()
     }
 
     /// Returns an iterator over all the mutable non-empty entries in the
@@ -191,30 +190,29 @@ impl InventoryItemsData {
     ///
     /// This iterates over key items first, followed by normal items.
     pub fn items_mut(&self) -> ItemsIteratorMut<'_> {
-        ItemsIteratorMut(
+        unsafe {
+            std::slice::from_raw_parts_mut(
+                self.key_items_head.as_ptr(),
+                self.key_items_capacity as usize,
+            )
+        }
+        .iter_mut()
+        .chain(
             unsafe {
                 std::slice::from_raw_parts_mut(
-                    self.key_items_head.as_ptr(),
-                    self.key_items_capacity as usize,
+                    self.normal_items_head.as_ptr(),
+                    self.normal_items_capacity as usize,
                 )
             }
-            .iter_mut()
-            .chain(
-                unsafe {
-                    std::slice::from_raw_parts_mut(
-                        self.normal_items_head.as_ptr(),
-                        self.normal_items_capacity as usize,
-                    )
-                }
-                .iter_mut(),
-            ),
+            .iter_mut(),
         )
+        .non_empty()
     }
 
     /// Returns a slice over all the [EquipInventoryDataListEntry] allocated for
     /// this [InventoryItemsData], whether or not they're empty or in range of
     /// [key_items_len].
-    pub fn key_entries(&self) -> &[EquipInventoryDataListEntry] {
+    pub fn key_entries(&self) -> &[MaybeEmpty<EquipInventoryDataListEntry>] {
         unsafe {
             std::slice::from_raw_parts(
                 self.key_items_head.as_ptr(),
@@ -226,7 +224,7 @@ impl InventoryItemsData {
     /// Returns a mutable slice over all the [EquipInventoryDataListEntry]
     /// allocated for this [InventoryItemsData], whether or not they're empty or
     /// in range of [key_items_len].
-    pub fn key_entries_mut(&mut self) -> &mut [EquipInventoryDataListEntry] {
+    pub fn key_entries_mut(&mut self) -> &mut [MaybeEmpty<EquipInventoryDataListEntry>] {
         unsafe {
             std::slice::from_raw_parts_mut(
                 self.key_items_head.as_ptr(),
@@ -238,7 +236,7 @@ impl InventoryItemsData {
     /// Returns a slice over all the [EquipInventoryDataListEntry] allocated for
     /// this [InventoryItemsData], whether or not they're empty or in range of
     /// [normal_items_len].
-    pub fn normal_entries(&self) -> &[EquipInventoryDataListEntry] {
+    pub fn normal_entries(&self) -> &[MaybeEmpty<EquipInventoryDataListEntry>] {
         unsafe {
             std::slice::from_raw_parts(
                 self.normal_items_head.as_ptr(),
@@ -250,7 +248,7 @@ impl InventoryItemsData {
     /// Returns a mutable slice over all the [EquipInventoryDataListEntry]
     /// allocated for this [InventoryItemsData], whether or not they're empty or
     /// in range of [normal_items_len].
-    pub fn normal_entries_mut(&mut self) -> &mut [EquipInventoryDataListEntry] {
+    pub fn normal_entries_mut(&mut self) -> &mut [MaybeEmpty<EquipInventoryDataListEntry>] {
         unsafe {
             std::slice::from_raw_parts_mut(
                 self.normal_items_head.as_ptr(),
@@ -261,7 +259,7 @@ impl InventoryItemsData {
 }
 
 impl Index<u32> for InventoryItemsData {
-    type Output = EquipInventoryDataListEntry;
+    type Output = MaybeEmpty<EquipInventoryDataListEntry>;
 
     /// Indexes both the key and normal item entries of [InventoryItemsData]
     /// using the same logic as the game.
@@ -310,120 +308,31 @@ impl IndexMut<u32> for InventoryItemsData {
 /// exposes only non-empty entries.
 ///
 /// Returned by [InventoryItemsData.items].
-pub struct ItemsIterator<'a>(
+pub type ItemsIterator<'a> = NonEmptyIter<
+    'a,
+    EquipInventoryDataListEntry,
     iter::Chain<
-        slice::Iter<'a, EquipInventoryDataListEntry>,
-        slice::Iter<'a, EquipInventoryDataListEntry>,
+        slice::Iter<'a, MaybeEmpty<EquipInventoryDataListEntry>>,
+        slice::Iter<'a, MaybeEmpty<EquipInventoryDataListEntry>>,
     >,
-);
-
-impl<'a> Iterator for ItemsIterator<'a> {
-    type Item = &'a NonEmptyEquipInventoryDataListEntry;
-
-    fn next(&mut self) -> Option<Self::Item> {
-        loop {
-            match self.0.next() {
-                Some(entry) => match entry.as_non_empty() {
-                    Some(entry) => return Some(entry),
-                    None => {}
-                },
-                None => return None,
-            }
-        }
-    }
-}
-
-impl<'a> FusedIterator for ItemsIterator<'a> {}
+>;
 
 /// A mutable iterator over both normal and key items in [InventoryItemsData]
 /// that exposes only non-empty entries.
 ///
 /// Returned by [InventoryItemsData.items_mut].
-pub struct ItemsIteratorMut<'a>(
+pub type ItemsIteratorMut<'a> = NonEmptyIterMut<
+    'a,
+    EquipInventoryDataListEntry,
     iter::Chain<
-        slice::IterMut<'a, EquipInventoryDataListEntry>,
-        slice::IterMut<'a, EquipInventoryDataListEntry>,
+        slice::IterMut<'a, MaybeEmpty<EquipInventoryDataListEntry>>,
+        slice::IterMut<'a, MaybeEmpty<EquipInventoryDataListEntry>>,
     >,
-);
+>;
 
-impl<'a> Iterator for ItemsIteratorMut<'a> {
-    type Item = &'a mut NonEmptyEquipInventoryDataListEntry;
-
-    fn next(&mut self) -> Option<Self::Item> {
-        loop {
-            match self.0.next() {
-                Some(entry) => match entry.as_non_empty_mut() {
-                    Some(entry) => return Some(entry),
-                    None => {}
-                },
-                None => return None,
-            }
-        }
-    }
-}
-
-impl<'a> FusedIterator for ItemsIteratorMut<'a> {}
-
-/// An entry in [InventoryItemsData] that may be empty.
-///
-/// This is empty if and only if [item_id] is
-/// [MaybeInvalidCategorizedItemID::INVALID]. An empty entry doesn't currently
-/// represent an item in the player's inventory, but may in the future. Its
-/// [gaitem_handle] and [quantity] are generally both 0.
+/// An entry in [InventoryItemsData].
 #[repr(C)]
 pub struct EquipInventoryDataListEntry {
-    /// Handle to the gaitem instance which describes additional properties of
-    /// the inventory item, like durability.
-    ///
-    /// This is always zero if this entry is empty.
-    pub gaitem_handle: u32,
-
-    /// The raw ID of the item in this inventory slot. This is invalid if the
-    /// inventory item has since been removed.
-    ///
-    /// This is always [MaybeInvalidCategorizedItemID::INVALID] if this entry is
-    /// empty.
-    pub item_id: MaybeInvalidCategorizedItemID,
-
-    /// Quantity of the item we have.
-    ///
-    /// This is always zero if this entry is empty.
-    pub quantity: u32,
-
-    _unk0c: [u8; 4],
-}
-
-impl EquipInventoryDataListEntry {
-    /// Returns whether this entry is empty.
-    pub fn is_empty(&self) -> bool {
-        !self.item_id.is_valid()
-    }
-
-    /// If this isn't empty, returns it as a
-    /// [NonEmptyEquipInventoryDataListEntry]. Otherwise, returns `None`.
-    pub fn as_non_empty(&self) -> Option<&NonEmptyEquipInventoryDataListEntry> {
-        if !self.is_empty() {
-            Some(unsafe { mem::transmute(self) })
-        } else {
-            None
-        }
-    }
-
-    /// If this isn't empty, returns it as a mutable
-    /// [NonEmptyEquipInventoryDataListEntry]. Otherwise, returns `None`.
-    pub fn as_non_empty_mut(&mut self) -> Option<&mut NonEmptyEquipInventoryDataListEntry> {
-        if !self.is_empty() {
-            Some(unsafe { mem::transmute(self) })
-        } else {
-            None
-        }
-    }
-}
-
-/// An [EquipInventoryDataListEntry] that's been verified to be non-empty, and
-/// so whose fields are all valid.
-#[repr(C)]
-pub struct NonEmptyEquipInventoryDataListEntry {
     /// Handle to the gaitem instance which describes additional properties of
     /// the inventory item, like durability.
     pub gaitem_handle: NonZero<u32>,
@@ -438,19 +347,9 @@ pub struct NonEmptyEquipInventoryDataListEntry {
     _unk0c: [u8; 4],
 }
 
-impl AsRef<EquipInventoryDataListEntry> for NonEmptyEquipInventoryDataListEntry {
-    fn as_ref(&self) -> &EquipInventoryDataListEntry {
-        // Safety: All valid NonEmptyEquipInventoryDataListEntries are also
-        // EquipInventoryDataListEntries.
-        unsafe { mem::transmute(self) }
-    }
-}
-
-impl AsMut<EquipInventoryDataListEntry> for NonEmptyEquipInventoryDataListEntry {
-    fn as_mut(&mut self) -> &mut EquipInventoryDataListEntry {
-        // Safety: All valid NonEmptyEquipInventoryDataListEntries are also
-        // EquipInventoryDataListEntries.
-        unsafe { mem::transmute(self) }
+unsafe impl IsEmpty for EquipInventoryDataListEntry {
+    fn is_empty(value: &MaybeEmpty<EquipInventoryDataListEntry>) -> bool {
+        (unsafe { *value.as_non_null().cast::<u32>().as_ref() }) == 0
     }
 }
 
