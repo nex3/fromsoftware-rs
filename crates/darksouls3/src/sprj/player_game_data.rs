@@ -25,7 +25,7 @@ pub struct PlayerGameData {
     pub face_data: FaceData,
 
     /// The contents of the storage box.
-    pub storage: OwnedPtr<EquipInventoryData>,
+    pub storage: Option<OwnedPtr<EquipInventoryData>>,
 
     _gesture_data: usize,
     _unk7c0: [u8; 0x58],
