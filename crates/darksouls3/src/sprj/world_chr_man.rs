@@ -1,5 +1,4 @@
-use std::mem::MaybeUninit;
-use std::ptr::NonNull;
+use std::{mem::MaybeUninit, ptr::NonNull, slice};
 
 use shared::{OwnedPtr, Subclass, UnknownStruct};
 
@@ -116,6 +115,87 @@ where
     pub entries: OwnedPtr<ChrSetEntry<T>>,
 
     _unk10: u32,
+}
+
+impl<T> ChrSet<T>
+where
+    T: Subclass<ChrIns>,
+{
+    /// Returns a slice over all the entries in this set.
+    pub fn entries(&self) -> &[ChrSetEntry<T>] {
+        unsafe { slice::from_raw_parts(self.entries.as_ptr(), self.length as usize) }
+    }
+
+    /// Returns a mutable slice over all the entries in this set.
+    pub fn entries_mut(&mut self) -> &mut [ChrSetEntry<T>] {
+        unsafe { slice::from_raw_parts_mut(self.entries.as_ptr(), self.length as usize) }
+    }
+
+    /// Returns an iterator over all the [T]s in this set.
+    pub fn iter(&self) -> ChrSetIter<'_, T> {
+        ChrSetIter(self.entries().into_iter())
+    }
+
+    /// Returns a mutable iterator over all the [T]s in this set.
+    pub fn iter_mut(&mut self) -> ChrSetIterMut<'_, T> {
+        ChrSetIterMut(self.entries_mut().into_iter())
+    }
+}
+
+/// An iterator over a [ChrSet].
+pub struct ChrSetIter<'a, T>(slice::Iter<'a, ChrSetEntry<T>>)
+where
+    T: Subclass<ChrIns>;
+
+impl<'a, T> Iterator for ChrSetIter<'a, T>
+where
+    T: Subclass<ChrIns>,
+{
+    type Item = &'a T;
+
+    fn next(&mut self) -> Option<&'a T> {
+        self.0.next().map(|entry| entry.chr.as_ref())
+    }
+}
+
+/// An iterator over a [ChrSet].
+pub struct ChrSetIterMut<'a, T>(slice::IterMut<'a, ChrSetEntry<T>>)
+where
+    T: Subclass<ChrIns>;
+
+impl<'a, T> Iterator for ChrSetIterMut<'a, T>
+where
+    T: Subclass<ChrIns>,
+{
+    type Item = &'a mut T;
+
+    fn next(&mut self) -> Option<&'a mut T> {
+        self.0.next().map(|entry| entry.chr.as_mut())
+    }
+}
+
+impl<'a, T> IntoIterator for &'a ChrSet<T>
+where
+    T: Subclass<ChrIns>,
+{
+    type Item = &'a T;
+    type IntoIter = ChrSetIter<'a, T>;
+
+    fn into_iter(self) -> Self::IntoIter {
+        self.iter()
+    }
+}
+
+impl<'a, T> IntoIterator for &'a mut ChrSet<T>
+where
+    T: Subclass<ChrIns>,
+{
+    type Item = &'a mut T;
+    type IntoIter = ChrSetIterMut<'a, T>;
+
+    fn into_iter(self) -> Self::IntoIter {
+        self.iter_mut()
+    }
 }
 
 #[repr(C)]
