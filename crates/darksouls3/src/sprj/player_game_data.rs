@@ -174,6 +174,11 @@ pub struct InventoryItemsData {
 }
 
 impl InventoryItemsData {
+    /// The total number of items in the inventory.
+    pub fn items_len(&self) -> u32 {
+        self.normal_items_count + self.key_items_count
+    }
+
     /// Returns an iterator over all the non-empty entries in the player's
     /// inventory.
     ///

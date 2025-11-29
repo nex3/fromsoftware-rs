@@ -14,7 +14,7 @@ pub struct ChrIns {
     _vftable: usize,
     _unk08: u32,
     _unk10: i64,
-    _unk18: NonNull<ChrSetEntry<ChrIns>>,
+    pub chr_set_entry: NonNull<ChrSetEntry<ChrIns>>,
     _unk20: OwnedPtr<UnknownStruct<0xe0>>,
     _unk28: u16,
     _chr_res: usize,
