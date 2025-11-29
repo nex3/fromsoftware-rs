@@ -315,6 +315,22 @@ dependencies = [
 ]
 
 [[package]]
+name = "debug-ds3"
+version = "0.11.0"
+dependencies = [
+ "darksouls3",
+ "from-singleton",
+ "fromsoftware-shared",
+ "hudhook",
+ "pelite",
+ "tracing",
+ "tracing-appender",
+ "tracing-panic",
+ "tracing-subscriber",
+ "windows",
+]
+
+[[package]]
 name = "debug-line"
 version = "0.11.0"
 dependencies = [

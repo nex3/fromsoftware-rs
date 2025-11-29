@@ -1,0 +1,26 @@
+[package]
+name = "debug-ds3"
+version.workspace = true
+edition.workspace = true
+repository.workspace = true
+license.workspace = true
+
+[dependencies]
+shared.workspace = true
+darksouls3.workspace = true
+from-singleton.workspace = true
+windows.workspace = true
+pelite.workspace = true
+tracing.workspace = true
+tracing-subscriber = "0.3"
+tracing-appender = "0.2.3"
+tracing-panic = "0.1"
+
+[dependencies.hudhook]
+git = "https://github.com/veeenu/hudhook"
+features = [
+    "imgui-tables-api"
+]
+
+[lib]
+crate-type = ["cdylib"]

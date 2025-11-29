@@ -1,0 +1,97 @@
+use hudhook::imgui::{TreeNodeFlags, Ui};
+
+use darksouls3::sprj::*;
+use shared::{Subclass, Superclass};
+
+use super::DebugDisplay;
+
+impl DebugDisplay for WorldChrMan {
+    fn render_debug(&self, ui: &&mut Ui) {
+        ui.text(format!(
+            "World Area Chr Count: {}",
+            self.world_area_chr_count
+        ));
+
+        let world_block_chrs = self.world_block_chrs().collect::<Vec<_>>();
+        if ui.collapsing_header(
+            format!("World Block Chrs: {}", world_block_chrs.len()),
+            TreeNodeFlags::empty(),
+        ) {
+            ui.indent();
+            for (i, world_block_chr) in world_block_chrs.iter().enumerate() {
+                if ui.collapsing_header(format!("Block {}", i), TreeNodeFlags::empty()) {
+                    ui.indent();
+                    world_block_chr.render_debug(ui);
+                    ui.unindent();
+                }
+            }
+            ui.unindent();
+        }
+
+        ui.text(format!(
+            "World Block Chr Count: {}",
+            self.world_block_chr_count
+        ));
+
+        ui.text(format!(
+            "Loaded? World Block Chr Count: {}",
+            self.loaded_world_block_chr_count
+        ));
+
+        if ui.collapsing_header("Player ChrSet", TreeNodeFlags::empty()) {
+            ui.indent();
+            self.player_chr_set.render_debug(ui);
+            ui.unindent();
+        }
+
+        if ui.collapsing_header("Ghost ChrSet", TreeNodeFlags::empty()) {
+            ui.indent();
+            self.ghost_chr_set.render_debug(ui);
+            ui.unindent();
+        }
+
+        if ui.collapsing_header("Debug ChrSet", TreeNodeFlags::empty()) {
+            ui.indent();
+            self.debug_chr_set.render_debug(ui);
+            ui.unindent();
+        }
+
+        match self.main_player.as_ref() {
+            Some(p) => {
+                if ui.collapsing_header("Main player", TreeNodeFlags::empty()) {
+                    ui.indent();
+                    unsafe { p.as_ref() }.render_debug(ui);
+                    ui.unindent();
+                }
+            }
+            None => ui.text("No Main player instance"),
+        }
+    }
+}
+
+impl<T> DebugDisplay for ChrSet<T>
+where
+    T: Subclass<ChrIns>,
+{
+    fn render_debug(&self, ui: &&mut Ui) {
+        let characters = self.iter().collect::<Vec<_>>();
+        if ui.collapsing_header(
+            format!("Characters: {}", characters.len()),
+            TreeNodeFlags::empty(),
+        ) {
+            ui.indent();
+            for (i, chr_ins) in characters.iter().enumerate() {
+                if ui.collapsing_header(format!("c{}", i), TreeNodeFlags::empty()) {
+                    ui.indent();
+                    if let Some(player_ins) = chr_ins.superclass().as_subclass::<PlayerIns>() {
+                        player_ins.render_debug(ui);
+                    } else {
+                        chr_ins.superclass().render_debug(ui);
+                    }
+                    ui.unindent();
+                }
+            }
+            ui.unindent();
+        }
+    }
+}
