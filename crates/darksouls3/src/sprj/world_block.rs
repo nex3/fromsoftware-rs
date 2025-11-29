@@ -1,9 +1,10 @@
-use shared::OwnedPtr;
+use std::slice;
+
+use shared::{empty::*, OwnedPtr};
 
 use crate::sprj::ChrSet;
 
-use super::ChrIns;
-use super::FieldInsSelector;
+use super::{ChrIns, FieldInsSelector};
 
 #[repr(C)]
 /// Source of name: RTTI
@@ -28,6 +29,32 @@ pub struct WorldBlockChr {
     _unkc0: [u64; 5],
     _unke8: [u8; 0x48],
     _unk134: u32,
+}
+
+unsafe impl IsEmpty for WorldBlockChr {
+    fn is_empty(value: &MaybeEmpty<WorldBlockChr>) -> bool {
+        *unsafe {
+            value
+                .as_non_null()
+                .cast::<usize>()
+                // Offset for mappings. We can't check the vtable because it can
+                // be set even for empty values.
+                .offset(0x16)
+                .as_ref()
+        } == 0
+    }
+}
+
+impl WorldBlockChr {
+    /// Returns a slice over all the mappings in this block.
+    pub fn mappings(&self) -> &[WorldBlockMapping] {
+        unsafe { slice::from_raw_parts(self.mappings.as_ptr(), self.mappings_length as usize) }
+    }
+
+    /// Returns a mutable slice over all the mappings in this block.
+    pub fn mappings_mut(&self) -> &mut [WorldBlockMapping] {
+        unsafe { slice::from_raw_parts_mut(self.mappings.as_ptr(), self.mappings_length as usize) }
+    }
 }
 
 /// A mapping from an entity ID to a [FieldInsSelector].

@@ -22,7 +22,7 @@ pub struct WorldChrMan {
     pub world_block_chr_count: u32,
 
     /// A pointer to the beginning of [world_block_chr].
-    pub world_block_chr_ptr: NonNull<WorldBlockChr>,
+    pub world_block_chr_ptr: NonNull<MaybeEmpty<WorldBlockChr>>,
 
     _unk30: u32,
 
@@ -68,7 +68,7 @@ pub struct WorldChrMan {
 
     /// The pool of [WorldBlockChr]s. Only the first [world_area_chr_count]
     /// are initialized.
-    pub world_block_chr: [MaybeUninit<WorldBlockChr>; 32],
+    pub world_block_chr: [MaybeEmpty<WorldBlockChr>; 32],
 
     _unk2fe0: u64,
     _unk2fe8: u64,
@@ -93,6 +93,16 @@ pub struct WorldChrMan {
     _void_tasks: [UnknownStruct<0x28>; 0xa],
 }
 
+impl WorldChrMan {
+    /// Returns an iterator over the non-empty [WorldBlockChr]s.
+    pub fn world_block_chrs(&self) -> WorldBlockChrIter<'_> {
+        self.world_block_chr.iter().non_empty()
+    }
+}
+
+pub type WorldBlockChrIter<'a> =
+    NonEmptyIter<'a, WorldBlockChr, slice::Iter<'a, MaybeEmpty<WorldBlockChr>>>;
+
 #[repr(C)]
 /// Source of name: RTTI
 pub struct WorldAreaChr {
@@ -108,8 +118,9 @@ pub struct ChrSet<T>
 where
     T: Subclass<ChrIns>,
 {
-    /// The size of the set.
-    pub length: u32,
+    /// The capacity of [entries]. Not every entry within this capacity will be
+    /// non-empty.
+    pub capacity: u32,
 
     /// The contents of the set.
     pub entries: OwnedPtr<MaybeEmpty<ChrSetEntry<T>>>,
@@ -124,12 +135,12 @@ where
     /// Returns a slice over all the entries in this set, whether or not they're
     /// empty.
     pub fn entries(&self) -> &[MaybeEmpty<ChrSetEntry<T>>] {
-        unsafe { slice::from_raw_parts(self.entries.as_ptr(), self.length as usize) }
+        unsafe { slice::from_raw_parts(self.entries.as_ptr(), self.capacity as usize) }
     }
 
     /// Returns a mutable slice over all the entries in this set.
     pub fn entries_mut(&mut self) -> &mut [MaybeEmpty<ChrSetEntry<T>>] {
-        unsafe { slice::from_raw_parts_mut(self.entries.as_ptr(), self.length as usize) }
+        unsafe { slice::from_raw_parts_mut(self.entries.as_ptr(), self.capacity as usize) }
     }
 
     /// Returns an iterator over all the [T]s in this set.
@@ -212,9 +223,10 @@ where
     /// The character this entry refers to.
     pub chr: OwnedPtr<T>,
 
-    _unk08: [u8; 0x10],
+    _unk08: u32,
+    _unk10: u64,
     _special_effect: usize,
-    _unk20: [u8; 8],
+    _unk20: u64,
     _chr_physics_module: usize,
     _unk30: usize,
 }
