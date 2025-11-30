@@ -7,9 +7,9 @@ use std::slice;
 use std::{iter, iter::FusedIterator};
 
 use bitfield::bitfield;
-use shared::{empty::*, OwnedPtr};
+use shared::{empty::*, FromStatic, InstanceResult, OwnedPtr};
 
-use crate::sprj::{CategorizedItemID, MaybeInvalidCategorizedItemID};
+use crate::sprj::{CategorizedItemID, MaybeInvalidCategorizedItemID, PlayerIns};
 use crate::CxxVec;
 
 #[repr(C)]
@@ -34,6 +34,17 @@ pub struct PlayerGameData {
     _menu_ref_special_effect_1: usize,
     _menu_ref_special_effect_2: usize,
     _unk930: [u8; 0x20],
+}
+
+impl FromStatic for PlayerGameData {
+    /// Returns the singleton instance of `PlayerGameData` for the main player
+    /// character, if it exists.
+    ///
+    /// This always returns [InstanceError::NotFound] on the main menu.
+    unsafe fn instance() -> InstanceResult<&'static mut Self> {
+        // Go through PlayerIns because it doesn't exist on the main menu.
+        unsafe { PlayerIns::instance().map(|ins| ins.player_game_data.as_mut()) }
+    }
 }
 
 #[repr(C)]
@@ -420,7 +431,8 @@ pub struct EquipInventoryDataListEntry {
 
 unsafe impl IsEmpty for EquipInventoryDataListEntry {
     fn is_empty(value: &MaybeEmpty<EquipInventoryDataListEntry>) -> bool {
-        (unsafe { *value.as_non_null().cast::<u32>().as_ref() }) == 0
+        (unsafe { *value.as_non_null().cast::<u32>().offset(1).as_ref() })
+            == MaybeInvalidCategorizedItemID::INVALID.value()
     }
 }
 
