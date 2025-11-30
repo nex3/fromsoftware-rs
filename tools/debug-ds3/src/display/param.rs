@@ -4,7 +4,7 @@ use hudhook::imgui::{TableColumnSetup, TableFlags, TreeNodeFlags};
 use super::DebugDisplay;
 
 impl DebugDisplay for CSRegulationManager {
-    fn render_debug(&self, ui: &&mut hudhook::imgui::Ui) {
+    fn render_debug(&mut self, ui: &&mut hudhook::imgui::Ui) {
         if ui.collapsing_header("Resources", TreeNodeFlags::empty()) {
             if let Some(_t) = ui.begin_table_header_with_flags(
                 "fd4-param-repository-rescaps",

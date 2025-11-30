@@ -98,10 +98,18 @@ impl WorldChrMan {
     pub fn world_block_chrs(&self) -> WorldBlockChrIter<'_> {
         self.world_block_chr.iter().non_empty()
     }
+
+    /// Returns a mutable iterator over the non-empty [WorldBlockChr]s.
+    pub fn world_block_chrs_mut(&mut self) -> WorldBlockChrIterMut<'_> {
+        self.world_block_chr.iter_mut().non_empty()
+    }
 }
 
 pub type WorldBlockChrIter<'a> =
     NonEmptyIter<'a, WorldBlockChr, slice::Iter<'a, MaybeEmpty<WorldBlockChr>>>;
+
+pub type WorldBlockChrIterMut<'a> =
+    NonEmptyIterMut<'a, WorldBlockChr, slice::IterMut<'a, MaybeEmpty<WorldBlockChr>>>;
 
 #[repr(C)]
 /// Source of name: RTTI

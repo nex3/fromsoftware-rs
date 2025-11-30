@@ -8,7 +8,7 @@ pub(crate) mod world_block;
 pub(crate) mod world_chr_man;
 
 pub trait DebugDisplay {
-    fn render_debug(&self, ui: &&mut Ui);
+    fn render_debug(&mut self, ui: &&mut Ui);
 }
 
 pub fn render_debug_singleton<T: DebugDisplay + FromSingleton + 'static>(ui: &&mut Ui) {

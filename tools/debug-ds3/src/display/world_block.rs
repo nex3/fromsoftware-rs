@@ -5,7 +5,7 @@ use darksouls3::sprj::*;
 use super::DebugDisplay;
 
 impl DebugDisplay for WorldBlockChr {
-    fn render_debug(&self, ui: &&mut Ui) {
+    fn render_debug(&mut self, ui: &&mut Ui) {
         self.chr_set.render_debug(ui);
 
         if ui.collapsing_header("Mappings", TreeNodeFlags::empty()) {

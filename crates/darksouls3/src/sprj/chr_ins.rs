@@ -5,14 +5,14 @@ use shared::{
 };
 use vtable_rs::VPtr;
 
-use super::{ChrSetEntry, PlayerGameData, WorldChrMan};
+use super::{ChrInsModuleContainer, ChrSetEntry, PlayerGameData, WorldChrMan};
 use crate::{dlkr::DLAllocatorRef, fd4::FD4Time, rva};
 
 #[repr(C)]
 /// Source of name: RTTI
 pub struct ChrIns {
     _vftable: usize,
-    _unk08: u32,
+    pub field_ins_handle: u32,
     _unk10: i64,
     pub chr_set_entry: NonNull<ChrSetEntry<ChrIns>>,
     _unk20: OwnedPtr<UnknownStruct<0xe0>>,
@@ -83,7 +83,7 @@ pub struct ChrIns {
     _unk1a18: u32,
     _unk1a1c: u32,
     _unk1a20: OwnedPtr<UnknownStruct<0x40>>,
-    _unk1a28: u64,
+    _special_effect_equip_ctrl: usize,
     _unk1a30: [u8; 4],
     _unk1a34: u32,
     _unk1a38: u32,
@@ -168,13 +168,33 @@ pub struct ChrIns {
     _unk1f80: u64,
     _unk1f88: u32,
     _unk1f8c: u32,
-    _chr_modules: OwnedPtr<[usize; 25]>,
+    pub modules: OwnedPtr<ChrInsModuleContainer>,
     _unk1f98: [u8; 8],
 }
 
 unsafe impl Superclass for ChrIns {
     fn vmt_rva() -> u32 {
         rva::get().chr_ins_vmt
+    }
+}
+
+/// Methods that are available for all subclasses of [ChrIns].
+pub trait ChrInsSubclass: Subclass<ChrIns> {
+    /// Returns the character ID string for this character, of the form `c1234`.
+    fn id(&self) -> String;
+
+    /// Set this character's HP to zero, killing it.
+    fn kill(&mut self);
+}
+
+impl<T> ChrInsSubclass for T where T: Subclass<ChrIns> {
+    fn id(&self) -> String {
+        self.superclass().modules.data.id()
+    }
+
+    /// Set this character's HP to zero, killing it.
+    fn kill(&mut self) {
+        self.superclass_mut().modules.data.hp = 0;
     }
 }
 

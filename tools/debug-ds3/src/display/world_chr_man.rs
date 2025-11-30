@@ -6,19 +6,19 @@ use shared::{Subclass, Superclass};
 use super::DebugDisplay;
 
 impl DebugDisplay for WorldChrMan {
-    fn render_debug(&self, ui: &&mut Ui) {
+    fn render_debug(&mut self, ui: &&mut Ui) {
         ui.text(format!(
             "World Area Chr Count: {}",
             self.world_area_chr_count
         ));
 
-        let world_block_chrs = self.world_block_chrs().collect::<Vec<_>>();
+        let mut world_block_chrs = self.world_block_chrs_mut().collect::<Vec<_>>();
         if ui.collapsing_header(
             format!("World Block Chrs: {}", world_block_chrs.len()),
             TreeNodeFlags::empty(),
         ) {
             ui.indent();
-            for (i, world_block_chr) in world_block_chrs.iter().enumerate() {
+            for (i, world_block_chr) in world_block_chrs.iter_mut().enumerate() {
                 if ui.collapsing_header(format!("Block {}", i), TreeNodeFlags::empty()) {
                     ui.indent();
                     world_block_chr.render_debug(ui);
@@ -56,11 +56,11 @@ impl DebugDisplay for WorldChrMan {
             ui.unindent();
         }
 
-        match self.main_player.as_ref() {
+        match self.main_player.as_mut() {
             Some(p) => {
                 if ui.collapsing_header("Main player", TreeNodeFlags::empty()) {
                     ui.indent();
-                    unsafe { p.as_ref() }.render_debug(ui);
+                    unsafe { p.as_mut() }.render_debug(ui);
                     ui.unindent();
                 }
             }
@@ -73,20 +73,24 @@ impl<T> DebugDisplay for ChrSet<T>
 where
     T: Subclass<ChrIns>,
 {
-    fn render_debug(&self, ui: &&mut Ui) {
-        let characters = self.iter().collect::<Vec<_>>();
+    fn render_debug(&mut self, ui: &&mut Ui) {
+        let mut characters = self.iter_mut().collect::<Vec<_>>();
         if ui.collapsing_header(
             format!("Characters: {}", characters.len()),
             TreeNodeFlags::empty(),
         ) {
             ui.indent();
-            for (i, chr_ins) in characters.iter().enumerate() {
-                if ui.collapsing_header(format!("c{}", i), TreeNodeFlags::empty()) {
+            for chr_ins in characters.iter_mut() {
+                let base = chr_ins.superclass_mut();
+                if ui.collapsing_header(
+                    format!("{} ##{:p}", chr_ins.id(), base),
+                    TreeNodeFlags::empty(),
+                ) {
                     ui.indent();
-                    if let Some(player_ins) = chr_ins.superclass().as_subclass::<PlayerIns>() {
+                    if let Some(player_ins) = base.as_subclass_mut::<PlayerIns>() {
                         player_ins.render_debug(ui);
                     } else {
-                        chr_ins.superclass().render_debug(ui);
+                        base.render_debug(ui);
                     }
                     ui.unindent();
                 }
