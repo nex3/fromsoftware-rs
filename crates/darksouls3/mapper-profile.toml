@@ -23,6 +23,10 @@ class = "NS_SPRJ::ReplayGhostIns"
 vftable = "replay_ghost_ins_vmt"
 
 [[patterns]]
+pattern = "48 8b 0d ${ ' } 48 85 c9 74 ? 44 8b 41 20 48 8b 49 10 48 8d 54 24 40 e8"
+captures = ["", "field_area_ptr"]
+
+[[patterns]]
 pattern = "[23] 41 b8 58 00 00 00 48 8b ? ff 50 18 83 f8 58"
 captures = ["equip_game_data_deserialize"]
 

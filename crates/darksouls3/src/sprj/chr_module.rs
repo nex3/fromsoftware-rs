@@ -1,6 +1,6 @@
 use std::ptr::NonNull;
 
-use shared::{Subclass, OwnedPtr};
+use shared::{OwnedPtr, Subclass};
 
 use super::ChrIns;
 
@@ -74,14 +74,18 @@ pub struct ChrDataModule {
     _unk100: u32,
     _unk104: u32,
     _unk108: [u8; 0x28],
-     pub name: [u16; 8],
+    pub name: [u16; 8],
     _unk140: [u8; 0x88],
 }
 
 impl ChrDataModule {
     /// Returns the character ID string for this character, of the form `c1234`.
     pub fn id(&self) -> String {
-        let len = self.name.iter().position(|c| *c == 0).unwrap_or(self.name.len());
+        let len = self
+            .name
+            .iter()
+            .position(|c| *c == 0)
+            .unwrap_or(self.name.len());
         String::from_utf16(&self.name[..len]).unwrap_or_else(|_| "<invalid>".to_string())
     }
 }
@@ -92,6 +96,6 @@ mod test {
 
     #[test]
     fn proper_sizes() {
-         assert_eq!(0x1c8, size_of::<ChrDataModule>());
+        assert_eq!(0x1c8, size_of::<ChrDataModule>());
     }
 }

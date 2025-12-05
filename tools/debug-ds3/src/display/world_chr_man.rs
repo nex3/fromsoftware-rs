@@ -81,11 +81,11 @@ where
         ) {
             ui.indent();
             for chr_ins in characters.iter_mut() {
-                let base = chr_ins.superclass_mut();
                 if ui.collapsing_header(
-                    format!("{} ##{:p}", chr_ins.id(), base),
+                    format!("{} ##{:p}", chr_ins.id(), chr_ins),
                     TreeNodeFlags::empty(),
                 ) {
+                    let base = chr_ins.superclass_mut();
                     ui.indent();
                     if let Some(player_ins) = base.as_subclass_mut::<PlayerIns>() {
                         player_ins.render_debug(ui);

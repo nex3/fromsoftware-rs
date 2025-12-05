@@ -15,6 +15,7 @@ pub struct RvaBundle {
     pub dluid_pad_device_should_block_input: u32,
     pub equip_game_data_deserialize: u32,
     pub equip_game_data_serialize: u32,
+    pub field_area_ptr: u32,
     pub game_data_man_ptr: u32,
     pub global_hinstance: u32,
     pub lua_event_man_give_or_remove_item: u32,

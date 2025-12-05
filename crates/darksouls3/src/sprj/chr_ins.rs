@@ -187,7 +187,10 @@ pub trait ChrInsSubclass: Subclass<ChrIns> {
     fn kill(&mut self);
 }
 
-impl<T> ChrInsSubclass for T where T: Subclass<ChrIns> {
+impl<T> ChrInsSubclass for T
+where
+    T: Subclass<ChrIns>,
+{
     fn id(&self) -> String {
         self.superclass().modules.data.id()
     }
