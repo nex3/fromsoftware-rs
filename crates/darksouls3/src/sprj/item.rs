@@ -1,5 +1,7 @@
 use std::alloc::{alloc_zeroed, Layout, LayoutError};
-use std::{convert::TryFrom, ffi, fmt, iter::zip, marker::PhantomData, ops, ptr, sync::LazyLock};
+use std::{
+    convert::TryFrom, ffi, fmt, iter::zip, marker::PhantomData, mem, ops, ptr, sync::LazyLock,
+};
 
 use pelite::{pattern, pattern::Atom, pe64::Pe};
 use thiserror::Error;
@@ -22,9 +24,7 @@ pub enum ItemCategory {
     Weapon = 0,
     Protector = 1,
     Accessory = 2,
-    GemAsGoods = 3,
     Goods = 4,
-    Gem = 8,
 }
 
 impl TryFrom<u8> for ItemCategory {
@@ -35,11 +35,48 @@ impl TryFrom<u8> for ItemCategory {
             0 => Ok(ItemCategory::Weapon),
             1 => Ok(ItemCategory::Protector),
             2 => Ok(ItemCategory::Accessory),
-            3 => Ok(ItemCategory::GemAsGoods),
             4 => Ok(ItemCategory::Goods),
-            8 => Ok(ItemCategory::Gem),
             _ => Err(TryFromItemCategoryError(value)),
         }
+    }
+}
+
+/// Like [ItemCategory], but using high bits so it can be bitwise ORed with a
+/// parameter to create a [CategorizedItemID].
+///
+/// This is sometimes used in place of [ItemCategory] in internal APIs.
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Eq, PartialEq)]
+pub enum ItemCategoryHigh {
+    Weapon = 0,
+    Protector = 0x10000000,
+    Accessory = 0x20000000,
+    Goods = 0x40000000,
+}
+
+impl TryFrom<u32> for ItemCategoryHigh {
+    type Error = TryFromItemCategoryError;
+
+    fn try_from(value: u32) -> Result<ItemCategoryHigh, Self::Error> {
+        match value {
+            0 => Ok(ItemCategoryHigh::Weapon),
+            0x10000000 => Ok(ItemCategoryHigh::Protector),
+            0x20000000 => Ok(ItemCategoryHigh::Accessory),
+            0x40000000 => Ok(ItemCategoryHigh::Goods),
+            _ => Err(TryFromItemCategoryError((value >> 28) as u8)),
+        }
+    }
+}
+
+impl From<ItemCategory> for ItemCategoryHigh {
+    fn from(value: ItemCategory) -> ItemCategoryHigh {
+        unsafe { mem::transmute((value as u32) << 28) }
+    }
+}
+
+impl From<ItemCategoryHigh> for ItemCategory {
+    fn from(value: ItemCategoryHigh) -> ItemCategory {
+        unsafe { mem::transmute((value as u32 >> 28) as u8) }
     }
 }
 
@@ -61,11 +98,11 @@ impl CategorizedItemID {
     /// Creates a new [CategorizedItemID] from a [u32], or returns [None] if
     /// it has any of the four high bits is set.
     pub fn try_new(
-        category: ItemCategory,
+        category: impl Into<ItemCategory>,
         uncategorized: u32,
     ) -> Result<CategorizedItemID, TryFromItemIDError> {
         let base: UncategorizedItemID = uncategorized.try_into()?;
-        Ok(base.categorize(category))
+        Ok(base.categorize(category.into()))
     }
 
     /// Creates a new [CategorizedItemID] from a raw ID. This panics if [id] is
@@ -93,9 +130,7 @@ impl CategorizedItemID {
             0x00000000 => Weapon,
             0x10000000 => Protector,
             0x20000000 => Accessory,
-            0x30000000 => GemAsGoods,
             0x40000000 => Goods,
-            0x80000000 => Gem,
             _ => panic!("Unknown category ID"),
         }
     }
@@ -230,8 +265,8 @@ impl UncategorizedItemID {
     }
 
     /// Embeds [category] into this ID and returns the result.
-    pub const fn categorize(&self, category: ItemCategory) -> CategorizedItemID {
-        CategorizedItemID(self.0 | ((category as u32) << 28))
+    pub fn categorize(&self, category: impl Into<ItemCategory>) -> CategorizedItemID {
+        CategorizedItemID(self.0 | ItemCategoryHigh::from(category.into()) as u32)
     }
 }
 

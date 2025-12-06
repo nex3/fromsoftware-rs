@@ -5,6 +5,7 @@ use hudhook::imgui::{TreeNodeFlags, Ui};
 pub(crate) mod chr;
 pub(crate) mod event_flag;
 pub(crate) mod field_area;
+pub(crate) mod menu;
 pub(crate) mod param;
 pub(crate) mod world_block;
 pub(crate) mod world_chr_man;
@@ -30,27 +31,29 @@ where
     }
 }
 
-pub struct SingletonDebugger<T>
+pub struct StaticDebugger<T>
 where
-    T: StatefulDebugDisplay + FromSingleton + 'static,
+    T: StatefulDebugDisplay + FromStatic + 'static,
 {
+    name: String,
     state: T::State,
 }
 
-impl<T> SingletonDebugger<T>
+impl<T> StaticDebugger<T>
 where
-    T: StatefulDebugDisplay + FromSingleton + 'static,
+    T: StatefulDebugDisplay + FromStatic + 'static,
 {
-    pub fn new() -> Self {
-        SingletonDebugger {
+    pub fn new(name: impl AsRef<str>) -> Self {
+        StaticDebugger {
+            name: name.as_ref().to_string(),
             state: Default::default(),
         }
     }
 }
 
-impl<T> DebugDisplay for SingletonDebugger<T>
+impl<T> DebugDisplay for StaticDebugger<T>
 where
-    T: StatefulDebugDisplay + FromSingleton + 'static,
+    T: StatefulDebugDisplay + FromStatic + 'static,
 {
     fn render_debug(&mut self, ui: &&mut Ui) {
         let singleton = unsafe { T::instance() };
@@ -58,7 +61,7 @@ where
         match singleton {
             Ok(instance) => {
                 if ui.collapsing_header(
-                    format!("{}: {:p}", T::name(), instance),
+                    format!("{}: {:p}", self.name, instance),
                     TreeNodeFlags::empty(),
                 ) {
                     ui.indent();
@@ -67,7 +70,29 @@ where
                     ui.separator();
                 }
             }
-            Err(err) => ui.text(format!("Couldn't load {}: {:?}", T::name(), err)),
+            Err(err) => ui.text(format!("Couldn't load {}: {:?}", self.name, err)),
         }
+    }
+}
+
+pub struct SingletonDebugger<T>(StaticDebugger<T>)
+where
+    T: StatefulDebugDisplay + FromSingleton + 'static;
+
+impl<T> SingletonDebugger<T>
+where
+    T: StatefulDebugDisplay + FromSingleton + 'static,
+{
+    pub fn new() -> Self {
+        SingletonDebugger(StaticDebugger::new(T::name()))
+    }
+}
+
+impl<T> DebugDisplay for SingletonDebugger<T>
+where
+    T: StatefulDebugDisplay + FromSingleton + 'static,
+{
+    fn render_debug(&mut self, ui: &&mut Ui) {
+        DebugDisplay::render_debug(&mut self.0, ui);
     }
 }

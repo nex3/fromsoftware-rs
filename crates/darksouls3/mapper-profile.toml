@@ -23,6 +23,14 @@ class = "NS_SPRJ::ReplayGhostIns"
 vftable = "replay_ghost_ins_vmt"
 
 [[patterns]]
+pattern = "74 ? 41 8b 16 8b c2 25 ff ff ff 0f c1 ea 1c 48 8b 35 $ { ' }"
+captures = ["", "item_get_menu_man_ptr"]
+
+[[patterns]]
+pattern = "8b d0 41 0f b6 46 08 88 44 24 20 45 8b 4e 04 44 8b c7 48 8b ce e8 $ { ' }"
+captures = ["", "item_get_menu_man_show_item"]
+
+[[patterns]]
 pattern = "48 8b 0d ${ ' } 48 85 c9 74 ? 44 8b 41 20 48 8b 49 10 48 8d 54 24 40 e8"
 captures = ["", "field_area_ptr"]
 

@@ -18,6 +18,8 @@ pub const RVAS: RvaBundle = RvaBundle {
     field_area_ptr: 0x475abd0,
     game_data_man_ptr: 0x47572b8,
     global_hinstance: 0x489d5a0,
+    item_get_menu_man_ptr: 0x475fdd8,
+    item_get_menu_man_show_item: 0x7047d0,
     lua_event_man_give_or_remove_item: 0x46cad0,
     map_item_man_grant_item: 0x7c4080,
     map_item_man_ptr: 0x4769240,
