@@ -9,8 +9,12 @@ use std::{iter, iter::FusedIterator};
 use bitfield::bitfield;
 use shared::{empty::*, FromStatic, InstanceResult, OwnedPtr};
 
-use crate::sprj::{CategorizedItemID, MaybeInvalidCategorizedItemID, PlayerIns};
+use crate::sprj::{CategorizedItemID, ItemGetMenuMan, MaybeInvalidCategorizedItemID, PlayerIns};
 use crate::CxxVec;
+
+mod gesture;
+
+pub use gesture::*;
 
 #[repr(C)]
 /// Source of name: RTTI
@@ -27,13 +31,25 @@ pub struct PlayerGameData {
     /// The contents of the storage box.
     pub storage: Option<OwnedPtr<EquipInventoryData>>,
 
-    _gesture_data: usize,
+    /// Data about the player's gestures.
+    pub gesture_data: OwnedPtr<GestureGameData>,
+
     _unk7c0: [u8; 0x58],
     _unk810: CxxVec<u64>,
     _unk830: [u8; 0xe8],
     _menu_ref_special_effect_1: usize,
     _menu_ref_special_effect_2: usize,
     _unk930: [u8; 0x20],
+}
+
+impl PlayerGameData {
+    /// Grants the player a gesture, similarly to the `AwardGesture` EMEVD command.
+    pub fn grant_gesture(&mut self, gesture_index: u32, item_id: CategorizedItemID) {
+        self.gesture_data.set_gesture_acquired(gesture_index, true);
+        if let Ok(menu_man) = (unsafe { ItemGetMenuMan::instance() }) {
+            menu_man.show_item(item_id, 1, false);
+        }
+    }
 }
 
 impl FromStatic for PlayerGameData {

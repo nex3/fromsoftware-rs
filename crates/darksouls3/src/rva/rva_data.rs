@@ -17,6 +17,7 @@ pub const RVAS: RvaBundle = RvaBundle {
     equip_game_data_serialize: 0x584b60,
     field_area_ptr: 0x475abd0,
     game_data_man_ptr: 0x47572b8,
+    gesture_data_store: 0x45672e0,
     global_hinstance: 0x489d5a0,
     item_get_menu_man_ptr: 0x475fdd8,
     item_get_menu_man_show_item: 0x7047d0,

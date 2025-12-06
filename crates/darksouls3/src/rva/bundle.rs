@@ -17,6 +17,7 @@ pub struct RvaBundle {
     pub equip_game_data_serialize: u32,
     pub field_area_ptr: u32,
     pub game_data_man_ptr: u32,
+    pub gesture_data_store: u32,
     pub global_hinstance: u32,
     pub item_get_menu_man_ptr: u32,
     pub item_get_menu_man_show_item: u32,
