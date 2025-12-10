@@ -53,7 +53,7 @@ impl GameDataMan {
         // The LuaEventMan isn't actually used.
         add_or_remove_item(
             0,
-            (item.category() as u32) << 7,
+            (item.category() as u32) << 28,
             item.uncategorized().value(),
             quantity,
         );
