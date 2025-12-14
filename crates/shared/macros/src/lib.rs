@@ -39,6 +39,19 @@ pub fn singleton(args: TokenStream, input: TokenStream) -> TokenStream {
 /// that contains a `fields!` macro, using the same named field syntax that a
 /// struct uses. For each field, a getter and setter is generated both in the
 /// trait and in its implementation for each struct.
+///
+/// ## Casts
+///
+/// The trait may include functions annotated with `#[multi_param(cast)]`. These
+/// functions must return an [Option] of a reference to one of the parameter
+/// struct types. The macro will generate implementations for these functions,
+/// as well as `..._mut()` implementations, that downcast to the given return
+/// type. For example:
+///
+/// ```rs
+/// #[multi_param(cast)]
+/// fn as_weapon(&self) -> Option<&EQUIP_PARAM_WEAPON_ST>;
+/// ```
 #[proc_macro_attribute]
 pub fn multi_param(args: TokenStream, input: TokenStream) -> TokenStream {
     match multi_param::multi_param_helper(args, input) {

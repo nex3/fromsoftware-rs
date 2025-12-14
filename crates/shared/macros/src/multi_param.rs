@@ -19,8 +19,8 @@ pub fn multi_param_helper(args: TokenStream, input: TokenStream) -> Result<Token
         .parse(args)?
         .into_iter()
         .collect::<Vec<_>>();
-    let fields = extract_fields(&mut input_trait, &structs)?;
 
+    let fields = extract_fields(&mut input_trait, &structs)?;
     for field in &fields {
         let ident = &field.ident;
         let set_ident = format_ident!("set_{}", field.ident);
@@ -33,9 +33,22 @@ pub fn multi_param_helper(args: TokenStream, input: TokenStream) -> Result<Token
         })?);
     }
 
+    let methods = extract_methods(&mut input_trait)?;
+    for method in &methods {
+        let ident = &method.ident;
+        let ident_mut = format_ident!("{}_mut", ident);
+        let ty = &method.ty;
+        input_trait.items.push(syn::parse2(quote_spanned! {
+            method.span => fn #ident(&self) -> Option<&#ty>;
+        })?);
+        input_trait.items.push(syn::parse2(quote_spanned! {
+            method.span => fn #ident_mut(&mut self) -> Option<&mut #ty>;
+        })?);
+    }
+
     let impls = structs
         .into_iter()
-        .map(|struct_| generate_impl(&input_trait.ident, struct_, &fields))
+        .map(|struct_| generate_impl(&input_trait.ident, struct_, &fields, &methods))
         .collect::<Result<Vec<_>>>()?;
 
     Ok(TokenStream::from(quote! {
@@ -61,7 +74,7 @@ struct MultiParamField {
     renames: HashMap<TypePath, Ident>,
 }
 
-/// Returns all fields in [trait_] declared with [multi_param_fields].
+/// Returns all fields in [trait_] declared with `fields!`.
 fn extract_fields(trait_: &mut ItemTrait, structs: &[TypePath]) -> Result<Vec<MultiParamField>> {
     trait_
         .items
@@ -185,12 +198,152 @@ fn parse_field_attribute(meta: ParseNestedMeta<'_>) -> Result<FieldAttribute> {
     }
 }
 
+/// A method that casts the parameter to one of its specific types.
+struct MultiParamCast {
+    /// The method name.
+    ident: Ident,
+
+    /// The type to cast this to.
+    ty: TypePath,
+
+    /// The span at which the method was declared.
+    span: Span,
+}
+
+/// Returns all methods in [trait_] with specific `multi_param` semantics.
+fn extract_methods(trait_: &mut ItemTrait) -> Result<Vec<MultiParamCast>> {
+    trait_
+        .items
+        .extract_if(.., |item| match item {
+            TraitItem::Fn(f) => f.attrs.iter().any(|a| a.path().is_ident("multi_param")),
+            _ => false,
+        })
+        .filter_map(|item| match item {
+            TraitItem::Fn(f) => Some(f),
+            _ => None,
+        })
+        .map(|mut method| {
+            // Right now, this is only going to be cast.
+            extract_method_attributes(&mut method)?;
+            if !method.attrs.is_empty() {
+                return Err(Error::new(
+                    method.attrs[0].span(),
+                    "casts may only have #[multi_param(...)] attributes",
+                ));
+            }
+
+            let span = method.span();
+            let sig_span = method.sig.span();
+            expect_none(method.sig.constness, "cast")?;
+            expect_none(method.sig.asyncness, "cast")?;
+            expect_none(method.sig.unsafety, "cast")?;
+            expect_none(method.sig.abi, "cast")?;
+            expect_empty(method.sig.generics.params, "cast")?;
+            expect_none(method.sig.generics.where_clause, "cast")?;
+            if method.sig.inputs.len() > 1 {
+                return Err(Error::new(
+                    method.sig.inputs.span(),
+                    "casts can't have parameters",
+                ));
+            } else {
+                match &method.sig.inputs[0] {
+                    FnArg::Receiver(Receiver {
+                        reference: Some((_, None)),
+                        mutability: None,
+                        colon_token: None,
+                        ..
+                    }) => {}
+                    arg => return Err(Error::new(arg.span(), "expected &self")),
+                }
+            }
+            expect_none(method.sig.variadic, "cast")?;
+            expect_none(method.default, "cast")?;
+
+            let ReturnType::Type(_, return_type) = method.sig.output else {
+                return Err(Error::new(sig_span, "cast must have a return type"));
+            };
+            let Some(ty) = parse_cast_type(*return_type) else {
+                return Err(Error::new(sig_span, "cast must return Option<&Type>"));
+            };
+
+            Ok(MultiParamCast {
+                ident: method.sig.ident,
+                ty,
+                span,
+            })
+        })
+        .collect()
+}
+
+fn parse_cast_type(ty: Type) -> Option<TypePath> {
+    if let Type::Path(mut path) = ty
+        && path.qself.is_none()
+        && path.path.segments.len() == 1
+        && let Some(pair) = path.path.segments.pop()
+        && let PathSegment {
+            ident,
+            arguments: PathArguments::AngleBracketed(mut args),
+        } = pair.into_value()
+        && ident == "Option"
+        && args.args.len() == 1
+        && let Some(pair) = args.args.pop()
+        && let GenericArgument::Type(Type::Reference(TypeReference {
+            lifetime: None,
+            mutability: None,
+            elem,
+            ..
+        })) = pair.into_value()
+        && let Type::Path(path) = *elem
+    {
+        Some(path)
+    } else {
+        None
+    }
+}
+
+/// A `multi_param()` attribute on a method.
+enum MethodAttribute {
+    /// `cast`, with no arguments
+    Cast,
+}
+
+/// Removes all `#[multi_param(...)]` attributes from [f] and returns them
+/// as [MethodAttribute]s.
+fn extract_method_attributes(f: &mut TraitItemFn) -> Result<Vec<MethodAttribute>> {
+    f.attrs
+        .extract_if(.., |attr| attr.path().is_ident("multi_param"))
+        .flat_map(|attr| {
+            let mut attributes = Vec::new();
+            if let Err(err) = attr.parse_nested_meta(|meta| {
+                attributes.push(Ok(parse_method_attribute(meta)?));
+                Ok(())
+            }) {
+                return vec![Err(err)];
+            }
+            attributes
+        })
+        .collect()
+}
+
+/// Parses a single nested meta item inside a `#[multi_param(...)]` attribute on
+/// a fn in a multi_param trait.
+fn parse_method_attribute(meta: ParseNestedMeta<'_>) -> Result<MethodAttribute> {
+    if !meta.path.is_ident("cast") {
+        Err(meta.error("unrecognized attribute"))
+    } else if !meta.input.is_empty() {
+        Err(meta.error("expected no arguments"))
+    } else {
+        Ok(MethodAttribute::Cast)
+    }
+}
+
 /// Generates an implementation of [trait_] for [target] which forwards getters
 /// and setters for all fields in [fields] to methods of the same name.
 fn generate_impl<'a>(
     trait_: &Ident,
     target: TypePath,
     fields: impl IntoIterator<Item = &'a MultiParamField>,
+    methods: impl IntoIterator<Item = &'a MultiParamCast>,
 ) -> Result<ItemImpl> {
     let mut result: ItemImpl = syn::parse2(quote! {
         impl #trait_ for #target {}
@@ -220,5 +373,53 @@ fn generate_impl<'a>(
         })?);
     }
 
+    for MultiParamCast { ident, ty, span } in methods {
+        let body = if *ty == target {
+            quote! { Some(self) }
+        } else {
+            quote! { None }
+        };
+        result.items.push(syn::parse2(quote_spanned! { *span =>
+            fn #ident(&self) -> Option<&#ty> {
+                #body
+            }
+        })?);
+
+        let ident_mut = format_ident!("{}_mut", ident);
+        result.items.push(syn::parse2(quote_spanned! { *span =>
+            fn #ident_mut(&mut self) -> Option<&mut #ty> {
+                #body
+            }
+        })?);
+    }
+
     Ok(result)
+}
+
+/// Returns an error if [value] isn't `None`.
+fn expect_none<T>(value: Option<T>, context: &str) -> Result<()>
+where
+    T: Spanned,
+{
+    if let Some(value) = value {
+        Err(Error::new(
+            value.span(),
+            format!("not allowed in {}", context),
+        ))
+    } else {
+        Ok(())
+    }
+}
+
+/// Returns an error if [value] isn't empty.
+fn expect_empty<T>(value: T, context: &str) -> Result<()>
+where
+    T: IntoIterator + Spanned,
+{
+    let span = value.span();
+    if let Some(_) = value.into_iter().next() {
+        Err(Error::new(span, format!("not allowed in {}", context)))
+    } else {
+        Ok(())
+    }
 }
