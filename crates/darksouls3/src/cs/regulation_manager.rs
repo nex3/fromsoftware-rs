@@ -222,7 +222,9 @@ impl CSRegulationManager {
         match id.category() {
             Weapon => self
                 .get_param::<EQUIP_PARAM_WEAPON_ST>()
-                .get(id.uncategorized().value().into())
+                // Round to the nearest 100 in case the ID is for an upgraded
+                // weapon.
+                .get((u64::from(id.uncategorized().value()) / 100) * 100)
                 .map(|p| p as &dyn EquipParam),
             Protector => self
                 .get_param::<EQUIP_PARAM_PROTECTOR_ST>()
@@ -247,7 +249,9 @@ impl CSRegulationManager {
         match id.category() {
             Weapon => self
                 .get_mut_param::<EQUIP_PARAM_WEAPON_ST>()
-                .get_mut(id.uncategorized().value().into())
+                // Round to the nearest 100 in case the ID is for an upgraded
+                // weapon.
+                .get_mut((u64::from(id.uncategorized().value()) / 100) * 100)
                 .map(|p| p as &mut dyn EquipParam),
             Protector => self
                 .get_mut_param::<EQUIP_PARAM_PROTECTOR_ST>()
