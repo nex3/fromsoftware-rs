@@ -1,18 +1,18 @@
 use std::ffi::{c_char, c_str::CStr, c_void};
 use std::marker::PhantomData;
 use std::ops::{Index, IndexMut};
-use std::{mem, num::NonZero, ptr, ptr::NonNull, slice};
+use std::{mem, ptr, ptr::NonNull, slice};
 
-use shared::{util::IncompleteArrayField, OwnedPtr};
+use shared::{OwnedPtr, util::IncompleteArrayField};
 
+use crate::CxxVec;
 use crate::fd4::FD4BasicHashString;
 use crate::param::{
-    EquipParam, ParamDef, ATK_PARAM_ST, BEHAVIOR_PARAM_ST, EQUIP_PARAM_ACCESSORY_ST,
-    EQUIP_PARAM_GOODS_ST, EQUIP_PARAM_PROTECTOR_ST, EQUIP_PARAM_WEAPON_ST, LOD_BANK,
-    MULTI_ESTUS_FLASK_BONUS_PARAM_ST,
+    ATK_PARAM_ST, BEHAVIOR_PARAM_ST, EQUIP_PARAM_ACCESSORY_ST, EQUIP_PARAM_GOODS_ST,
+    EQUIP_PARAM_PROTECTOR_ST, EQUIP_PARAM_WEAPON_ST, EquipParam, LOD_BANK,
+    MULTI_ESTUS_FLASK_BONUS_PARAM_ST, ParamDef,
 };
 use crate::sprj::{CategorizedItemID, ItemCategory};
-use crate::CxxVec;
 
 #[repr(C)]
 #[shared::singleton("CSRegulationManager")]
@@ -208,7 +208,7 @@ impl CSRegulationManager {
     /// Returns the parameter at the given [index]. Panics if it doesn't match
     /// [T].
     fn get_mut_param_by_index<T: ParamDef>(&mut self, index: usize) -> &mut Parameter<T> {
-        let mut table = &mut self.params[index].param.table;
+        let table = &mut self.params[index].param.table;
         table
             .as_mut_param()
             // The borrow checker won't let us include the  actual name ere
@@ -238,7 +238,6 @@ impl CSRegulationManager {
                 .get_param::<EQUIP_PARAM_GOODS_ST>()
                 .get(id.uncategorized().value().into())
                 .map(|p| p as &dyn EquipParam),
-            _ => None,
         }
     }
 
@@ -265,7 +264,6 @@ impl CSRegulationManager {
                 .get_mut_param::<EQUIP_PARAM_GOODS_ST>()
                 .get_mut(id.uncategorized().value().into())
                 .map(|p| p as &mut dyn EquipParam),
-            _ => None,
         }
     }
 }
@@ -339,14 +337,14 @@ impl ParamTable {
     /// Returns the header information about each row as a slice.
     pub fn row_info(&self) -> &[ParamRowInfo] {
         // Safety: We trust the game to report lengths accurately.
-        unsafe { self.row_info.as_slice(self.length.try_into().unwrap()) }
+        unsafe { self.row_info.as_slice(self.length.into()) }
     }
 
     /// If [name] matches [T]'s [ParamDef::NAME], converts this to a [Parameter].
     pub fn as_param<T: ParamDef>(&self) -> Option<&Parameter<T>> {
         if self.name() == T::NAME {
             // Safety: [Parameter] is a transparent wrapper around [ParamTable].
-            Some(unsafe { mem::transmute(self) })
+            Some(unsafe { mem::transmute::<&Self, &Parameter<T>>(self) })
         } else {
             None
         }
@@ -357,7 +355,7 @@ impl ParamTable {
     pub fn as_mut_param<T: ParamDef>(&mut self) -> Option<&mut Parameter<T>> {
         if self.name() == T::NAME {
             // Safety: [Parameter] is a transparent wrapper around [ParamTable].
-            Some(unsafe { mem::transmute(self) })
+            Some(unsafe { mem::transmute::<&mut Self, &mut Parameter<T>>(self) })
         } else {
             None
         }
@@ -392,10 +390,7 @@ impl<T: ParamDef> Parameter<T> {
     pub fn as_slice(&self) -> &[T] {
         // Safety: We trust the game to report lengths accurately.
         unsafe {
-            slice::from_raw_parts(
-                self.table.data().cast().as_ptr(),
-                self.table.length.try_into().unwrap(),
-            )
+            slice::from_raw_parts(self.table.data().cast().as_ptr(), self.table.length.into())
         }
     }
 
@@ -406,10 +401,7 @@ impl<T: ParamDef> Parameter<T> {
     pub fn as_mut_slice(&mut self) -> &mut [T] {
         // Safety: We trust the game to report lengths accurately.
         unsafe {
-            slice::from_raw_parts_mut(
-                self.table.data().cast().as_ptr(),
-                self.table.length.try_into().unwrap(),
-            )
+            slice::from_raw_parts_mut(self.table.data().cast().as_ptr(), self.table.length.into())
         }
     }
 

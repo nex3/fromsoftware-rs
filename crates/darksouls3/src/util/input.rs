@@ -2,7 +2,7 @@ use std::sync::atomic::{AtomicU8, Ordering};
 use std::sync::{Mutex, OnceLock};
 
 use bitflags::bitflags;
-use ilhook::{x64::*, HookError};
+use ilhook::{HookError, x64::*};
 use pelite::pe64::Pe;
 use shared::Program;
 

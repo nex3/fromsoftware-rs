@@ -1,9 +1,8 @@
-use std::{cell::UnsafeCell, ffi};
+use std::cell::UnsafeCell;
 
 use vtable_rs::VPtr;
 use windows::Win32::System::Threading::{
-    DeleteCriticalSection, EnterCriticalSection, InitializeCriticalSection, LeaveCriticalSection,
-    CRITICAL_SECTION,
+    CRITICAL_SECTION, DeleteCriticalSection, EnterCriticalSection, LeaveCriticalSection,
 };
 
 #[vtable_rs::vtable]

@@ -1,5 +1,4 @@
 use std::ptr::NonNull;
-use std::sync::LazyLock;
 
 use pelite::pe64::{Pe, Rva, Va};
 
@@ -18,11 +17,11 @@ use crate::Program;
 /// * There's a 1-to-1 correspondence between vtable address and C++ class.
 pub unsafe trait Superclass: Sized {
     /// The VA of this class's virtual method table.
-    const VMT_VA: LazyLock<Va> = LazyLock::new(|| {
+    fn vmt_va() -> Va {
         Program::current()
             .rva_to_va(Self::vmt_rva())
             .expect("VMT address not in executable!")
-    });
+    }
 
     /// The RVA of this class's virtual method table.
     fn vmt_rva() -> Rva;
@@ -38,7 +37,7 @@ pub unsafe trait Superclass: Sized {
     /// table, it will return `false` for *subclasses* of [T] even though C++
     /// considers them to be of type [T].
     fn is_subclass<T: Subclass<Self>>(&self) -> bool {
-        self.vmt() == *T::VMT_VA
+        self.vmt() == Self::vmt_va()
     }
 
     /// Returns this as a [T] if it is one. Otherwise, returns `None`.
@@ -82,11 +81,11 @@ pub unsafe trait Superclass: Sized {
 /// * An initial subsequence of the struct is a valid isntance of [T].
 pub unsafe trait Subclass<T: Superclass> {
     /// The VA of this class's virtual method table.
-    const VMT_VA: LazyLock<Va> = LazyLock::new(|| {
+    fn vmt_va() -> Va {
         Program::current()
             .rva_to_va(Self::vmt_rva())
             .expect("VMT address not in executable!")
-    });
+    }
 
     /// The RVA of this class's virtual method table.
     fn vmt_rva() -> Rva;

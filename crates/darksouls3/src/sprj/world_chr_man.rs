@@ -1,6 +1,6 @@
 use std::{mem::MaybeUninit, ptr::NonNull, slice};
 
-use shared::{empty::*, OwnedPtr, Subclass, UnknownStruct};
+use shared::{OwnedPtr, Subclass, UnknownStruct, empty::*};
 
 use super::{ChrIns, PlayerIns, ReplayGhostIns, WorldBlockChr, WorldInfoOwner};
 use crate::CxxVec;
@@ -153,12 +153,12 @@ where
 
     /// Returns an iterator over all the [T]s in this set.
     pub fn iter(&self) -> ChrSetIter<'_, T> {
-        ChrSetIter(self.entries().into_iter().non_empty())
+        ChrSetIter(self.entries().iter().non_empty())
     }
 
     /// Returns a mutable iterator over all the [T]s in this set.
     pub fn iter_mut(&mut self) -> ChrSetIterMut<'_, T> {
-        ChrSetIterMut(self.entries_mut().into_iter().non_empty())
+        ChrSetIterMut(self.entries_mut().iter_mut().non_empty())
     }
 }
 

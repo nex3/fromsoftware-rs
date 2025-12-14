@@ -43,9 +43,11 @@ impl ItemGetMenuMan {
 
 impl FromStatic for ItemGetMenuMan {
     unsafe fn instance() -> InstanceResult<&'static mut Self> {
-        let target = *(Program::current()
-            .rva_to_va(rva::get().item_get_menu_man_ptr)
-            .map_err(|_| InstanceError::NotFound)? as *const *mut Self);
+        let target = unsafe {
+            *(Program::current()
+                .rva_to_va(rva::get().item_get_menu_man_ptr)
+                .map_err(|_| InstanceError::NotFound)? as *const *mut Self)
+        };
 
         unsafe { target.as_mut().ok_or(InstanceError::Null) }
     }

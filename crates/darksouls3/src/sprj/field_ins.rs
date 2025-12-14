@@ -11,9 +11,9 @@ pub enum FieldInsType {
     Bullet = 3,
 }
 
-/// A selector that encodes the information to look up a specific FieldIns
-/// managed by its respective (external) domain.
 bitfield! {
+    /// A selector that encodes the information to look up a specific FieldIns
+    /// managed by its respective (external) domain.
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct FieldInsSelector(u32);
 

@@ -1,6 +1,6 @@
 use std::slice;
 
-use shared::{empty::*, OwnedPtr};
+use shared::{OwnedPtr, empty::*};
 
 use crate::sprj::ChrSet;
 
@@ -52,7 +52,7 @@ impl WorldBlockChr {
     }
 
     /// Returns a mutable slice over all the mappings in this block.
-    pub fn mappings_mut(&self) -> &mut [WorldBlockMapping] {
+    pub fn mappings_mut(&mut self) -> &mut [WorldBlockMapping] {
         unsafe { slice::from_raw_parts_mut(self.mappings.as_ptr(), self.mappings_length as usize) }
     }
 }

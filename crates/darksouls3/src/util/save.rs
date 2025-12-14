@@ -3,7 +3,7 @@ use std::sync::LazyLock;
 
 use ilhook::{x64::*, *};
 use pelite::pe64::Pe;
-use shared::{ext::*, Program};
+use shared::{Program, ext::*};
 
 use crate::dlio::*;
 use crate::rva;
@@ -55,10 +55,8 @@ pub unsafe fn on_load<'a, T: Fn(OnLoadType<'_>) + Send + Sync + 'a>(
     callback: T,
 ) -> Result<ClosureHookPoint<'a>, HookError> {
     let callback = move |reg: *mut Registers, original| {
-        let original: unsafe extern "win64" fn(
-            &mut EquipGameData,
-            &mut DLMemoryInputStream,
-        ) -> usize = unsafe { std::mem::transmute(original) };
+        let original: extern "win64" fn(&mut EquipGameData, &mut DLMemoryInputStream) -> usize =
+            unsafe { std::mem::transmute(original) };
         // Safety: We trust that DS3 gives us valid pointers.
         let this = unsafe { &mut *((*reg).rcx as *mut EquipGameData) };
         let stream = unsafe { &mut *((*reg).rdx as *mut DLMemoryInputStream) };
@@ -127,22 +125,22 @@ pub unsafe fn on_save<'a, T: (Fn() -> Option<Vec<u8>>) + Send + Sync + 'a>(
     callback: T,
 ) -> Result<ClosureHookPoint<'a>, HookError> {
     let callback = move |reg: *mut Registers, original| {
-        let original: unsafe extern "win64" fn(&EquipGameData, &mut DLMemoryOutputStream) -> usize =
+        let original: extern "win64" fn(&EquipGameData, &mut DLMemoryOutputStream) -> usize =
             unsafe { std::mem::transmute(original) };
         // Safety: We trust that DS3 gives us valid pointers.
         let this = unsafe { &*((*reg).rcx as *const EquipGameData) };
         let stream = unsafe { &mut *((*reg).rdx as *mut DLMemoryOutputStream) };
 
         // Never write custom save data for the main menu.
-        if !this.is_main_menu() {
-            if let Some(result) = callback() {
-                // Add a small header indicating that fromsoftware-rs modified
-                // this save file, so that we know which save files to run
-                // [on_load] for.
-                write!(stream, "{}", HEADER).unwrap();
-                if stream.write_delimited(result.as_ref()).unwrap() != result.len() + 4 {
-                    return 1;
-                }
+        if !this.is_main_menu()
+            && let Some(result) = callback()
+        {
+            // Add a small header indicating that fromsoftware-rs modified
+            // this save file, so that we know which save files to run
+            // [on_load] for.
+            write!(stream, "{}", HEADER).unwrap();
+            if stream.write_delimited(result.as_ref()).unwrap() != result.len() + 4 {
+                return 1;
             }
         }
 

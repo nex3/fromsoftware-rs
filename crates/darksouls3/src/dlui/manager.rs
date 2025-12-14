@@ -4,9 +4,9 @@ use pelite::pe64::Pe;
 use shared::{FromStatic, InstanceError, InstanceResult};
 use shared::{OwnedPtr, Program};
 
+use crate::CxxVec;
 use crate::dlkr::{DLAllocatorRef, DLPlainLightMutex};
 use crate::dlui::DLUserInputDeviceImpl;
-use crate::CxxVec;
 
 #[repr(C)]
 pub struct DLUserInputManager {
@@ -38,7 +38,7 @@ impl FromStatic for DLUserInputManager {
         let Some(va) = *DL_USER_INPUT_MANAGER_PTR_VA else {
             return Err(InstanceError::NotFound);
         };
-        let pointer = *(va as *const *mut Self);
+        let pointer = unsafe { *(va as *const *mut Self) };
         unsafe { pointer.as_mut() }.ok_or(InstanceError::Null)
     }
 }

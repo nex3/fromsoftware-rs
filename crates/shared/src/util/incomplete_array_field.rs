@@ -28,8 +28,10 @@ impl<T> IncompleteArrayField<T> {
 
     /// Returns a slice representing the data in this field.
     ///
-    /// Safety: The caller must have out-of-band knowledge that the field is at
-    /// least [len] entries long.
+    /// ## Safety
+    ///
+    /// The caller must have out-of-band knowledge that the field is at least
+    /// [len] entries long.
     #[inline]
     pub unsafe fn as_slice(&self, len: usize) -> &[T] {
         unsafe { slice::from_raw_parts(self.as_ptr(), len) }
@@ -37,8 +39,10 @@ impl<T> IncompleteArrayField<T> {
 
     /// Returns a mutable slice representing the data in this field.
     ///
-    /// Safety: The caller must have out-of-band knowledge that the field is at
-    /// least [len] entries long.
+    /// ## Safety
+    ///
+    /// The caller must have out-of-band knowledge that the field is at least
+    /// [len] entries long.
     #[inline]
     pub unsafe fn as_mut_slice(&mut self, len: usize) -> &mut [T] {
         unsafe { slice::from_raw_parts_mut(self.as_mut_ptr(), len) }

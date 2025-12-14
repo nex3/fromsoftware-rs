@@ -3,10 +3,10 @@ use std::time::Duration;
 use darksouls3::cs::*;
 use darksouls3::sprj::*;
 use darksouls3::util::{input::*, system::wait_for_system_init};
+use fromsoftware_shared::Program;
 use hudhook::hooks::dx11::ImguiDx11Hooks;
 use hudhook::windows::Win32::Foundation::HINSTANCE;
-use hudhook::{eject, imgui::*, Hudhook, ImguiRenderLoop};
-use shared::Program;
+use hudhook::{Hudhook, ImguiRenderLoop, eject, imgui::*};
 use tracing_panic::panic_hook;
 
 mod display;
@@ -15,7 +15,7 @@ use display::{DebugDisplay, SingletonDebugger, StaticDebugger};
 
 /// # Safety
 /// This is exposed this way such that libraryloader can call it. Do not call this yourself.
-#[no_mangle]
+#[unsafe(no_mangle)]
 pub unsafe extern "C" fn DllMain(hmodule: HINSTANCE, reason: u32) -> bool {
     if reason == 1 {
         std::panic::set_hook(Box::new(panic_hook));
@@ -81,15 +81,15 @@ impl ImguiRenderLoop for DarkSouls3DebugGui {
         let io = ui.io();
         let mut flag = InputFlags::empty();
         if io.want_capture_mouse {
-            flag = flag | InputFlags::Mouse;
+            flag |= InputFlags::Mouse;
         }
         if io.want_capture_keyboard {
-            flag = flag | InputFlags::Keyboard;
+            flag |= InputFlags::Keyboard;
         }
         if io.want_capture_mouse && io.want_capture_keyboard {
             // Only block pad input if both the mouse and keyboard are blocked
             // (for example if a modal dialog is up).
-            flag = flag | InputFlags::GamePad;
+            flag |= InputFlags::GamePad;
         }
         self.input_blocker.block_only(flag);
 

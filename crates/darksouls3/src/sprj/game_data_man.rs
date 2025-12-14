@@ -1,10 +1,7 @@
 use std::sync::LazyLock;
 
-use pelite::{pattern, pattern::Atom, pe64::Pe};
-use shared::{
-    util::IncompleteArrayField, FromStatic, InstanceError, InstanceResult, OwnedPtr, Program,
-    RecurringTask, SharedTaskImp,
-};
+use pelite::pe64::Pe;
+use shared::{FromStatic, InstanceError, InstanceResult, OwnedPtr, Program};
 
 use super::{CategorizedItemID, PlayerGameData};
 use crate::rva;
@@ -83,7 +80,7 @@ impl FromStatic for GameDataMan {
         let Some(va) = *GAME_DATA_MAN_PTR_VA else {
             return Err(InstanceError::NotFound);
         };
-        let pointer = *(va as *const *mut Self);
+        let pointer = unsafe { *(va as *const *mut Self) };
         unsafe { pointer.as_mut() }.ok_or(InstanceError::Null)
     }
 }

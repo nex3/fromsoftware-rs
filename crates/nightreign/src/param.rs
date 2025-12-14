@@ -4,6 +4,7 @@
 
 /// Trait to perform safe param lookups.
 pub trait ParamDef {
+    /// The all-caps, snake-case name of the parameter definition.
     const NAME: &str;
 }
 

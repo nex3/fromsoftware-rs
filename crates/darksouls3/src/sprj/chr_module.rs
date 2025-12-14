@@ -1,6 +1,6 @@
 use std::ptr::NonNull;
 
-use shared::{OwnedPtr, Subclass};
+use shared::OwnedPtr;
 
 use super::ChrIns;
 

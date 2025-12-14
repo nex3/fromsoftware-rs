@@ -1,8 +1,8 @@
-use std::fmt::{Debug, Display};
+use std::fmt::Debug;
 use std::io;
 
 #[repr(u32)]
-#[derive(Debug, Clone, Copy)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 /// Determines the starting position for passed-in offsets.
 pub enum DLFileSeekDirection {
     /// Seek from start of stream.

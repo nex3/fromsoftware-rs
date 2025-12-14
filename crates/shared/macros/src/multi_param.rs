@@ -417,7 +417,7 @@ where
     T: IntoIterator + Spanned,
 {
     let span = value.span();
-    if let Some(_) = value.into_iter().next() {
+    if value.into_iter().next().is_some() {
         Err(Error::new(span, format!("not allowed in {}", context)))
     } else {
         Ok(())

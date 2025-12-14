@@ -25,12 +25,12 @@ impl DebugDisplay for PlayerGameData {
             ui.unindent();
         }
 
-        if let Some(storage) = &mut self.storage {
-            if ui.collapsing_header("Storage Box", TreeNodeFlags::empty()) {
-                ui.indent();
-                storage.render_debug(ui);
-                ui.unindent();
-            }
+        if let Some(storage) = &mut self.storage
+            && ui.collapsing_header("Storage Box", TreeNodeFlags::empty())
+        {
+            ui.indent();
+            storage.render_debug(ui);
+            ui.unindent();
         }
     }
 }
@@ -38,7 +38,7 @@ impl DebugDisplay for PlayerGameData {
 impl DebugDisplay for PlayerInfo {
     fn render_debug(&mut self, ui: &&mut Ui) {
         ui.text(format!("ID: {}", self.id));
-        if self.name().len() > 0 {
+        if !self.name().is_empty() {
             ui.text(format!("Name: {}", self.name()));
         }
         ui.text(format!("Vigor: {}", self.vigor));

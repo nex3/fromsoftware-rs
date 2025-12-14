@@ -1,15 +1,10 @@
-use std::alloc::{alloc_zeroed, Layout, LayoutError};
-use std::{
-    convert::TryFrom, ffi, fmt, iter::zip, marker::PhantomData, mem, ops, ptr, sync::LazyLock,
-};
+use std::alloc::{Layout, LayoutError, alloc_zeroed};
+use std::{convert::TryFrom, fmt, mem, ops, ptr, sync::LazyLock};
 
-use pelite::{pattern, pattern::Atom, pe64::Pe};
+use pelite::pe64::Pe;
 use thiserror::Error;
 
-use shared::{
-    util::IncompleteArrayField, FromStatic, InstanceError, InstanceResult, OwnedPtr, Program,
-    RecurringTask, SharedTaskImp,
-};
+use shared::{FromStatic, InstanceError, InstanceResult, Program, util::IncompleteArrayField};
 
 use crate::rva;
 
@@ -203,10 +198,10 @@ impl MaybeInvalidCategorizedItemID {
 
     /// Whether this represents a valid [CategorizedItemID].
     pub const fn is_valid(&self) -> bool {
-        match self.0 & 0xF0000000 {
-            0x00000000 | 0x10000000 | 0x20000000 | 0x30000000 | 0x40000000 | 0x80000000 => true,
-            _ => false,
-        }
+        matches!(
+            self.0 & 0xF0000000,
+            0x00000000 | 0x10000000 | 0x20000000 | 0x30000000 | 0x40000000 | 0x80000000
+        )
     }
 
     /// Returns the numeric value of this ID, including its category
@@ -299,7 +294,7 @@ impl FromStatic for MapItemMan {
         let Some(va) = *MAP_ITEM_MAN_PTR_VA else {
             return Err(InstanceError::NotFound);
         };
-        let pointer = *(va as *const *mut Self);
+        let pointer = unsafe { *(va as *const *mut Self) };
         unsafe { pointer.as_mut() }.ok_or(InstanceError::Null)
     }
 }
@@ -417,10 +412,8 @@ impl ItemBuffer {
 impl From<&[ItemBufferEntry]> for Box<ItemBuffer> {
     fn from(items: &[ItemBufferEntry]) -> Box<ItemBuffer> {
         let mut buffer = ItemBuffer::new(items.len().try_into().unwrap());
-        let mut slice = buffer.as_mut_slice();
-        for i in 0..items.len() {
-            slice[i] = items[i].clone();
-        }
+        let slice = buffer.as_mut_slice();
+        slice[..items.len()].clone_from_slice(items);
         buffer
     }
 }

@@ -36,7 +36,7 @@ impl GestureGameData {
     /// Returns whether the player has the gesture with the given index.
     pub fn has_gesture(&self, gesture_index: u32) -> bool {
         let id = gesture_index + 22;
-        if let Ok(data_store) = (unsafe { GestureDataStore::instance() }) {
+        if let Ok(data_store) = unsafe { GestureDataStore::instance() } {
             for handle in &self.gestures {
                 if data_store.entries[handle.index() as usize].id == id {
                     return handle.acquired();
@@ -51,7 +51,7 @@ impl GestureGameData {
     /// whether the gesture was found.
     pub fn set_gesture_acquired(&mut self, gesture_index: u32, acquired: bool) -> bool {
         let id = gesture_index + 22;
-        if let Ok(data_store) = (unsafe { GestureDataStore::instance() }) {
+        if let Ok(data_store) = unsafe { GestureDataStore::instance() } {
             for handle in &mut self.gestures {
                 if data_store.entries[handle.index() as usize].id == id {
                     handle.set_acquired(acquired);

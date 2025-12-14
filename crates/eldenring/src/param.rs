@@ -4,7 +4,14 @@
 
 /// Trait to perform safe param lookups.
 pub trait ParamDef {
+    /// The all-caps, snake-case name of the parameter definition.
     const NAME: &str;
+
+    /// The index in the global parameter repository of the *first*
+    /// parameter with this definition. Some definitions are re-used
+    /// across multiple parameters, which are usually contiguous in the
+    /// repository.
+    const INDEX: usize;
 }
 
 #[derive(Debug, Clone)]
@@ -39,6 +46,7 @@ pub struct ACTIONBUTTON_PARAM_ST {
 
 impl ParamDef for ACTIONBUTTON_PARAM_ST {
     const NAME: &str = "ACTIONBUTTON_PARAM_ST";
+    const INDEX: usize = 94;
 }
 
 impl ACTIONBUTTON_PARAM_ST {
@@ -238,2484 +246,6 @@ impl ACTIONBUTTON_PARAM_ST {
 #[derive(Debug, Clone)]
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub struct AI_ANIM_TBL_PARAM {
-    atk0_ez_state_id: u16,
-    atk1_ez_state_id: u16,
-    atk2_ez_state_id: u16,
-    atk3_ez_state_id: u16,
-    atk4_ez_state_id: u16,
-    atk5_ez_state_id: u16,
-    atk6_ez_state_id: u16,
-    atk7_ez_state_id: u16,
-    atk8_ez_state_id: u16,
-    atk9_ez_state_id: u16,
-    atk10_ez_state_id: u16,
-    atk11_ez_state_id: u16,
-    atk12_ez_state_id: u16,
-    atk13_ez_state_id: u16,
-    atk14_ez_state_id: u16,
-    atk15_ez_state_id: u16,
-    atk16_ez_state_id: u16,
-    atk17_ez_state_id: u16,
-    atk18_ez_state_id: u16,
-    atk19_ez_state_id: u16,
-    atk20_ez_state_id: u16,
-    atk21_ez_state_id: u16,
-    atk22_ez_state_id: u16,
-    atk23_ez_state_id: u16,
-    atk24_ez_state_id: u16,
-    atk25_ez_state_id: u16,
-    atk26_ez_state_id: u16,
-    atk27_ez_state_id: u16,
-    atk28_ez_state_id: u16,
-    atk29_ez_state_id: u16,
-    atk0_min_dist: u16,
-    atk1_min_dist: u16,
-    atk2_min_dist: u16,
-    atk3_min_dist: u16,
-    atk4_min_dist: u16,
-    atk5_min_dist: u16,
-    atk6_min_dist: u16,
-    atk7_min_dist: u16,
-    atk8_min_dist: u16,
-    atk9_min_dist: u16,
-    atk10_min_dist: u16,
-    atk11_min_dist: u16,
-    atk12_min_dist: u16,
-    atk13_min_dist: u16,
-    atk14_min_dist: u16,
-    atk15_min_dist: u16,
-    atk16_min_dist: u16,
-    atk17_min_dist: u16,
-    atk18_min_dist: u16,
-    atk19_min_dist: u16,
-    atk20_min_dist: u16,
-    atk21_min_dist: u16,
-    atk22_min_dist: u16,
-    atk23_min_dist: u16,
-    atk24_min_dist: u16,
-    atk25_min_dist: u16,
-    atk26_min_dist: u16,
-    atk27_min_dist: u16,
-    atk28_min_dist: u16,
-    atk29_min_dist: u16,
-    atk0_max_dist: u16,
-    atk1_max_dist: u16,
-    atk2_max_dist: u16,
-    atk3_max_dist: u16,
-    atk4_max_dist: u16,
-    atk5_max_dist: u16,
-    atk6_max_dist: u16,
-    atk7_max_dist: u16,
-    atk8_max_dist: u16,
-    atk9_max_dist: u16,
-    atk10_max_dist: u16,
-    atk11_max_dist: u16,
-    atk12_max_dist: u16,
-    atk13_max_dist: u16,
-    atk14_max_dist: u16,
-    atk15_max_dist: u16,
-    atk16_max_dist: u16,
-    atk17_max_dist: u16,
-    atk18_max_dist: u16,
-    atk19_max_dist: u16,
-    atk20_max_dist: u16,
-    atk21_max_dist: u16,
-    atk22_max_dist: u16,
-    atk23_max_dist: u16,
-    atk24_max_dist: u16,
-    atk25_max_dist: u16,
-    atk26_max_dist: u16,
-    atk27_max_dist: u16,
-    atk28_max_dist: u16,
-    atk29_max_dist: u16,
-    bits_b4: u8,
-    bits_b5: u8,
-    bits_b6: u8,
-    bits_b7: u8,
-    bits_b8: u8,
-    bits_b9: u8,
-    bits_ba: u8,
-    bits_bb: u8,
-    bits_bc: u8,
-    bits_bd: u8,
-    bits_be: u8,
-    bits_bf: u8,
-    bits_c0: u8,
-    bits_c1: u8,
-    bits_c2: u8,
-    pad0: [u8; 13],
-}
-
-impl ParamDef for AI_ANIM_TBL_PARAM {
-    const NAME: &str = "AI_ANIM_TBL_PARAM";
-}
-
-impl AI_ANIM_TBL_PARAM {
-    pub fn atk0_ez_state_id(&self) -> u16 {
-        self.atk0_ez_state_id
-    }
-
-    pub fn set_atk0_ez_state_id(&mut self, value: u16) {
-        self.atk0_ez_state_id = value;
-    }
-
-    pub fn atk1_ez_state_id(&self) -> u16 {
-        self.atk1_ez_state_id
-    }
-
-    pub fn set_atk1_ez_state_id(&mut self, value: u16) {
-        self.atk1_ez_state_id = value;
-    }
-
-    pub fn atk2_ez_state_id(&self) -> u16 {
-        self.atk2_ez_state_id
-    }
-
-    pub fn set_atk2_ez_state_id(&mut self, value: u16) {
-        self.atk2_ez_state_id = value;
-    }
-
-    pub fn atk3_ez_state_id(&self) -> u16 {
-        self.atk3_ez_state_id
-    }
-
-    pub fn set_atk3_ez_state_id(&mut self, value: u16) {
-        self.atk3_ez_state_id = value;
-    }
-
-    pub fn atk4_ez_state_id(&self) -> u16 {
-        self.atk4_ez_state_id
-    }
-
-    pub fn set_atk4_ez_state_id(&mut self, value: u16) {
-        self.atk4_ez_state_id = value;
-    }
-
-    pub fn atk5_ez_state_id(&self) -> u16 {
-        self.atk5_ez_state_id
-    }
-
-    pub fn set_atk5_ez_state_id(&mut self, value: u16) {
-        self.atk5_ez_state_id = value;
-    }
-
-    pub fn atk6_ez_state_id(&self) -> u16 {
-        self.atk6_ez_state_id
-    }
-
-    pub fn set_atk6_ez_state_id(&mut self, value: u16) {
-        self.atk6_ez_state_id = value;
-    }
-
-    pub fn atk7_ez_state_id(&self) -> u16 {
-        self.atk7_ez_state_id
-    }
-
-    pub fn set_atk7_ez_state_id(&mut self, value: u16) {
-        self.atk7_ez_state_id = value;
-    }
-
-    pub fn atk8_ez_state_id(&self) -> u16 {
-        self.atk8_ez_state_id
-    }
-
-    pub fn set_atk8_ez_state_id(&mut self, value: u16) {
-        self.atk8_ez_state_id = value;
-    }
-
-    pub fn atk9_ez_state_id(&self) -> u16 {
-        self.atk9_ez_state_id
-    }
-
-    pub fn set_atk9_ez_state_id(&mut self, value: u16) {
-        self.atk9_ez_state_id = value;
-    }
-
-    pub fn atk10_ez_state_id(&self) -> u16 {
-        self.atk10_ez_state_id
-    }
-
-    pub fn set_atk10_ez_state_id(&mut self, value: u16) {
-        self.atk10_ez_state_id = value;
-    }
-
-    pub fn atk11_ez_state_id(&self) -> u16 {
-        self.atk11_ez_state_id
-    }
-
-    pub fn set_atk11_ez_state_id(&mut self, value: u16) {
-        self.atk11_ez_state_id = value;
-    }
-
-    pub fn atk12_ez_state_id(&self) -> u16 {
-        self.atk12_ez_state_id
-    }
-
-    pub fn set_atk12_ez_state_id(&mut self, value: u16) {
-        self.atk12_ez_state_id = value;
-    }
-
-    pub fn atk13_ez_state_id(&self) -> u16 {
-        self.atk13_ez_state_id
-    }
-
-    pub fn set_atk13_ez_state_id(&mut self, value: u16) {
-        self.atk13_ez_state_id = value;
-    }
-
-    pub fn atk14_ez_state_id(&self) -> u16 {
-        self.atk14_ez_state_id
-    }
-
-    pub fn set_atk14_ez_state_id(&mut self, value: u16) {
-        self.atk14_ez_state_id = value;
-    }
-
-    pub fn atk15_ez_state_id(&self) -> u16 {
-        self.atk15_ez_state_id
-    }
-
-    pub fn set_atk15_ez_state_id(&mut self, value: u16) {
-        self.atk15_ez_state_id = value;
-    }
-
-    pub fn atk16_ez_state_id(&self) -> u16 {
-        self.atk16_ez_state_id
-    }
-
-    pub fn set_atk16_ez_state_id(&mut self, value: u16) {
-        self.atk16_ez_state_id = value;
-    }
-
-    pub fn atk17_ez_state_id(&self) -> u16 {
-        self.atk17_ez_state_id
-    }
-
-    pub fn set_atk17_ez_state_id(&mut self, value: u16) {
-        self.atk17_ez_state_id = value;
-    }
-
-    pub fn atk18_ez_state_id(&self) -> u16 {
-        self.atk18_ez_state_id
-    }
-
-    pub fn set_atk18_ez_state_id(&mut self, value: u16) {
-        self.atk18_ez_state_id = value;
-    }
-
-    pub fn atk19_ez_state_id(&self) -> u16 {
-        self.atk19_ez_state_id
-    }
-
-    pub fn set_atk19_ez_state_id(&mut self, value: u16) {
-        self.atk19_ez_state_id = value;
-    }
-
-    pub fn atk20_ez_state_id(&self) -> u16 {
-        self.atk20_ez_state_id
-    }
-
-    pub fn set_atk20_ez_state_id(&mut self, value: u16) {
-        self.atk20_ez_state_id = value;
-    }
-
-    pub fn atk21_ez_state_id(&self) -> u16 {
-        self.atk21_ez_state_id
-    }
-
-    pub fn set_atk21_ez_state_id(&mut self, value: u16) {
-        self.atk21_ez_state_id = value;
-    }
-
-    pub fn atk22_ez_state_id(&self) -> u16 {
-        self.atk22_ez_state_id
-    }
-
-    pub fn set_atk22_ez_state_id(&mut self, value: u16) {
-        self.atk22_ez_state_id = value;
-    }
-
-    pub fn atk23_ez_state_id(&self) -> u16 {
-        self.atk23_ez_state_id
-    }
-
-    pub fn set_atk23_ez_state_id(&mut self, value: u16) {
-        self.atk23_ez_state_id = value;
-    }
-
-    pub fn atk24_ez_state_id(&self) -> u16 {
-        self.atk24_ez_state_id
-    }
-
-    pub fn set_atk24_ez_state_id(&mut self, value: u16) {
-        self.atk24_ez_state_id = value;
-    }
-
-    pub fn atk25_ez_state_id(&self) -> u16 {
-        self.atk25_ez_state_id
-    }
-
-    pub fn set_atk25_ez_state_id(&mut self, value: u16) {
-        self.atk25_ez_state_id = value;
-    }
-
-    pub fn atk26_ez_state_id(&self) -> u16 {
-        self.atk26_ez_state_id
-    }
-
-    pub fn set_atk26_ez_state_id(&mut self, value: u16) {
-        self.atk26_ez_state_id = value;
-    }
-
-    pub fn atk27_ez_state_id(&self) -> u16 {
-        self.atk27_ez_state_id
-    }
-
-    pub fn set_atk27_ez_state_id(&mut self, value: u16) {
-        self.atk27_ez_state_id = value;
-    }
-
-    pub fn atk28_ez_state_id(&self) -> u16 {
-        self.atk28_ez_state_id
-    }
-
-    pub fn set_atk28_ez_state_id(&mut self, value: u16) {
-        self.atk28_ez_state_id = value;
-    }
-
-    pub fn atk29_ez_state_id(&self) -> u16 {
-        self.atk29_ez_state_id
-    }
-
-    pub fn set_atk29_ez_state_id(&mut self, value: u16) {
-        self.atk29_ez_state_id = value;
-    }
-
-    pub fn atk0_min_dist(&self) -> u16 {
-        self.atk0_min_dist
-    }
-
-    pub fn set_atk0_min_dist(&mut self, value: u16) {
-        self.atk0_min_dist = value;
-    }
-
-    pub fn atk1_min_dist(&self) -> u16 {
-        self.atk1_min_dist
-    }
-
-    pub fn set_atk1_min_dist(&mut self, value: u16) {
-        self.atk1_min_dist = value;
-    }
-
-    pub fn atk2_min_dist(&self) -> u16 {
-        self.atk2_min_dist
-    }
-
-    pub fn set_atk2_min_dist(&mut self, value: u16) {
-        self.atk2_min_dist = value;
-    }
-
-    pub fn atk3_min_dist(&self) -> u16 {
-        self.atk3_min_dist
-    }
-
-    pub fn set_atk3_min_dist(&mut self, value: u16) {
-        self.atk3_min_dist = value;
-    }
-
-    pub fn atk4_min_dist(&self) -> u16 {
-        self.atk4_min_dist
-    }
-
-    pub fn set_atk4_min_dist(&mut self, value: u16) {
-        self.atk4_min_dist = value;
-    }
-
-    pub fn atk5_min_dist(&self) -> u16 {
-        self.atk5_min_dist
-    }
-
-    pub fn set_atk5_min_dist(&mut self, value: u16) {
-        self.atk5_min_dist = value;
-    }
-
-    pub fn atk6_min_dist(&self) -> u16 {
-        self.atk6_min_dist
-    }
-
-    pub fn set_atk6_min_dist(&mut self, value: u16) {
-        self.atk6_min_dist = value;
-    }
-
-    pub fn atk7_min_dist(&self) -> u16 {
-        self.atk7_min_dist
-    }
-
-    pub fn set_atk7_min_dist(&mut self, value: u16) {
-        self.atk7_min_dist = value;
-    }
-
-    pub fn atk8_min_dist(&self) -> u16 {
-        self.atk8_min_dist
-    }
-
-    pub fn set_atk8_min_dist(&mut self, value: u16) {
-        self.atk8_min_dist = value;
-    }
-
-    pub fn atk9_min_dist(&self) -> u16 {
-        self.atk9_min_dist
-    }
-
-    pub fn set_atk9_min_dist(&mut self, value: u16) {
-        self.atk9_min_dist = value;
-    }
-
-    pub fn atk10_min_dist(&self) -> u16 {
-        self.atk10_min_dist
-    }
-
-    pub fn set_atk10_min_dist(&mut self, value: u16) {
-        self.atk10_min_dist = value;
-    }
-
-    pub fn atk11_min_dist(&self) -> u16 {
-        self.atk11_min_dist
-    }
-
-    pub fn set_atk11_min_dist(&mut self, value: u16) {
-        self.atk11_min_dist = value;
-    }
-
-    pub fn atk12_min_dist(&self) -> u16 {
-        self.atk12_min_dist
-    }
-
-    pub fn set_atk12_min_dist(&mut self, value: u16) {
-        self.atk12_min_dist = value;
-    }
-
-    pub fn atk13_min_dist(&self) -> u16 {
-        self.atk13_min_dist
-    }
-
-    pub fn set_atk13_min_dist(&mut self, value: u16) {
-        self.atk13_min_dist = value;
-    }
-
-    pub fn atk14_min_dist(&self) -> u16 {
-        self.atk14_min_dist
-    }
-
-    pub fn set_atk14_min_dist(&mut self, value: u16) {
-        self.atk14_min_dist = value;
-    }
-
-    pub fn atk15_min_dist(&self) -> u16 {
-        self.atk15_min_dist
-    }
-
-    pub fn set_atk15_min_dist(&mut self, value: u16) {
-        self.atk15_min_dist = value;
-    }
-
-    pub fn atk16_min_dist(&self) -> u16 {
-        self.atk16_min_dist
-    }
-
-    pub fn set_atk16_min_dist(&mut self, value: u16) {
-        self.atk16_min_dist = value;
-    }
-
-    pub fn atk17_min_dist(&self) -> u16 {
-        self.atk17_min_dist
-    }
-
-    pub fn set_atk17_min_dist(&mut self, value: u16) {
-        self.atk17_min_dist = value;
-    }
-
-    pub fn atk18_min_dist(&self) -> u16 {
-        self.atk18_min_dist
-    }
-
-    pub fn set_atk18_min_dist(&mut self, value: u16) {
-        self.atk18_min_dist = value;
-    }
-
-    pub fn atk19_min_dist(&self) -> u16 {
-        self.atk19_min_dist
-    }
-
-    pub fn set_atk19_min_dist(&mut self, value: u16) {
-        self.atk19_min_dist = value;
-    }
-
-    pub fn atk20_min_dist(&self) -> u16 {
-        self.atk20_min_dist
-    }
-
-    pub fn set_atk20_min_dist(&mut self, value: u16) {
-        self.atk20_min_dist = value;
-    }
-
-    pub fn atk21_min_dist(&self) -> u16 {
-        self.atk21_min_dist
-    }
-
-    pub fn set_atk21_min_dist(&mut self, value: u16) {
-        self.atk21_min_dist = value;
-    }
-
-    pub fn atk22_min_dist(&self) -> u16 {
-        self.atk22_min_dist
-    }
-
-    pub fn set_atk22_min_dist(&mut self, value: u16) {
-        self.atk22_min_dist = value;
-    }
-
-    pub fn atk23_min_dist(&self) -> u16 {
-        self.atk23_min_dist
-    }
-
-    pub fn set_atk23_min_dist(&mut self, value: u16) {
-        self.atk23_min_dist = value;
-    }
-
-    pub fn atk24_min_dist(&self) -> u16 {
-        self.atk24_min_dist
-    }
-
-    pub fn set_atk24_min_dist(&mut self, value: u16) {
-        self.atk24_min_dist = value;
-    }
-
-    pub fn atk25_min_dist(&self) -> u16 {
-        self.atk25_min_dist
-    }
-
-    pub fn set_atk25_min_dist(&mut self, value: u16) {
-        self.atk25_min_dist = value;
-    }
-
-    pub fn atk26_min_dist(&self) -> u16 {
-        self.atk26_min_dist
-    }
-
-    pub fn set_atk26_min_dist(&mut self, value: u16) {
-        self.atk26_min_dist = value;
-    }
-
-    pub fn atk27_min_dist(&self) -> u16 {
-        self.atk27_min_dist
-    }
-
-    pub fn set_atk27_min_dist(&mut self, value: u16) {
-        self.atk27_min_dist = value;
-    }
-
-    pub fn atk28_min_dist(&self) -> u16 {
-        self.atk28_min_dist
-    }
-
-    pub fn set_atk28_min_dist(&mut self, value: u16) {
-        self.atk28_min_dist = value;
-    }
-
-    pub fn atk29_min_dist(&self) -> u16 {
-        self.atk29_min_dist
-    }
-
-    pub fn set_atk29_min_dist(&mut self, value: u16) {
-        self.atk29_min_dist = value;
-    }
-
-    pub fn atk0_max_dist(&self) -> u16 {
-        self.atk0_max_dist
-    }
-
-    pub fn set_atk0_max_dist(&mut self, value: u16) {
-        self.atk0_max_dist = value;
-    }
-
-    pub fn atk1_max_dist(&self) -> u16 {
-        self.atk1_max_dist
-    }
-
-    pub fn set_atk1_max_dist(&mut self, value: u16) {
-        self.atk1_max_dist = value;
-    }
-
-    pub fn atk2_max_dist(&self) -> u16 {
-        self.atk2_max_dist
-    }
-
-    pub fn set_atk2_max_dist(&mut self, value: u16) {
-        self.atk2_max_dist = value;
-    }
-
-    pub fn atk3_max_dist(&self) -> u16 {
-        self.atk3_max_dist
-    }
-
-    pub fn set_atk3_max_dist(&mut self, value: u16) {
-        self.atk3_max_dist = value;
-    }
-
-    pub fn atk4_max_dist(&self) -> u16 {
-        self.atk4_max_dist
-    }
-
-    pub fn set_atk4_max_dist(&mut self, value: u16) {
-        self.atk4_max_dist = value;
-    }
-
-    pub fn atk5_max_dist(&self) -> u16 {
-        self.atk5_max_dist
-    }
-
-    pub fn set_atk5_max_dist(&mut self, value: u16) {
-        self.atk5_max_dist = value;
-    }
-
-    pub fn atk6_max_dist(&self) -> u16 {
-        self.atk6_max_dist
-    }
-
-    pub fn set_atk6_max_dist(&mut self, value: u16) {
-        self.atk6_max_dist = value;
-    }
-
-    pub fn atk7_max_dist(&self) -> u16 {
-        self.atk7_max_dist
-    }
-
-    pub fn set_atk7_max_dist(&mut self, value: u16) {
-        self.atk7_max_dist = value;
-    }
-
-    pub fn atk8_max_dist(&self) -> u16 {
-        self.atk8_max_dist
-    }
-
-    pub fn set_atk8_max_dist(&mut self, value: u16) {
-        self.atk8_max_dist = value;
-    }
-
-    pub fn atk9_max_dist(&self) -> u16 {
-        self.atk9_max_dist
-    }
-
-    pub fn set_atk9_max_dist(&mut self, value: u16) {
-        self.atk9_max_dist = value;
-    }
-
-    pub fn atk10_max_dist(&self) -> u16 {
-        self.atk10_max_dist
-    }
-
-    pub fn set_atk10_max_dist(&mut self, value: u16) {
-        self.atk10_max_dist = value;
-    }
-
-    pub fn atk11_max_dist(&self) -> u16 {
-        self.atk11_max_dist
-    }
-
-    pub fn set_atk11_max_dist(&mut self, value: u16) {
-        self.atk11_max_dist = value;
-    }
-
-    pub fn atk12_max_dist(&self) -> u16 {
-        self.atk12_max_dist
-    }
-
-    pub fn set_atk12_max_dist(&mut self, value: u16) {
-        self.atk12_max_dist = value;
-    }
-
-    pub fn atk13_max_dist(&self) -> u16 {
-        self.atk13_max_dist
-    }
-
-    pub fn set_atk13_max_dist(&mut self, value: u16) {
-        self.atk13_max_dist = value;
-    }
-
-    pub fn atk14_max_dist(&self) -> u16 {
-        self.atk14_max_dist
-    }
-
-    pub fn set_atk14_max_dist(&mut self, value: u16) {
-        self.atk14_max_dist = value;
-    }
-
-    pub fn atk15_max_dist(&self) -> u16 {
-        self.atk15_max_dist
-    }
-
-    pub fn set_atk15_max_dist(&mut self, value: u16) {
-        self.atk15_max_dist = value;
-    }
-
-    pub fn atk16_max_dist(&self) -> u16 {
-        self.atk16_max_dist
-    }
-
-    pub fn set_atk16_max_dist(&mut self, value: u16) {
-        self.atk16_max_dist = value;
-    }
-
-    pub fn atk17_max_dist(&self) -> u16 {
-        self.atk17_max_dist
-    }
-
-    pub fn set_atk17_max_dist(&mut self, value: u16) {
-        self.atk17_max_dist = value;
-    }
-
-    pub fn atk18_max_dist(&self) -> u16 {
-        self.atk18_max_dist
-    }
-
-    pub fn set_atk18_max_dist(&mut self, value: u16) {
-        self.atk18_max_dist = value;
-    }
-
-    pub fn atk19_max_dist(&self) -> u16 {
-        self.atk19_max_dist
-    }
-
-    pub fn set_atk19_max_dist(&mut self, value: u16) {
-        self.atk19_max_dist = value;
-    }
-
-    pub fn atk20_max_dist(&self) -> u16 {
-        self.atk20_max_dist
-    }
-
-    pub fn set_atk20_max_dist(&mut self, value: u16) {
-        self.atk20_max_dist = value;
-    }
-
-    pub fn atk21_max_dist(&self) -> u16 {
-        self.atk21_max_dist
-    }
-
-    pub fn set_atk21_max_dist(&mut self, value: u16) {
-        self.atk21_max_dist = value;
-    }
-
-    pub fn atk22_max_dist(&self) -> u16 {
-        self.atk22_max_dist
-    }
-
-    pub fn set_atk22_max_dist(&mut self, value: u16) {
-        self.atk22_max_dist = value;
-    }
-
-    pub fn atk23_max_dist(&self) -> u16 {
-        self.atk23_max_dist
-    }
-
-    pub fn set_atk23_max_dist(&mut self, value: u16) {
-        self.atk23_max_dist = value;
-    }
-
-    pub fn atk24_max_dist(&self) -> u16 {
-        self.atk24_max_dist
-    }
-
-    pub fn set_atk24_max_dist(&mut self, value: u16) {
-        self.atk24_max_dist = value;
-    }
-
-    pub fn atk25_max_dist(&self) -> u16 {
-        self.atk25_max_dist
-    }
-
-    pub fn set_atk25_max_dist(&mut self, value: u16) {
-        self.atk25_max_dist = value;
-    }
-
-    pub fn atk26_max_dist(&self) -> u16 {
-        self.atk26_max_dist
-    }
-
-    pub fn set_atk26_max_dist(&mut self, value: u16) {
-        self.atk26_max_dist = value;
-    }
-
-    pub fn atk27_max_dist(&self) -> u16 {
-        self.atk27_max_dist
-    }
-
-    pub fn set_atk27_max_dist(&mut self, value: u16) {
-        self.atk27_max_dist = value;
-    }
-
-    pub fn atk28_max_dist(&self) -> u16 {
-        self.atk28_max_dist
-    }
-
-    pub fn set_atk28_max_dist(&mut self, value: u16) {
-        self.atk28_max_dist = value;
-    }
-
-    pub fn atk29_max_dist(&self) -> u16 {
-        self.atk29_max_dist
-    }
-
-    pub fn set_atk29_max_dist(&mut self, value: u16) {
-        self.atk29_max_dist = value;
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn atk0_atk_dist_type(&self) -> u8 {
-        (self.bits_b4 >> 0) & 0b00001111
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn set_atk0_atk_dist_type(&mut self, value: u8) {
-        self.bits_b4 = (self.bits_b4 & !(0b00001111 << 0)) | ((value & 0b00001111) << 0);
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn atk1_atk_dist_type(&self) -> u8 {
-        (self.bits_b4 >> 1) & 0b00001111
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn set_atk1_atk_dist_type(&mut self, value: u8) {
-        self.bits_b4 = (self.bits_b4 & !(0b00001111 << 1)) | ((value & 0b00001111) << 1);
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn atk2_atk_dist_type(&self) -> u8 {
-        (self.bits_b5 >> 0) & 0b00001111
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn set_atk2_atk_dist_type(&mut self, value: u8) {
-        self.bits_b5 = (self.bits_b5 & !(0b00001111 << 0)) | ((value & 0b00001111) << 0);
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn atk3_atk_dist_type(&self) -> u8 {
-        (self.bits_b5 >> 1) & 0b00001111
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn set_atk3_atk_dist_type(&mut self, value: u8) {
-        self.bits_b5 = (self.bits_b5 & !(0b00001111 << 1)) | ((value & 0b00001111) << 1);
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn atk4_atk_dist_type(&self) -> u8 {
-        (self.bits_b6 >> 0) & 0b00001111
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn set_atk4_atk_dist_type(&mut self, value: u8) {
-        self.bits_b6 = (self.bits_b6 & !(0b00001111 << 0)) | ((value & 0b00001111) << 0);
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn atk5_atk_dist_type(&self) -> u8 {
-        (self.bits_b6 >> 1) & 0b00001111
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn set_atk5_atk_dist_type(&mut self, value: u8) {
-        self.bits_b6 = (self.bits_b6 & !(0b00001111 << 1)) | ((value & 0b00001111) << 1);
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn atk6_atk_dist_type(&self) -> u8 {
-        (self.bits_b7 >> 0) & 0b00001111
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn set_atk6_atk_dist_type(&mut self, value: u8) {
-        self.bits_b7 = (self.bits_b7 & !(0b00001111 << 0)) | ((value & 0b00001111) << 0);
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn atk7_atk_dist_type(&self) -> u8 {
-        (self.bits_b7 >> 1) & 0b00001111
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn set_atk7_atk_dist_type(&mut self, value: u8) {
-        self.bits_b7 = (self.bits_b7 & !(0b00001111 << 1)) | ((value & 0b00001111) << 1);
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn atk8_atk_dist_type(&self) -> u8 {
-        (self.bits_b8 >> 0) & 0b00001111
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn set_atk8_atk_dist_type(&mut self, value: u8) {
-        self.bits_b8 = (self.bits_b8 & !(0b00001111 << 0)) | ((value & 0b00001111) << 0);
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn atk9_atk_dist_type(&self) -> u8 {
-        (self.bits_b8 >> 1) & 0b00001111
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn set_atk9_atk_dist_type(&mut self, value: u8) {
-        self.bits_b8 = (self.bits_b8 & !(0b00001111 << 1)) | ((value & 0b00001111) << 1);
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn atk10_atk_dist_type(&self) -> u8 {
-        (self.bits_b9 >> 0) & 0b00001111
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn set_atk10_atk_dist_type(&mut self, value: u8) {
-        self.bits_b9 = (self.bits_b9 & !(0b00001111 << 0)) | ((value & 0b00001111) << 0);
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn atk11_atk_dist_type(&self) -> u8 {
-        (self.bits_b9 >> 1) & 0b00001111
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn set_atk11_atk_dist_type(&mut self, value: u8) {
-        self.bits_b9 = (self.bits_b9 & !(0b00001111 << 1)) | ((value & 0b00001111) << 1);
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn atk12_atk_dist_type(&self) -> u8 {
-        (self.bits_ba >> 0) & 0b00001111
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn set_atk12_atk_dist_type(&mut self, value: u8) {
-        self.bits_ba = (self.bits_ba & !(0b00001111 << 0)) | ((value & 0b00001111) << 0);
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn atk13_atk_dist_type(&self) -> u8 {
-        (self.bits_ba >> 1) & 0b00001111
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn set_atk13_atk_dist_type(&mut self, value: u8) {
-        self.bits_ba = (self.bits_ba & !(0b00001111 << 1)) | ((value & 0b00001111) << 1);
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn atk14_atk_dist_type(&self) -> u8 {
-        (self.bits_bb >> 0) & 0b00001111
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn set_atk14_atk_dist_type(&mut self, value: u8) {
-        self.bits_bb = (self.bits_bb & !(0b00001111 << 0)) | ((value & 0b00001111) << 0);
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn atk15_atk_dist_type(&self) -> u8 {
-        (self.bits_bb >> 1) & 0b00001111
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn set_atk15_atk_dist_type(&mut self, value: u8) {
-        self.bits_bb = (self.bits_bb & !(0b00001111 << 1)) | ((value & 0b00001111) << 1);
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn atk16_atk_dist_type(&self) -> u8 {
-        (self.bits_bc >> 0) & 0b00001111
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn set_atk16_atk_dist_type(&mut self, value: u8) {
-        self.bits_bc = (self.bits_bc & !(0b00001111 << 0)) | ((value & 0b00001111) << 0);
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn atk17_atk_dist_type(&self) -> u8 {
-        (self.bits_bc >> 1) & 0b00001111
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn set_atk17_atk_dist_type(&mut self, value: u8) {
-        self.bits_bc = (self.bits_bc & !(0b00001111 << 1)) | ((value & 0b00001111) << 1);
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn atk18_atk_dist_type(&self) -> u8 {
-        (self.bits_bd >> 0) & 0b00001111
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn set_atk18_atk_dist_type(&mut self, value: u8) {
-        self.bits_bd = (self.bits_bd & !(0b00001111 << 0)) | ((value & 0b00001111) << 0);
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn atk19_atk_dist_type(&self) -> u8 {
-        (self.bits_bd >> 1) & 0b00001111
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn set_atk19_atk_dist_type(&mut self, value: u8) {
-        self.bits_bd = (self.bits_bd & !(0b00001111 << 1)) | ((value & 0b00001111) << 1);
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn atk20_atk_dist_type(&self) -> u8 {
-        (self.bits_be >> 0) & 0b00001111
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn set_atk20_atk_dist_type(&mut self, value: u8) {
-        self.bits_be = (self.bits_be & !(0b00001111 << 0)) | ((value & 0b00001111) << 0);
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn atk21_atk_dist_type(&self) -> u8 {
-        (self.bits_be >> 1) & 0b00001111
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn set_atk21_atk_dist_type(&mut self, value: u8) {
-        self.bits_be = (self.bits_be & !(0b00001111 << 1)) | ((value & 0b00001111) << 1);
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn atk22_atk_dist_type(&self) -> u8 {
-        (self.bits_bf >> 0) & 0b00001111
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn set_atk22_atk_dist_type(&mut self, value: u8) {
-        self.bits_bf = (self.bits_bf & !(0b00001111 << 0)) | ((value & 0b00001111) << 0);
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn atk23_atk_dist_type(&self) -> u8 {
-        (self.bits_bf >> 1) & 0b00001111
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn set_atk23_atk_dist_type(&mut self, value: u8) {
-        self.bits_bf = (self.bits_bf & !(0b00001111 << 1)) | ((value & 0b00001111) << 1);
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn atk24_atk_dist_type(&self) -> u8 {
-        (self.bits_c0 >> 0) & 0b00001111
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn set_atk24_atk_dist_type(&mut self, value: u8) {
-        self.bits_c0 = (self.bits_c0 & !(0b00001111 << 0)) | ((value & 0b00001111) << 0);
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn atk25_atk_dist_type(&self) -> u8 {
-        (self.bits_c0 >> 1) & 0b00001111
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn set_atk25_atk_dist_type(&mut self, value: u8) {
-        self.bits_c0 = (self.bits_c0 & !(0b00001111 << 1)) | ((value & 0b00001111) << 1);
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn atk26_atk_dist_type(&self) -> u8 {
-        (self.bits_c1 >> 0) & 0b00001111
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn set_atk26_atk_dist_type(&mut self, value: u8) {
-        self.bits_c1 = (self.bits_c1 & !(0b00001111 << 0)) | ((value & 0b00001111) << 0);
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn atk27_atk_dist_type(&self) -> u8 {
-        (self.bits_c1 >> 1) & 0b00001111
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn set_atk27_atk_dist_type(&mut self, value: u8) {
-        self.bits_c1 = (self.bits_c1 & !(0b00001111 << 1)) | ((value & 0b00001111) << 1);
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn atk28_atk_dist_type(&self) -> u8 {
-        (self.bits_c2 >> 0) & 0b00001111
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn set_atk28_atk_dist_type(&mut self, value: u8) {
-        self.bits_c2 = (self.bits_c2 & !(0b00001111 << 0)) | ((value & 0b00001111) << 0);
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn atk29_atk_dist_type(&self) -> u8 {
-        (self.bits_c2 >> 1) & 0b00001111
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn set_atk29_atk_dist_type(&mut self, value: u8) {
-        self.bits_c2 = (self.bits_c2 & !(0b00001111 << 1)) | ((value & 0b00001111) << 1);
-    }
-}
-
-#[derive(Debug, Clone)]
-#[allow(non_camel_case_types)]
-#[repr(C)]
-pub struct AI_ATTACK_PARAM_ST {
-    attack_table_id: i32,
-    attack_id: i32,
-    success_distance: f32,
-    turn_time_before_attack: f32,
-    front_angle_range: i16,
-    up_angle_threshold: i16,
-    down_angle_thershold: i16,
-    is_first_attack: u8,
-    does_select_on_out_range: u8,
-    min_optimal_distance: f32,
-    max_optimal_distance: f32,
-    base_direction_for_optimal_angle1: i16,
-    optimal_attack_angle_range1: i16,
-    base_direction_for_optimal_angle2: i16,
-    optimal_attack_angle_range2: i16,
-    interval_for_exec: f32,
-    selection_tendency: f32,
-    short_range_tendency: f32,
-    middle_range_tendency: f32,
-    far_range_tendency: f32,
-    out_range_tendency: f32,
-    derive_attack_id1: i32,
-    derive_attack_id2: i32,
-    derive_attack_id3: i32,
-    derive_attack_id4: i32,
-    derive_attack_id5: i32,
-    derive_attack_id6: i32,
-    derive_attack_id7: i32,
-    derive_attack_id8: i32,
-    derive_attack_id9: i32,
-    derive_attack_id10: i32,
-    derive_attack_id11: i32,
-    derive_attack_id12: i32,
-    derive_attack_id13: i32,
-    derive_attack_id14: i32,
-    derive_attack_id15: i32,
-    derive_attack_id16: i32,
-    goal_life_min: f32,
-    goal_life_max: f32,
-    does_select_on_inner_range: u8,
-    enable_attack_on_battle_start: u8,
-    does_select_on_target_down: u8,
-    pad1: [u8; 1],
-    min_arrive_distance: f32,
-    max_arrive_distance: f32,
-    combo_exec_distance: f32,
-    combo_exec_range: f32,
-}
-
-impl ParamDef for AI_ATTACK_PARAM_ST {
-    const NAME: &str = "AI_ATTACK_PARAM_ST";
-}
-
-impl AI_ATTACK_PARAM_ST {
-    pub fn attack_table_id(&self) -> i32 {
-        self.attack_table_id
-    }
-
-    pub fn set_attack_table_id(&mut self, value: i32) {
-        self.attack_table_id = value;
-    }
-
-    pub fn attack_id(&self) -> i32 {
-        self.attack_id
-    }
-
-    pub fn set_attack_id(&mut self, value: i32) {
-        self.attack_id = value;
-    }
-
-    pub fn success_distance(&self) -> f32 {
-        self.success_distance
-    }
-
-    pub fn set_success_distance(&mut self, value: f32) {
-        self.success_distance = value;
-    }
-
-    pub fn turn_time_before_attack(&self) -> f32 {
-        self.turn_time_before_attack
-    }
-
-    pub fn set_turn_time_before_attack(&mut self, value: f32) {
-        self.turn_time_before_attack = value;
-    }
-
-    pub fn front_angle_range(&self) -> i16 {
-        self.front_angle_range
-    }
-
-    pub fn set_front_angle_range(&mut self, value: i16) {
-        self.front_angle_range = value;
-    }
-
-    pub fn up_angle_threshold(&self) -> i16 {
-        self.up_angle_threshold
-    }
-
-    pub fn set_up_angle_threshold(&mut self, value: i16) {
-        self.up_angle_threshold = value;
-    }
-
-    pub fn down_angle_thershold(&self) -> i16 {
-        self.down_angle_thershold
-    }
-
-    pub fn set_down_angle_thershold(&mut self, value: i16) {
-        self.down_angle_thershold = value;
-    }
-
-    pub fn is_first_attack(&self) -> u8 {
-        self.is_first_attack
-    }
-
-    pub fn set_is_first_attack(&mut self, value: u8) {
-        self.is_first_attack = value;
-    }
-
-    pub fn does_select_on_out_range(&self) -> u8 {
-        self.does_select_on_out_range
-    }
-
-    pub fn set_does_select_on_out_range(&mut self, value: u8) {
-        self.does_select_on_out_range = value;
-    }
-
-    pub fn min_optimal_distance(&self) -> f32 {
-        self.min_optimal_distance
-    }
-
-    pub fn set_min_optimal_distance(&mut self, value: f32) {
-        self.min_optimal_distance = value;
-    }
-
-    pub fn max_optimal_distance(&self) -> f32 {
-        self.max_optimal_distance
-    }
-
-    pub fn set_max_optimal_distance(&mut self, value: f32) {
-        self.max_optimal_distance = value;
-    }
-
-    pub fn base_direction_for_optimal_angle1(&self) -> i16 {
-        self.base_direction_for_optimal_angle1
-    }
-
-    pub fn set_base_direction_for_optimal_angle1(&mut self, value: i16) {
-        self.base_direction_for_optimal_angle1 = value;
-    }
-
-    pub fn optimal_attack_angle_range1(&self) -> i16 {
-        self.optimal_attack_angle_range1
-    }
-
-    pub fn set_optimal_attack_angle_range1(&mut self, value: i16) {
-        self.optimal_attack_angle_range1 = value;
-    }
-
-    pub fn base_direction_for_optimal_angle2(&self) -> i16 {
-        self.base_direction_for_optimal_angle2
-    }
-
-    pub fn set_base_direction_for_optimal_angle2(&mut self, value: i16) {
-        self.base_direction_for_optimal_angle2 = value;
-    }
-
-    pub fn optimal_attack_angle_range2(&self) -> i16 {
-        self.optimal_attack_angle_range2
-    }
-
-    pub fn set_optimal_attack_angle_range2(&mut self, value: i16) {
-        self.optimal_attack_angle_range2 = value;
-    }
-
-    pub fn interval_for_exec(&self) -> f32 {
-        self.interval_for_exec
-    }
-
-    pub fn set_interval_for_exec(&mut self, value: f32) {
-        self.interval_for_exec = value;
-    }
-
-    pub fn selection_tendency(&self) -> f32 {
-        self.selection_tendency
-    }
-
-    pub fn set_selection_tendency(&mut self, value: f32) {
-        self.selection_tendency = value;
-    }
-
-    pub fn short_range_tendency(&self) -> f32 {
-        self.short_range_tendency
-    }
-
-    pub fn set_short_range_tendency(&mut self, value: f32) {
-        self.short_range_tendency = value;
-    }
-
-    pub fn middle_range_tendency(&self) -> f32 {
-        self.middle_range_tendency
-    }
-
-    pub fn set_middle_range_tendency(&mut self, value: f32) {
-        self.middle_range_tendency = value;
-    }
-
-    pub fn far_range_tendency(&self) -> f32 {
-        self.far_range_tendency
-    }
-
-    pub fn set_far_range_tendency(&mut self, value: f32) {
-        self.far_range_tendency = value;
-    }
-
-    pub fn out_range_tendency(&self) -> f32 {
-        self.out_range_tendency
-    }
-
-    pub fn set_out_range_tendency(&mut self, value: f32) {
-        self.out_range_tendency = value;
-    }
-
-    pub fn derive_attack_id1(&self) -> i32 {
-        self.derive_attack_id1
-    }
-
-    pub fn set_derive_attack_id1(&mut self, value: i32) {
-        self.derive_attack_id1 = value;
-    }
-
-    pub fn derive_attack_id2(&self) -> i32 {
-        self.derive_attack_id2
-    }
-
-    pub fn set_derive_attack_id2(&mut self, value: i32) {
-        self.derive_attack_id2 = value;
-    }
-
-    pub fn derive_attack_id3(&self) -> i32 {
-        self.derive_attack_id3
-    }
-
-    pub fn set_derive_attack_id3(&mut self, value: i32) {
-        self.derive_attack_id3 = value;
-    }
-
-    pub fn derive_attack_id4(&self) -> i32 {
-        self.derive_attack_id4
-    }
-
-    pub fn set_derive_attack_id4(&mut self, value: i32) {
-        self.derive_attack_id4 = value;
-    }
-
-    pub fn derive_attack_id5(&self) -> i32 {
-        self.derive_attack_id5
-    }
-
-    pub fn set_derive_attack_id5(&mut self, value: i32) {
-        self.derive_attack_id5 = value;
-    }
-
-    pub fn derive_attack_id6(&self) -> i32 {
-        self.derive_attack_id6
-    }
-
-    pub fn set_derive_attack_id6(&mut self, value: i32) {
-        self.derive_attack_id6 = value;
-    }
-
-    pub fn derive_attack_id7(&self) -> i32 {
-        self.derive_attack_id7
-    }
-
-    pub fn set_derive_attack_id7(&mut self, value: i32) {
-        self.derive_attack_id7 = value;
-    }
-
-    pub fn derive_attack_id8(&self) -> i32 {
-        self.derive_attack_id8
-    }
-
-    pub fn set_derive_attack_id8(&mut self, value: i32) {
-        self.derive_attack_id8 = value;
-    }
-
-    pub fn derive_attack_id9(&self) -> i32 {
-        self.derive_attack_id9
-    }
-
-    pub fn set_derive_attack_id9(&mut self, value: i32) {
-        self.derive_attack_id9 = value;
-    }
-
-    pub fn derive_attack_id10(&self) -> i32 {
-        self.derive_attack_id10
-    }
-
-    pub fn set_derive_attack_id10(&mut self, value: i32) {
-        self.derive_attack_id10 = value;
-    }
-
-    pub fn derive_attack_id11(&self) -> i32 {
-        self.derive_attack_id11
-    }
-
-    pub fn set_derive_attack_id11(&mut self, value: i32) {
-        self.derive_attack_id11 = value;
-    }
-
-    pub fn derive_attack_id12(&self) -> i32 {
-        self.derive_attack_id12
-    }
-
-    pub fn set_derive_attack_id12(&mut self, value: i32) {
-        self.derive_attack_id12 = value;
-    }
-
-    pub fn derive_attack_id13(&self) -> i32 {
-        self.derive_attack_id13
-    }
-
-    pub fn set_derive_attack_id13(&mut self, value: i32) {
-        self.derive_attack_id13 = value;
-    }
-
-    pub fn derive_attack_id14(&self) -> i32 {
-        self.derive_attack_id14
-    }
-
-    pub fn set_derive_attack_id14(&mut self, value: i32) {
-        self.derive_attack_id14 = value;
-    }
-
-    pub fn derive_attack_id15(&self) -> i32 {
-        self.derive_attack_id15
-    }
-
-    pub fn set_derive_attack_id15(&mut self, value: i32) {
-        self.derive_attack_id15 = value;
-    }
-
-    pub fn derive_attack_id16(&self) -> i32 {
-        self.derive_attack_id16
-    }
-
-    pub fn set_derive_attack_id16(&mut self, value: i32) {
-        self.derive_attack_id16 = value;
-    }
-
-    pub fn goal_life_min(&self) -> f32 {
-        self.goal_life_min
-    }
-
-    pub fn set_goal_life_min(&mut self, value: f32) {
-        self.goal_life_min = value;
-    }
-
-    pub fn goal_life_max(&self) -> f32 {
-        self.goal_life_max
-    }
-
-    pub fn set_goal_life_max(&mut self, value: f32) {
-        self.goal_life_max = value;
-    }
-
-    pub fn does_select_on_inner_range(&self) -> u8 {
-        self.does_select_on_inner_range
-    }
-
-    pub fn set_does_select_on_inner_range(&mut self, value: u8) {
-        self.does_select_on_inner_range = value;
-    }
-
-    pub fn enable_attack_on_battle_start(&self) -> u8 {
-        self.enable_attack_on_battle_start
-    }
-
-    pub fn set_enable_attack_on_battle_start(&mut self, value: u8) {
-        self.enable_attack_on_battle_start = value;
-    }
-
-    pub fn does_select_on_target_down(&self) -> u8 {
-        self.does_select_on_target_down
-    }
-
-    pub fn set_does_select_on_target_down(&mut self, value: u8) {
-        self.does_select_on_target_down = value;
-    }
-
-    pub fn min_arrive_distance(&self) -> f32 {
-        self.min_arrive_distance
-    }
-
-    pub fn set_min_arrive_distance(&mut self, value: f32) {
-        self.min_arrive_distance = value;
-    }
-
-    pub fn max_arrive_distance(&self) -> f32 {
-        self.max_arrive_distance
-    }
-
-    pub fn set_max_arrive_distance(&mut self, value: f32) {
-        self.max_arrive_distance = value;
-    }
-
-    pub fn combo_exec_distance(&self) -> f32 {
-        self.combo_exec_distance
-    }
-
-    pub fn set_combo_exec_distance(&mut self, value: f32) {
-        self.combo_exec_distance = value;
-    }
-
-    pub fn combo_exec_range(&self) -> f32 {
-        self.combo_exec_range
-    }
-
-    pub fn set_combo_exec_range(&mut self, value: f32) {
-        self.combo_exec_range = value;
-    }
-}
-
-#[derive(Debug, Clone)]
-#[allow(non_camel_case_types)]
-#[repr(C)]
-pub struct AI_ODDS_PARAM {
-    act0: u8,
-    act1: u8,
-    act2: u8,
-    act3: u8,
-    act4: u8,
-    act5: u8,
-    act6: u8,
-    act7: u8,
-    act8: u8,
-    act9: u8,
-    act10: u8,
-    act11: u8,
-    act12: u8,
-    act13: u8,
-    act14: u8,
-    act15: u8,
-    act16: u8,
-    act17: u8,
-    act18: u8,
-    act19: u8,
-    act20: u8,
-    act21: u8,
-    act22: u8,
-    act23: u8,
-    act24: u8,
-    act25: u8,
-    act26: u8,
-    act27: u8,
-    act28: u8,
-    act29: u8,
-    act30: u8,
-    act31: u8,
-    act32: u8,
-    act33: u8,
-    act34: u8,
-    act35: u8,
-    act36: u8,
-    act37: u8,
-    act38: u8,
-    act39: u8,
-    act40: u8,
-    act41: u8,
-    act42: u8,
-    act43: u8,
-    act44: u8,
-    act45: u8,
-    act46: u8,
-    act47: u8,
-    act48: u8,
-    act49: u8,
-    act50: u8,
-    act51: u8,
-    act52: u8,
-    act53: u8,
-    act54: u8,
-    act55: u8,
-    act56: u8,
-    act57: u8,
-    act58: u8,
-    act59: u8,
-    act60: u8,
-    act61: u8,
-    act62: u8,
-    act63: u8,
-    act64: u8,
-    act65: u8,
-    act66: u8,
-    act67: u8,
-    act68: u8,
-    act69: u8,
-    act70: u8,
-    act71: u8,
-    act72: u8,
-    act73: u8,
-    act74: u8,
-    act75: u8,
-    act76: u8,
-    act77: u8,
-    act78: u8,
-    act79: u8,
-    act80: u8,
-    act81: u8,
-    act82: u8,
-    act83: u8,
-    act84: u8,
-    act85: u8,
-    act86: u8,
-    act87: u8,
-    act88: u8,
-    act89: u8,
-    act90: u8,
-    act91: u8,
-    act92: u8,
-    act93: u8,
-    act94: u8,
-    act95: u8,
-    act96: u8,
-    act97: u8,
-    act98: u8,
-    act99: u8,
-    pad0: [u8; 12],
-}
-
-impl ParamDef for AI_ODDS_PARAM {
-    const NAME: &str = "AI_ODDS_PARAM";
-}
-
-impl AI_ODDS_PARAM {
-    pub fn act0(&self) -> u8 {
-        self.act0
-    }
-
-    pub fn set_act0(&mut self, value: u8) {
-        self.act0 = value;
-    }
-
-    pub fn act1(&self) -> u8 {
-        self.act1
-    }
-
-    pub fn set_act1(&mut self, value: u8) {
-        self.act1 = value;
-    }
-
-    pub fn act2(&self) -> u8 {
-        self.act2
-    }
-
-    pub fn set_act2(&mut self, value: u8) {
-        self.act2 = value;
-    }
-
-    pub fn act3(&self) -> u8 {
-        self.act3
-    }
-
-    pub fn set_act3(&mut self, value: u8) {
-        self.act3 = value;
-    }
-
-    pub fn act4(&self) -> u8 {
-        self.act4
-    }
-
-    pub fn set_act4(&mut self, value: u8) {
-        self.act4 = value;
-    }
-
-    pub fn act5(&self) -> u8 {
-        self.act5
-    }
-
-    pub fn set_act5(&mut self, value: u8) {
-        self.act5 = value;
-    }
-
-    pub fn act6(&self) -> u8 {
-        self.act6
-    }
-
-    pub fn set_act6(&mut self, value: u8) {
-        self.act6 = value;
-    }
-
-    pub fn act7(&self) -> u8 {
-        self.act7
-    }
-
-    pub fn set_act7(&mut self, value: u8) {
-        self.act7 = value;
-    }
-
-    pub fn act8(&self) -> u8 {
-        self.act8
-    }
-
-    pub fn set_act8(&mut self, value: u8) {
-        self.act8 = value;
-    }
-
-    pub fn act9(&self) -> u8 {
-        self.act9
-    }
-
-    pub fn set_act9(&mut self, value: u8) {
-        self.act9 = value;
-    }
-
-    pub fn act10(&self) -> u8 {
-        self.act10
-    }
-
-    pub fn set_act10(&mut self, value: u8) {
-        self.act10 = value;
-    }
-
-    pub fn act11(&self) -> u8 {
-        self.act11
-    }
-
-    pub fn set_act11(&mut self, value: u8) {
-        self.act11 = value;
-    }
-
-    pub fn act12(&self) -> u8 {
-        self.act12
-    }
-
-    pub fn set_act12(&mut self, value: u8) {
-        self.act12 = value;
-    }
-
-    pub fn act13(&self) -> u8 {
-        self.act13
-    }
-
-    pub fn set_act13(&mut self, value: u8) {
-        self.act13 = value;
-    }
-
-    pub fn act14(&self) -> u8 {
-        self.act14
-    }
-
-    pub fn set_act14(&mut self, value: u8) {
-        self.act14 = value;
-    }
-
-    pub fn act15(&self) -> u8 {
-        self.act15
-    }
-
-    pub fn set_act15(&mut self, value: u8) {
-        self.act15 = value;
-    }
-
-    pub fn act16(&self) -> u8 {
-        self.act16
-    }
-
-    pub fn set_act16(&mut self, value: u8) {
-        self.act16 = value;
-    }
-
-    pub fn act17(&self) -> u8 {
-        self.act17
-    }
-
-    pub fn set_act17(&mut self, value: u8) {
-        self.act17 = value;
-    }
-
-    pub fn act18(&self) -> u8 {
-        self.act18
-    }
-
-    pub fn set_act18(&mut self, value: u8) {
-        self.act18 = value;
-    }
-
-    pub fn act19(&self) -> u8 {
-        self.act19
-    }
-
-    pub fn set_act19(&mut self, value: u8) {
-        self.act19 = value;
-    }
-
-    pub fn act20(&self) -> u8 {
-        self.act20
-    }
-
-    pub fn set_act20(&mut self, value: u8) {
-        self.act20 = value;
-    }
-
-    pub fn act21(&self) -> u8 {
-        self.act21
-    }
-
-    pub fn set_act21(&mut self, value: u8) {
-        self.act21 = value;
-    }
-
-    pub fn act22(&self) -> u8 {
-        self.act22
-    }
-
-    pub fn set_act22(&mut self, value: u8) {
-        self.act22 = value;
-    }
-
-    pub fn act23(&self) -> u8 {
-        self.act23
-    }
-
-    pub fn set_act23(&mut self, value: u8) {
-        self.act23 = value;
-    }
-
-    pub fn act24(&self) -> u8 {
-        self.act24
-    }
-
-    pub fn set_act24(&mut self, value: u8) {
-        self.act24 = value;
-    }
-
-    pub fn act25(&self) -> u8 {
-        self.act25
-    }
-
-    pub fn set_act25(&mut self, value: u8) {
-        self.act25 = value;
-    }
-
-    pub fn act26(&self) -> u8 {
-        self.act26
-    }
-
-    pub fn set_act26(&mut self, value: u8) {
-        self.act26 = value;
-    }
-
-    pub fn act27(&self) -> u8 {
-        self.act27
-    }
-
-    pub fn set_act27(&mut self, value: u8) {
-        self.act27 = value;
-    }
-
-    pub fn act28(&self) -> u8 {
-        self.act28
-    }
-
-    pub fn set_act28(&mut self, value: u8) {
-        self.act28 = value;
-    }
-
-    pub fn act29(&self) -> u8 {
-        self.act29
-    }
-
-    pub fn set_act29(&mut self, value: u8) {
-        self.act29 = value;
-    }
-
-    pub fn act30(&self) -> u8 {
-        self.act30
-    }
-
-    pub fn set_act30(&mut self, value: u8) {
-        self.act30 = value;
-    }
-
-    pub fn act31(&self) -> u8 {
-        self.act31
-    }
-
-    pub fn set_act31(&mut self, value: u8) {
-        self.act31 = value;
-    }
-
-    pub fn act32(&self) -> u8 {
-        self.act32
-    }
-
-    pub fn set_act32(&mut self, value: u8) {
-        self.act32 = value;
-    }
-
-    pub fn act33(&self) -> u8 {
-        self.act33
-    }
-
-    pub fn set_act33(&mut self, value: u8) {
-        self.act33 = value;
-    }
-
-    pub fn act34(&self) -> u8 {
-        self.act34
-    }
-
-    pub fn set_act34(&mut self, value: u8) {
-        self.act34 = value;
-    }
-
-    pub fn act35(&self) -> u8 {
-        self.act35
-    }
-
-    pub fn set_act35(&mut self, value: u8) {
-        self.act35 = value;
-    }
-
-    pub fn act36(&self) -> u8 {
-        self.act36
-    }
-
-    pub fn set_act36(&mut self, value: u8) {
-        self.act36 = value;
-    }
-
-    pub fn act37(&self) -> u8 {
-        self.act37
-    }
-
-    pub fn set_act37(&mut self, value: u8) {
-        self.act37 = value;
-    }
-
-    pub fn act38(&self) -> u8 {
-        self.act38
-    }
-
-    pub fn set_act38(&mut self, value: u8) {
-        self.act38 = value;
-    }
-
-    pub fn act39(&self) -> u8 {
-        self.act39
-    }
-
-    pub fn set_act39(&mut self, value: u8) {
-        self.act39 = value;
-    }
-
-    pub fn act40(&self) -> u8 {
-        self.act40
-    }
-
-    pub fn set_act40(&mut self, value: u8) {
-        self.act40 = value;
-    }
-
-    pub fn act41(&self) -> u8 {
-        self.act41
-    }
-
-    pub fn set_act41(&mut self, value: u8) {
-        self.act41 = value;
-    }
-
-    pub fn act42(&self) -> u8 {
-        self.act42
-    }
-
-    pub fn set_act42(&mut self, value: u8) {
-        self.act42 = value;
-    }
-
-    pub fn act43(&self) -> u8 {
-        self.act43
-    }
-
-    pub fn set_act43(&mut self, value: u8) {
-        self.act43 = value;
-    }
-
-    pub fn act44(&self) -> u8 {
-        self.act44
-    }
-
-    pub fn set_act44(&mut self, value: u8) {
-        self.act44 = value;
-    }
-
-    pub fn act45(&self) -> u8 {
-        self.act45
-    }
-
-    pub fn set_act45(&mut self, value: u8) {
-        self.act45 = value;
-    }
-
-    pub fn act46(&self) -> u8 {
-        self.act46
-    }
-
-    pub fn set_act46(&mut self, value: u8) {
-        self.act46 = value;
-    }
-
-    pub fn act47(&self) -> u8 {
-        self.act47
-    }
-
-    pub fn set_act47(&mut self, value: u8) {
-        self.act47 = value;
-    }
-
-    pub fn act48(&self) -> u8 {
-        self.act48
-    }
-
-    pub fn set_act48(&mut self, value: u8) {
-        self.act48 = value;
-    }
-
-    pub fn act49(&self) -> u8 {
-        self.act49
-    }
-
-    pub fn set_act49(&mut self, value: u8) {
-        self.act49 = value;
-    }
-
-    pub fn act50(&self) -> u8 {
-        self.act50
-    }
-
-    pub fn set_act50(&mut self, value: u8) {
-        self.act50 = value;
-    }
-
-    pub fn act51(&self) -> u8 {
-        self.act51
-    }
-
-    pub fn set_act51(&mut self, value: u8) {
-        self.act51 = value;
-    }
-
-    pub fn act52(&self) -> u8 {
-        self.act52
-    }
-
-    pub fn set_act52(&mut self, value: u8) {
-        self.act52 = value;
-    }
-
-    pub fn act53(&self) -> u8 {
-        self.act53
-    }
-
-    pub fn set_act53(&mut self, value: u8) {
-        self.act53 = value;
-    }
-
-    pub fn act54(&self) -> u8 {
-        self.act54
-    }
-
-    pub fn set_act54(&mut self, value: u8) {
-        self.act54 = value;
-    }
-
-    pub fn act55(&self) -> u8 {
-        self.act55
-    }
-
-    pub fn set_act55(&mut self, value: u8) {
-        self.act55 = value;
-    }
-
-    pub fn act56(&self) -> u8 {
-        self.act56
-    }
-
-    pub fn set_act56(&mut self, value: u8) {
-        self.act56 = value;
-    }
-
-    pub fn act57(&self) -> u8 {
-        self.act57
-    }
-
-    pub fn set_act57(&mut self, value: u8) {
-        self.act57 = value;
-    }
-
-    pub fn act58(&self) -> u8 {
-        self.act58
-    }
-
-    pub fn set_act58(&mut self, value: u8) {
-        self.act58 = value;
-    }
-
-    pub fn act59(&self) -> u8 {
-        self.act59
-    }
-
-    pub fn set_act59(&mut self, value: u8) {
-        self.act59 = value;
-    }
-
-    pub fn act60(&self) -> u8 {
-        self.act60
-    }
-
-    pub fn set_act60(&mut self, value: u8) {
-        self.act60 = value;
-    }
-
-    pub fn act61(&self) -> u8 {
-        self.act61
-    }
-
-    pub fn set_act61(&mut self, value: u8) {
-        self.act61 = value;
-    }
-
-    pub fn act62(&self) -> u8 {
-        self.act62
-    }
-
-    pub fn set_act62(&mut self, value: u8) {
-        self.act62 = value;
-    }
-
-    pub fn act63(&self) -> u8 {
-        self.act63
-    }
-
-    pub fn set_act63(&mut self, value: u8) {
-        self.act63 = value;
-    }
-
-    pub fn act64(&self) -> u8 {
-        self.act64
-    }
-
-    pub fn set_act64(&mut self, value: u8) {
-        self.act64 = value;
-    }
-
-    pub fn act65(&self) -> u8 {
-        self.act65
-    }
-
-    pub fn set_act65(&mut self, value: u8) {
-        self.act65 = value;
-    }
-
-    pub fn act66(&self) -> u8 {
-        self.act66
-    }
-
-    pub fn set_act66(&mut self, value: u8) {
-        self.act66 = value;
-    }
-
-    pub fn act67(&self) -> u8 {
-        self.act67
-    }
-
-    pub fn set_act67(&mut self, value: u8) {
-        self.act67 = value;
-    }
-
-    pub fn act68(&self) -> u8 {
-        self.act68
-    }
-
-    pub fn set_act68(&mut self, value: u8) {
-        self.act68 = value;
-    }
-
-    pub fn act69(&self) -> u8 {
-        self.act69
-    }
-
-    pub fn set_act69(&mut self, value: u8) {
-        self.act69 = value;
-    }
-
-    pub fn act70(&self) -> u8 {
-        self.act70
-    }
-
-    pub fn set_act70(&mut self, value: u8) {
-        self.act70 = value;
-    }
-
-    pub fn act71(&self) -> u8 {
-        self.act71
-    }
-
-    pub fn set_act71(&mut self, value: u8) {
-        self.act71 = value;
-    }
-
-    pub fn act72(&self) -> u8 {
-        self.act72
-    }
-
-    pub fn set_act72(&mut self, value: u8) {
-        self.act72 = value;
-    }
-
-    pub fn act73(&self) -> u8 {
-        self.act73
-    }
-
-    pub fn set_act73(&mut self, value: u8) {
-        self.act73 = value;
-    }
-
-    pub fn act74(&self) -> u8 {
-        self.act74
-    }
-
-    pub fn set_act74(&mut self, value: u8) {
-        self.act74 = value;
-    }
-
-    pub fn act75(&self) -> u8 {
-        self.act75
-    }
-
-    pub fn set_act75(&mut self, value: u8) {
-        self.act75 = value;
-    }
-
-    pub fn act76(&self) -> u8 {
-        self.act76
-    }
-
-    pub fn set_act76(&mut self, value: u8) {
-        self.act76 = value;
-    }
-
-    pub fn act77(&self) -> u8 {
-        self.act77
-    }
-
-    pub fn set_act77(&mut self, value: u8) {
-        self.act77 = value;
-    }
-
-    pub fn act78(&self) -> u8 {
-        self.act78
-    }
-
-    pub fn set_act78(&mut self, value: u8) {
-        self.act78 = value;
-    }
-
-    pub fn act79(&self) -> u8 {
-        self.act79
-    }
-
-    pub fn set_act79(&mut self, value: u8) {
-        self.act79 = value;
-    }
-
-    pub fn act80(&self) -> u8 {
-        self.act80
-    }
-
-    pub fn set_act80(&mut self, value: u8) {
-        self.act80 = value;
-    }
-
-    pub fn act81(&self) -> u8 {
-        self.act81
-    }
-
-    pub fn set_act81(&mut self, value: u8) {
-        self.act81 = value;
-    }
-
-    pub fn act82(&self) -> u8 {
-        self.act82
-    }
-
-    pub fn set_act82(&mut self, value: u8) {
-        self.act82 = value;
-    }
-
-    pub fn act83(&self) -> u8 {
-        self.act83
-    }
-
-    pub fn set_act83(&mut self, value: u8) {
-        self.act83 = value;
-    }
-
-    pub fn act84(&self) -> u8 {
-        self.act84
-    }
-
-    pub fn set_act84(&mut self, value: u8) {
-        self.act84 = value;
-    }
-
-    pub fn act85(&self) -> u8 {
-        self.act85
-    }
-
-    pub fn set_act85(&mut self, value: u8) {
-        self.act85 = value;
-    }
-
-    pub fn act86(&self) -> u8 {
-        self.act86
-    }
-
-    pub fn set_act86(&mut self, value: u8) {
-        self.act86 = value;
-    }
-
-    pub fn act87(&self) -> u8 {
-        self.act87
-    }
-
-    pub fn set_act87(&mut self, value: u8) {
-        self.act87 = value;
-    }
-
-    pub fn act88(&self) -> u8 {
-        self.act88
-    }
-
-    pub fn set_act88(&mut self, value: u8) {
-        self.act88 = value;
-    }
-
-    pub fn act89(&self) -> u8 {
-        self.act89
-    }
-
-    pub fn set_act89(&mut self, value: u8) {
-        self.act89 = value;
-    }
-
-    pub fn act90(&self) -> u8 {
-        self.act90
-    }
-
-    pub fn set_act90(&mut self, value: u8) {
-        self.act90 = value;
-    }
-
-    pub fn act91(&self) -> u8 {
-        self.act91
-    }
-
-    pub fn set_act91(&mut self, value: u8) {
-        self.act91 = value;
-    }
-
-    pub fn act92(&self) -> u8 {
-        self.act92
-    }
-
-    pub fn set_act92(&mut self, value: u8) {
-        self.act92 = value;
-    }
-
-    pub fn act93(&self) -> u8 {
-        self.act93
-    }
-
-    pub fn set_act93(&mut self, value: u8) {
-        self.act93 = value;
-    }
-
-    pub fn act94(&self) -> u8 {
-        self.act94
-    }
-
-    pub fn set_act94(&mut self, value: u8) {
-        self.act94 = value;
-    }
-
-    pub fn act95(&self) -> u8 {
-        self.act95
-    }
-
-    pub fn set_act95(&mut self, value: u8) {
-        self.act95 = value;
-    }
-
-    pub fn act96(&self) -> u8 {
-        self.act96
-    }
-
-    pub fn set_act96(&mut self, value: u8) {
-        self.act96 = value;
-    }
-
-    pub fn act97(&self) -> u8 {
-        self.act97
-    }
-
-    pub fn set_act97(&mut self, value: u8) {
-        self.act97 = value;
-    }
-
-    pub fn act98(&self) -> u8 {
-        self.act98
-    }
-
-    pub fn set_act98(&mut self, value: u8) {
-        self.act98 = value;
-    }
-
-    pub fn act99(&self) -> u8 {
-        self.act99
-    }
-
-    pub fn set_act99(&mut self, value: u8) {
-        self.act99 = value;
-    }
-}
-
-#[derive(Debug, Clone)]
-#[allow(non_camel_case_types)]
-#[repr(C)]
 pub struct AI_SOUND_PARAM_ST {
     radius: f32,
     life_frame: f32,
@@ -2733,6 +263,7 @@ pub struct AI_SOUND_PARAM_ST {
 
 impl ParamDef for AI_SOUND_PARAM_ST {
     const NAME: &str = "AI_SOUND_PARAM_ST";
+    const INDEX: usize = 65;
 }
 
 impl AI_SOUND_PARAM_ST {
@@ -2860,330 +391,6 @@ impl AI_SOUND_PARAM_ST {
 #[derive(Debug, Clone)]
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub struct AI_STANDARD_INFO_BANK {
-    radar_range: u16,
-    radar_angle_x: u8,
-    radar_angle_y: u8,
-    territory_size: u16,
-    threat_before_attack_rate: u8,
-    force_threat_on_first_locked: u8,
-    reserve0: [u8; 24],
-    attack1_distance: u16,
-    attack1_margin: u16,
-    attack1_rate: u8,
-    attack1_action_id: u8,
-    attack1_delay_min: u8,
-    attack1_delay_max: u8,
-    attack1_cone_angle: u8,
-    reserve10: [u8; 7],
-    attack2_distance: u16,
-    attack2_margin: u16,
-    attack2_rate: u8,
-    attack2_action_id: u8,
-    attack2_delay_min: u8,
-    attack2_delay_max: u8,
-    attack2_cone_angle: u8,
-    reserve11: [u8; 7],
-    attack3_distance: u16,
-    attack3_margin: u16,
-    attack3_rate: u8,
-    attack3_action_id: u8,
-    attack3_delay_min: u8,
-    attack3_delay_max: u8,
-    attack3_cone_angle: u8,
-    reserve12: [u8; 7],
-    attack4_distance: u16,
-    attack4_margin: u16,
-    attack4_rate: u8,
-    attack4_action_id: u8,
-    attack4_delay_min: u8,
-    attack4_delay_max: u8,
-    attack4_cone_angle: u8,
-    reserve13: [u8; 7],
-    reserve_last: [u8; 32],
-}
-
-impl ParamDef for AI_STANDARD_INFO_BANK {
-    const NAME: &str = "AI_STANDARD_INFO_BANK";
-}
-
-impl AI_STANDARD_INFO_BANK {
-    pub fn radar_range(&self) -> u16 {
-        self.radar_range
-    }
-
-    pub fn set_radar_range(&mut self, value: u16) {
-        self.radar_range = value;
-    }
-
-    pub fn radar_angle_x(&self) -> u8 {
-        self.radar_angle_x
-    }
-
-    pub fn set_radar_angle_x(&mut self, value: u8) {
-        self.radar_angle_x = value;
-    }
-
-    pub fn radar_angle_y(&self) -> u8 {
-        self.radar_angle_y
-    }
-
-    pub fn set_radar_angle_y(&mut self, value: u8) {
-        self.radar_angle_y = value;
-    }
-
-    pub fn territory_size(&self) -> u16 {
-        self.territory_size
-    }
-
-    pub fn set_territory_size(&mut self, value: u16) {
-        self.territory_size = value;
-    }
-
-    pub fn threat_before_attack_rate(&self) -> u8 {
-        self.threat_before_attack_rate
-    }
-
-    pub fn set_threat_before_attack_rate(&mut self, value: u8) {
-        self.threat_before_attack_rate = value;
-    }
-
-    pub fn force_threat_on_first_locked(&self) -> u8 {
-        self.force_threat_on_first_locked
-    }
-
-    pub fn set_force_threat_on_first_locked(&mut self, value: u8) {
-        self.force_threat_on_first_locked = value;
-    }
-
-    pub fn attack1_distance(&self) -> u16 {
-        self.attack1_distance
-    }
-
-    pub fn set_attack1_distance(&mut self, value: u16) {
-        self.attack1_distance = value;
-    }
-
-    pub fn attack1_margin(&self) -> u16 {
-        self.attack1_margin
-    }
-
-    pub fn set_attack1_margin(&mut self, value: u16) {
-        self.attack1_margin = value;
-    }
-
-    pub fn attack1_rate(&self) -> u8 {
-        self.attack1_rate
-    }
-
-    pub fn set_attack1_rate(&mut self, value: u8) {
-        self.attack1_rate = value;
-    }
-
-    pub fn attack1_action_id(&self) -> u8 {
-        self.attack1_action_id
-    }
-
-    pub fn set_attack1_action_id(&mut self, value: u8) {
-        self.attack1_action_id = value;
-    }
-
-    pub fn attack1_delay_min(&self) -> u8 {
-        self.attack1_delay_min
-    }
-
-    pub fn set_attack1_delay_min(&mut self, value: u8) {
-        self.attack1_delay_min = value;
-    }
-
-    pub fn attack1_delay_max(&self) -> u8 {
-        self.attack1_delay_max
-    }
-
-    pub fn set_attack1_delay_max(&mut self, value: u8) {
-        self.attack1_delay_max = value;
-    }
-
-    pub fn attack1_cone_angle(&self) -> u8 {
-        self.attack1_cone_angle
-    }
-
-    pub fn set_attack1_cone_angle(&mut self, value: u8) {
-        self.attack1_cone_angle = value;
-    }
-
-    pub fn attack2_distance(&self) -> u16 {
-        self.attack2_distance
-    }
-
-    pub fn set_attack2_distance(&mut self, value: u16) {
-        self.attack2_distance = value;
-    }
-
-    pub fn attack2_margin(&self) -> u16 {
-        self.attack2_margin
-    }
-
-    pub fn set_attack2_margin(&mut self, value: u16) {
-        self.attack2_margin = value;
-    }
-
-    pub fn attack2_rate(&self) -> u8 {
-        self.attack2_rate
-    }
-
-    pub fn set_attack2_rate(&mut self, value: u8) {
-        self.attack2_rate = value;
-    }
-
-    pub fn attack2_action_id(&self) -> u8 {
-        self.attack2_action_id
-    }
-
-    pub fn set_attack2_action_id(&mut self, value: u8) {
-        self.attack2_action_id = value;
-    }
-
-    pub fn attack2_delay_min(&self) -> u8 {
-        self.attack2_delay_min
-    }
-
-    pub fn set_attack2_delay_min(&mut self, value: u8) {
-        self.attack2_delay_min = value;
-    }
-
-    pub fn attack2_delay_max(&self) -> u8 {
-        self.attack2_delay_max
-    }
-
-    pub fn set_attack2_delay_max(&mut self, value: u8) {
-        self.attack2_delay_max = value;
-    }
-
-    pub fn attack2_cone_angle(&self) -> u8 {
-        self.attack2_cone_angle
-    }
-
-    pub fn set_attack2_cone_angle(&mut self, value: u8) {
-        self.attack2_cone_angle = value;
-    }
-
-    pub fn attack3_distance(&self) -> u16 {
-        self.attack3_distance
-    }
-
-    pub fn set_attack3_distance(&mut self, value: u16) {
-        self.attack3_distance = value;
-    }
-
-    pub fn attack3_margin(&self) -> u16 {
-        self.attack3_margin
-    }
-
-    pub fn set_attack3_margin(&mut self, value: u16) {
-        self.attack3_margin = value;
-    }
-
-    pub fn attack3_rate(&self) -> u8 {
-        self.attack3_rate
-    }
-
-    pub fn set_attack3_rate(&mut self, value: u8) {
-        self.attack3_rate = value;
-    }
-
-    pub fn attack3_action_id(&self) -> u8 {
-        self.attack3_action_id
-    }
-
-    pub fn set_attack3_action_id(&mut self, value: u8) {
-        self.attack3_action_id = value;
-    }
-
-    pub fn attack3_delay_min(&self) -> u8 {
-        self.attack3_delay_min
-    }
-
-    pub fn set_attack3_delay_min(&mut self, value: u8) {
-        self.attack3_delay_min = value;
-    }
-
-    pub fn attack3_delay_max(&self) -> u8 {
-        self.attack3_delay_max
-    }
-
-    pub fn set_attack3_delay_max(&mut self, value: u8) {
-        self.attack3_delay_max = value;
-    }
-
-    pub fn attack3_cone_angle(&self) -> u8 {
-        self.attack3_cone_angle
-    }
-
-    pub fn set_attack3_cone_angle(&mut self, value: u8) {
-        self.attack3_cone_angle = value;
-    }
-
-    pub fn attack4_distance(&self) -> u16 {
-        self.attack4_distance
-    }
-
-    pub fn set_attack4_distance(&mut self, value: u16) {
-        self.attack4_distance = value;
-    }
-
-    pub fn attack4_margin(&self) -> u16 {
-        self.attack4_margin
-    }
-
-    pub fn set_attack4_margin(&mut self, value: u16) {
-        self.attack4_margin = value;
-    }
-
-    pub fn attack4_rate(&self) -> u8 {
-        self.attack4_rate
-    }
-
-    pub fn set_attack4_rate(&mut self, value: u8) {
-        self.attack4_rate = value;
-    }
-
-    pub fn attack4_action_id(&self) -> u8 {
-        self.attack4_action_id
-    }
-
-    pub fn set_attack4_action_id(&mut self, value: u8) {
-        self.attack4_action_id = value;
-    }
-
-    pub fn attack4_delay_min(&self) -> u8 {
-        self.attack4_delay_min
-    }
-
-    pub fn set_attack4_delay_min(&mut self, value: u8) {
-        self.attack4_delay_min = value;
-    }
-
-    pub fn attack4_delay_max(&self) -> u8 {
-        self.attack4_delay_max
-    }
-
-    pub fn set_attack4_delay_max(&mut self, value: u8) {
-        self.attack4_delay_max = value;
-    }
-
-    pub fn attack4_cone_angle(&self) -> u8 {
-        self.attack4_cone_angle
-    }
-
-    pub fn set_attack4_cone_angle(&mut self, value: u8) {
-        self.attack4_cone_angle = value;
-    }
-}
-
-#[derive(Debug, Clone)]
-#[allow(non_camel_case_types)]
-#[repr(C)]
 pub struct ASSET_GEOMETORY_PARAM_ST {
     sound_bank_id: i32,
     sound_break_se_id: i32,
@@ -3298,6 +505,7 @@ pub struct ASSET_GEOMETORY_PARAM_ST {
 
 impl ParamDef for ASSET_GEOMETORY_PARAM_ST {
     const NAME: &str = "ASSET_GEOMETORY_PARAM_ST";
+    const INDEX: usize = 223;
 }
 
 impl ASSET_GEOMETORY_PARAM_ST {
@@ -4328,6 +1536,7 @@ pub struct ASSET_MATERIAL_SFX_PARAM_ST {
 
 impl ParamDef for ASSET_MATERIAL_SFX_PARAM_ST {
     const NAME: &str = "ASSET_MATERIAL_SFX_PARAM_ST";
+    const INDEX: usize = 96;
 }
 
 impl ASSET_MATERIAL_SFX_PARAM_ST {
@@ -4621,6 +1830,7 @@ pub struct ASSET_MODEL_SFX_PARAM_ST {
 
 impl ParamDef for ASSET_MODEL_SFX_PARAM_ST {
     const NAME: &str = "ASSET_MODEL_SFX_PARAM_ST";
+    const INDEX: usize = 84;
 }
 
 impl ASSET_MODEL_SFX_PARAM_ST {
@@ -4962,6 +2172,7 @@ pub struct ATK_PARAM_ST {
 
 impl ParamDef for ATK_PARAM_ST {
     const NAME: &str = "ATK_PARAM_ST";
+    const INDEX: usize = 95;
 }
 
 impl ATK_PARAM_ST {
@@ -6705,6 +3916,7 @@ pub struct ATTACK_ELEMENT_CORRECT_PARAM_ST {
 
 impl ParamDef for ATTACK_ELEMENT_CORRECT_PARAM_ST {
     const NAME: &str = "ATTACK_ELEMENT_CORRECT_PARAM_ST";
+    const INDEX: usize = 31;
 }
 
 impl ATTACK_ELEMENT_CORRECT_PARAM_ST {
@@ -7375,6 +4587,7 @@ pub struct AUTO_CREATE_ENV_SOUND_PARAM_ST {
 
 impl ParamDef for AUTO_CREATE_ENV_SOUND_PARAM_ST {
     const NAME: &str = "AUTO_CREATE_ENV_SOUND_PARAM_ST";
+    const INDEX: usize = 7;
 }
 
 impl AUTO_CREATE_ENV_SOUND_PARAM_ST {
@@ -7458,6 +4671,7 @@ pub struct BASECHR_SELECT_MENU_PARAM_ST {
 
 impl ParamDef for BASECHR_SELECT_MENU_PARAM_ST {
     const NAME: &str = "BASECHR_SELECT_MENU_PARAM_ST";
+    const INDEX: usize = 103;
 }
 
 impl BASECHR_SELECT_MENU_PARAM_ST {
@@ -7524,6 +4738,7 @@ pub struct BEHAVIOR_PARAM_ST {
 
 impl ParamDef for BEHAVIOR_PARAM_ST {
     const NAME: &str = "BEHAVIOR_PARAM_ST";
+    const INDEX: usize = 186;
 }
 
 impl BEHAVIOR_PARAM_ST {
@@ -7691,6 +4906,7 @@ pub struct BONFIRE_WARP_PARAM_ST {
 
 impl ParamDef for BONFIRE_WARP_PARAM_ST {
     const NAME: &str = "BONFIRE_WARP_PARAM_ST";
+    const INDEX: usize = 13;
 }
 
 impl BONFIRE_WARP_PARAM_ST {
@@ -8301,6 +5517,7 @@ pub struct BONFIRE_WARP_SUB_CATEGORY_PARAM_ST {
 
 impl ParamDef for BONFIRE_WARP_SUB_CATEGORY_PARAM_ST {
     const NAME: &str = "BONFIRE_WARP_SUB_CATEGORY_PARAM_ST";
+    const INDEX: usize = 236;
 }
 
 impl BONFIRE_WARP_SUB_CATEGORY_PARAM_ST {
@@ -8353,6 +5570,7 @@ pub struct BONFIRE_WARP_TAB_PARAM_ST {
 
 impl ParamDef for BONFIRE_WARP_TAB_PARAM_ST {
     const NAME: &str = "BONFIRE_WARP_TAB_PARAM_ST";
+    const INDEX: usize = 135;
 }
 
 impl BONFIRE_WARP_TAB_PARAM_ST {
@@ -8422,27 +5640,28 @@ pub struct BUDDY_PARAM_ST {
     doping_sp_effect_lv10: i32,
     npc_player_init_param_id: i32,
     generate_anim_id: i32,
-    unknown_0x5c: u32,
-    unknown_0x60: u32,
-    unknown_0x64: i32,
-    unknown_0x68: i32,
-    unknown_0x6c: i32,
-    unknown_0x70: i32,
-    unknown_0x74: i32,
-    unknown_0x78: i32,
-    unknown_0x7c: i32,
-    unknown_0x80: i32,
-    unknown_0x84: u32,
-    unknown_0x88: i32,
-    unknown_0x8c: i32,
-    unknown_0x90: i32,
-    unknown_0x94: i32,
+    arena_doping_sp_effect_1: i32,
+    arena_doping_sp_effect_2: i32,
+    arena_doping_sp_effect_3: i32,
+    arena_doping_sp_effect_4: i32,
+    arena_doping_sp_effect_5: i32,
+    arena_friendly_sp_effect_1: i32,
+    arena_friendly_sp_effect_2: i32,
+    arena_friendly_sp_effect_3: i32,
+    arena_friendly_sp_effect_4: i32,
+    arena_friendly_sp_effect_5: i32,
+    arena_hostile_sp_effect_1: u32,
+    arena_hostile_sp_effect_2: i32,
+    arena_hostile_sp_effect_3: i32,
+    arena_hostile_sp_effect_4: i32,
+    arena_hostile_sp_effect_5: i32,
     unknown_0x98: i32,
     unknown_0x9c: u32,
 }
 
 impl ParamDef for BUDDY_PARAM_ST {
     const NAME: &str = "BUDDY_PARAM_ST";
+    const INDEX: usize = 222;
 }
 
 impl BUDDY_PARAM_ST {
@@ -8647,6 +5866,126 @@ impl BUDDY_PARAM_ST {
     pub fn set_generate_anim_id(&mut self, value: i32) {
         self.generate_anim_id = value;
     }
+
+    pub fn arena_doping_sp_effect_1(&self) -> i32 {
+        self.arena_doping_sp_effect_1
+    }
+
+    pub fn set_arena_doping_sp_effect_1(&mut self, value: i32) {
+        self.arena_doping_sp_effect_1 = value;
+    }
+
+    pub fn arena_doping_sp_effect_2(&self) -> i32 {
+        self.arena_doping_sp_effect_2
+    }
+
+    pub fn set_arena_doping_sp_effect_2(&mut self, value: i32) {
+        self.arena_doping_sp_effect_2 = value;
+    }
+
+    pub fn arena_doping_sp_effect_3(&self) -> i32 {
+        self.arena_doping_sp_effect_3
+    }
+
+    pub fn set_arena_doping_sp_effect_3(&mut self, value: i32) {
+        self.arena_doping_sp_effect_3 = value;
+    }
+
+    pub fn arena_doping_sp_effect_4(&self) -> i32 {
+        self.arena_doping_sp_effect_4
+    }
+
+    pub fn set_arena_doping_sp_effect_4(&mut self, value: i32) {
+        self.arena_doping_sp_effect_4 = value;
+    }
+
+    pub fn arena_doping_sp_effect_5(&self) -> i32 {
+        self.arena_doping_sp_effect_5
+    }
+
+    pub fn set_arena_doping_sp_effect_5(&mut self, value: i32) {
+        self.arena_doping_sp_effect_5 = value;
+    }
+
+    pub fn arena_friendly_sp_effect_1(&self) -> i32 {
+        self.arena_friendly_sp_effect_1
+    }
+
+    pub fn set_arena_friendly_sp_effect_1(&mut self, value: i32) {
+        self.arena_friendly_sp_effect_1 = value;
+    }
+
+    pub fn arena_friendly_sp_effect_2(&self) -> i32 {
+        self.arena_friendly_sp_effect_2
+    }
+
+    pub fn set_arena_friendly_sp_effect_2(&mut self, value: i32) {
+        self.arena_friendly_sp_effect_2 = value;
+    }
+
+    pub fn arena_friendly_sp_effect_3(&self) -> i32 {
+        self.arena_friendly_sp_effect_3
+    }
+
+    pub fn set_arena_friendly_sp_effect_3(&mut self, value: i32) {
+        self.arena_friendly_sp_effect_3 = value;
+    }
+
+    pub fn arena_friendly_sp_effect_4(&self) -> i32 {
+        self.arena_friendly_sp_effect_4
+    }
+
+    pub fn set_arena_friendly_sp_effect_4(&mut self, value: i32) {
+        self.arena_friendly_sp_effect_4 = value;
+    }
+
+    pub fn arena_friendly_sp_effect_5(&self) -> i32 {
+        self.arena_friendly_sp_effect_5
+    }
+
+    pub fn set_arena_friendly_sp_effect_5(&mut self, value: i32) {
+        self.arena_friendly_sp_effect_5 = value;
+    }
+
+    pub fn arena_hostile_sp_effect_1(&self) -> u32 {
+        self.arena_hostile_sp_effect_1
+    }
+
+    pub fn set_arena_hostile_sp_effect_1(&mut self, value: u32) {
+        self.arena_hostile_sp_effect_1 = value;
+    }
+
+    pub fn arena_hostile_sp_effect_2(&self) -> i32 {
+        self.arena_hostile_sp_effect_2
+    }
+
+    pub fn set_arena_hostile_sp_effect_2(&mut self, value: i32) {
+        self.arena_hostile_sp_effect_2 = value;
+    }
+
+    pub fn arena_hostile_sp_effect_3(&self) -> i32 {
+        self.arena_hostile_sp_effect_3
+    }
+
+    pub fn set_arena_hostile_sp_effect_3(&mut self, value: i32) {
+        self.arena_hostile_sp_effect_3 = value;
+    }
+
+    pub fn arena_hostile_sp_effect_4(&self) -> i32 {
+        self.arena_hostile_sp_effect_4
+    }
+
+    pub fn set_arena_hostile_sp_effect_4(&mut self, value: i32) {
+        self.arena_hostile_sp_effect_4 = value;
+    }
+
+    pub fn arena_hostile_sp_effect_5(&self) -> i32 {
+        self.arena_hostile_sp_effect_5
+    }
+
+    pub fn set_arena_hostile_sp_effect_5(&mut self, value: i32) {
+        self.arena_hostile_sp_effect_5 = value;
+    }
 }
 
 #[derive(Debug, Clone)]
@@ -8671,6 +6010,7 @@ pub struct BUDDY_STONE_PARAM_ST {
 
 impl ParamDef for BUDDY_STONE_PARAM_ST {
     const NAME: &str = "BUDDY_STONE_PARAM_ST";
+    const INDEX: usize = 30;
 }
 
 impl BUDDY_STONE_PARAM_ST {
@@ -8803,6 +6143,7 @@ pub struct BUDGET_PARAM_ST {
 
 impl ParamDef for BUDGET_PARAM_ST {
     const NAME: &str = "BUDGET_PARAM_ST";
+    const INDEX: usize = 125;
 }
 
 impl BUDGET_PARAM_ST {
@@ -9026,6 +6367,7 @@ pub struct BULLET_CREATE_LIMIT_PARAM_ST {
 
 impl ParamDef for BULLET_CREATE_LIMIT_PARAM_ST {
     const NAME: &str = "BULLET_CREATE_LIMIT_PARAM_ST";
+    const INDEX: usize = 29;
 }
 
 impl BULLET_CREATE_LIMIT_PARAM_ST {
@@ -9150,6 +6492,7 @@ pub struct BULLET_PARAM_ST {
 
 impl ParamDef for BULLET_PARAM_ST {
     const NAME: &str = "BULLET_PARAM_ST";
+    const INDEX: usize = 93;
 }
 
 impl BULLET_PARAM_ST {
@@ -10162,6 +7505,7 @@ pub struct CACL_CORRECT_GRAPH_ST {
 
 impl ParamDef for CACL_CORRECT_GRAPH_ST {
     const NAME: &str = "CACL_CORRECT_GRAPH_ST";
+    const INDEX: usize = 97;
 }
 
 impl CACL_CORRECT_GRAPH_ST {
@@ -10332,6 +7676,7 @@ pub struct CAMERA_FADE_PARAM_ST {
 
 impl ParamDef for CAMERA_FADE_PARAM_ST {
     const NAME: &str = "CAMERA_FADE_PARAM_ST";
+    const INDEX: usize = 129;
 }
 
 impl CAMERA_FADE_PARAM_ST {
@@ -10390,6 +7735,7 @@ pub struct CEREMONY_PARAM_ST {
 
 impl ParamDef for CEREMONY_PARAM_ST {
     const NAME: &str = "CEREMONY_PARAM_ST";
+    const INDEX: usize = 158;
 }
 
 impl CEREMONY_PARAM_ST {
@@ -10458,8 +7804,8 @@ pub struct CHARACTER_INIT_PARAM {
     equip_accessory02: i32,
     equip_accessory03: i32,
     equip_accessory04: i32,
-    unknown_0x50: u8,
-    unknown_0x51: u8,
+    scadutree_blessing: u8,
+    revered_spirit_ash_blessing: u8,
     pad8: [u8; 2],
     elixir_material00: i32,
     elixir_material01: i32,
@@ -10556,6 +7902,7 @@ pub struct CHARACTER_INIT_PARAM {
 
 impl ParamDef for CHARACTER_INIT_PARAM {
     const NAME: &str = "CHARACTER_INIT_PARAM";
+    const INDEX: usize = 175;
 }
 
 impl CHARACTER_INIT_PARAM {
@@ -10717,6 +8064,22 @@ impl CHARACTER_INIT_PARAM {
 
     pub fn set_equip_accessory04(&mut self, value: i32) {
         self.equip_accessory04 = value;
+    }
+
+    pub fn scadutree_blessing(&self) -> u8 {
+        self.scadutree_blessing
+    }
+
+    pub fn set_scadutree_blessing(&mut self, value: u8) {
+        self.scadutree_blessing = value;
+    }
+
+    pub fn revered_spirit_ash_blessing(&self) -> u8 {
+        self.revered_spirit_ash_blessing
+    }
+
+    pub fn set_revered_spirit_ash_blessing(&mut self, value: u8) {
+        self.revered_spirit_ash_blessing = value;
     }
 
     pub fn elixir_material00(&self) -> i32 {
@@ -11425,6 +8788,7 @@ pub struct CHARMAKEMENUTOP_PARAM_ST {
 
 impl ParamDef for CHARMAKEMENUTOP_PARAM_ST {
     const NAME: &str = "CHARMAKEMENUTOP_PARAM_ST";
+    const INDEX: usize = 238;
 }
 
 impl CHARMAKEMENUTOP_PARAM_ST {
@@ -11529,6 +8893,7 @@ pub struct CHARMAKEMENU_LISTITEM_PARAM_ST {
 
 impl ParamDef for CHARMAKEMENU_LISTITEM_PARAM_ST {
     const NAME: &str = "CHARMAKEMENU_LISTITEM_PARAM_ST";
+    const INDEX: usize = 148;
 }
 
 impl CHARMAKEMENU_LISTITEM_PARAM_ST {
@@ -11572,6 +8937,7 @@ pub struct CHR_ACTIVATE_CONDITION_PARAM_ST {
 
 impl ParamDef for CHR_ACTIVATE_CONDITION_PARAM_ST {
     const NAME: &str = "CHR_ACTIVATE_CONDITION_PARAM_ST";
+    const INDEX: usize = 70;
 }
 
 impl CHR_ACTIVATE_CONDITION_PARAM_ST {
@@ -11759,6 +9125,7 @@ pub struct CHR_EQUIP_MODEL_PARAM_ST {
 
 impl ParamDef for CHR_EQUIP_MODEL_PARAM_ST {
     const NAME: &str = "CHR_EQUIP_MODEL_PARAM_ST";
+    const INDEX: usize = 83;
 }
 
 impl CHR_EQUIP_MODEL_PARAM_ST {}
@@ -11778,6 +9145,7 @@ pub struct CHR_MODEL_PARAM_ST {
 
 impl ParamDef for CHR_MODEL_PARAM_ST {
     const NAME: &str = "CHR_MODEL_PARAM_ST";
+    const INDEX: usize = 98;
 }
 
 impl CHR_MODEL_PARAM_ST {
@@ -11864,6 +9232,7 @@ pub struct CLEAR_COUNT_CORRECT_PARAM_ST {
 
 impl ParamDef for CLEAR_COUNT_CORRECT_PARAM_ST {
     const NAME: &str = "CLEAR_COUNT_CORRECT_PARAM_ST";
+    const INDEX: usize = 140;
 }
 
 impl CLEAR_COUNT_CORRECT_PARAM_ST {
@@ -12126,6 +9495,7 @@ pub struct COMMON_SYSTEM_PARAM_ST {
 
 impl ParamDef for COMMON_SYSTEM_PARAM_ST {
     const NAME: &str = "COMMON_SYSTEM_PARAM_ST";
+    const INDEX: usize = 90;
 }
 
 impl COMMON_SYSTEM_PARAM_ST {
@@ -12154,6 +9524,7 @@ pub struct COOL_TIME_PARAM_ST {
 
 impl ParamDef for COOL_TIME_PARAM_ST {
     const NAME: &str = "COOL_TIME_PARAM_ST";
+    const INDEX: usize = 190;
 }
 
 impl COOL_TIME_PARAM_ST {
@@ -12233,6 +9604,7 @@ pub struct CS_AA_QUALITY_DETAIL {
 
 impl ParamDef for CS_AA_QUALITY_DETAIL {
     const NAME: &str = "CS_AA_QUALITY_DETAIL";
+    const INDEX: usize = 20;
 }
 
 impl CS_AA_QUALITY_DETAIL {
@@ -12263,6 +9635,7 @@ pub struct CS_DECAL_QUALITY_DETAIL {
 
 impl ParamDef for CS_DECAL_QUALITY_DETAIL {
     const NAME: &str = "CS_DECAL_QUALITY_DETAIL";
+    const INDEX: usize = 36;
 }
 
 impl CS_DECAL_QUALITY_DETAIL {
@@ -12287,6 +9660,7 @@ pub struct CS_DOF_QUALITY_DETAIL {
 
 impl ParamDef for CS_DOF_QUALITY_DETAIL {
     const NAME: &str = "CS_DOF_QUALITY_DETAIL";
+    const INDEX: usize = 14;
 }
 
 impl CS_DOF_QUALITY_DETAIL {
@@ -12335,6 +9709,7 @@ pub struct CS_EFFECT_QUALITY_DETAIL {
 
 impl ParamDef for CS_EFFECT_QUALITY_DETAIL {
     const NAME: &str = "CS_EFFECT_QUALITY_DETAIL";
+    const INDEX: usize = 26;
 }
 
 impl CS_EFFECT_QUALITY_DETAIL {
@@ -12450,6 +9825,7 @@ pub struct CS_GRAPHICS_CONFIG_PARAM_ST {
 
 impl ParamDef for CS_GRAPHICS_CONFIG_PARAM_ST {
     const NAME: &str = "CS_GRAPHICS_CONFIG_PARAM_ST";
+    const INDEX: usize = 200;
 }
 
 impl CS_GRAPHICS_CONFIG_PARAM_ST {
@@ -12584,6 +9960,7 @@ pub struct CS_KEY_ASSIGN_MENUITEM_PARAM {
 
 impl ParamDef for CS_KEY_ASSIGN_MENUITEM_PARAM {
     const NAME: &str = "CS_KEY_ASSIGN_MENUITEM_PARAM";
+    const INDEX: usize = 12;
 }
 
 impl CS_KEY_ASSIGN_MENUITEM_PARAM {
@@ -12673,6 +10050,7 @@ pub struct CS_LIGHTING_QUALITY_DETAIL {
 
 impl ParamDef for CS_LIGHTING_QUALITY_DETAIL {
     const NAME: &str = "CS_LIGHTING_QUALITY_DETAIL";
+    const INDEX: usize = 100;
 }
 
 impl CS_LIGHTING_QUALITY_DETAIL {
@@ -12724,6 +10102,7 @@ pub struct CS_MOTION_BLUR_QUALITY_DETAIL {
 
 impl ParamDef for CS_MOTION_BLUR_QUALITY_DETAIL {
     const NAME: &str = "CS_MOTION_BLUR_QUALITY_DETAIL";
+    const INDEX: usize = 1;
 }
 
 impl CS_MOTION_BLUR_QUALITY_DETAIL {
@@ -12802,6 +10181,7 @@ pub struct CS_RAYTRACING_QUALITY_DETAIL {
 
 impl ParamDef for CS_RAYTRACING_QUALITY_DETAIL {
     const NAME: &str = "CS_RAYTRACING_QUALITY_DETAIL";
+    const INDEX: usize = 61;
 }
 
 impl CS_RAYTRACING_QUALITY_DETAIL {
@@ -12858,6 +10238,7 @@ pub struct CS_REFLECTION_QUALITY_DETAIL {
 
 impl ParamDef for CS_REFLECTION_QUALITY_DETAIL {
     const NAME: &str = "CS_REFLECTION_QUALITY_DETAIL";
+    const INDEX: usize = 63;
 }
 
 impl CS_REFLECTION_QUALITY_DETAIL {
@@ -12954,6 +10335,7 @@ pub struct CS_SHADER_QUALITY_DETAIL {
 
 impl ParamDef for CS_SHADER_QUALITY_DETAIL {
     const NAME: &str = "CS_SHADER_QUALITY_DETAIL";
+    const INDEX: usize = 201;
 }
 
 impl CS_SHADER_QUALITY_DETAIL {
@@ -13006,6 +10388,7 @@ pub struct CS_SHADOW_QUALITY_DETAIL {
 
 impl ParamDef for CS_SHADOW_QUALITY_DETAIL {
     const NAME: &str = "CS_SHADOW_QUALITY_DETAIL";
+    const INDEX: usize = 79;
 }
 
 impl CS_SHADOW_QUALITY_DETAIL {
@@ -13079,6 +10462,7 @@ pub struct CS_SSAO_QUALITY_DETAIL {
 
 impl ParamDef for CS_SSAO_QUALITY_DETAIL {
     const NAME: &str = "CS_SSAO_QUALITY_DETAIL";
+    const INDEX: usize = 54;
 }
 
 impl CS_SSAO_QUALITY_DETAIL {
@@ -13126,6 +10510,7 @@ pub struct CS_TEXTURE_FILTER_QUALITY_DETAIL {
 
 impl ParamDef for CS_TEXTURE_FILTER_QUALITY_DETAIL {
     const NAME: &str = "CS_TEXTURE_FILTER_QUALITY_DETAIL";
+    const INDEX: usize = 48;
 }
 
 impl CS_TEXTURE_FILTER_QUALITY_DETAIL {
@@ -13171,6 +10556,7 @@ pub struct CS_VOLUMETRIC_EFFECT_QUALITY_DETAIL {
 
 impl ParamDef for CS_VOLUMETRIC_EFFECT_QUALITY_DETAIL {
     const NAME: &str = "CS_VOLUMETRIC_EFFECT_QUALITY_DETAIL";
+    const INDEX: usize = 47;
 }
 
 impl CS_VOLUMETRIC_EFFECT_QUALITY_DETAIL {
@@ -13305,6 +10691,7 @@ pub struct CS_WATER_QUALITY_DETAIL {
 
 impl ParamDef for CS_WATER_QUALITY_DETAIL {
     const NAME: &str = "CS_WATER_QUALITY_DETAIL";
+    const INDEX: usize = 155;
 }
 
 impl CS_WATER_QUALITY_DETAIL {
@@ -13336,6 +10723,7 @@ pub struct CUTSCENE_GPARAM_TIME_PARAM_ST {
 
 impl ParamDef for CUTSCENE_GPARAM_TIME_PARAM_ST {
     const NAME: &str = "CUTSCENE_GPARAM_TIME_PARAM_ST";
+    const INDEX: usize = 210;
 }
 
 impl CUTSCENE_GPARAM_TIME_PARAM_ST {
@@ -13485,6 +10873,7 @@ pub struct CUTSCENE_GPARAM_WEATHER_PARAM_ST {
 
 impl ParamDef for CUTSCENE_GPARAM_WEATHER_PARAM_ST {
     const NAME: &str = "CUTSCENE_GPARAM_WEATHER_PARAM_ST";
+    const INDEX: usize = 82;
 }
 
 impl CUTSCENE_GPARAM_WEATHER_PARAM_ST {
@@ -13818,6 +11207,7 @@ pub struct CUTSCENE_MAP_ID_PARAM_ST {
 
 impl ParamDef for CUTSCENE_MAP_ID_PARAM_ST {
     const NAME: &str = "CUTSCENE_MAP_ID_PARAM_ST";
+    const INDEX: usize = 189;
 }
 
 impl CUTSCENE_MAP_ID_PARAM_ST {
@@ -13932,6 +11322,7 @@ pub struct CUTSCENE_TEXTURE_LOAD_PARAM_ST {
 
 impl ParamDef for CUTSCENE_TEXTURE_LOAD_PARAM_ST {
     const NAME: &str = "CUTSCENE_TEXTURE_LOAD_PARAM_ST";
+    const INDEX: usize = 6;
 }
 
 impl CUTSCENE_TEXTURE_LOAD_PARAM_ST {
@@ -14094,6 +11485,7 @@ pub struct CUTSCENE_TIMEZONE_CONVERT_PARAM_ST {
 
 impl ParamDef for CUTSCENE_TIMEZONE_CONVERT_PARAM_ST {
     const NAME: &str = "CUTSCENE_TIMEZONE_CONVERT_PARAM_ST";
+    const INDEX: usize = 124;
 }
 
 impl CUTSCENE_TIMEZONE_CONVERT_PARAM_ST {
@@ -14123,6 +11515,7 @@ pub struct CUTSCENE_WEATHER_OVERRIDE_GPARAM_ID_CONVERT_PARAM_ST {
 
 impl ParamDef for CUTSCENE_WEATHER_OVERRIDE_GPARAM_ID_CONVERT_PARAM_ST {
     const NAME: &str = "CUTSCENE_WEATHER_OVERRIDE_GPARAM_ID_CONVERT_PARAM_ST";
+    const INDEX: usize = 102;
 }
 
 impl CUTSCENE_WEATHER_OVERRIDE_GPARAM_ID_CONVERT_PARAM_ST {
@@ -14219,6 +11612,7 @@ pub struct DECAL_PARAM_ST {
 
 impl ParamDef for DECAL_PARAM_ST {
     const NAME: &str = "DECAL_PARAM_ST";
+    const INDEX: usize = 194;
 }
 
 impl DECAL_PARAM_ST {
@@ -14978,6 +12372,7 @@ pub struct DEFAULT_KEY_ASSIGN {
 
 impl ParamDef for DEFAULT_KEY_ASSIGN {
     const NAME: &str = "DEFAULT_KEY_ASSIGN";
+    const INDEX: usize = 21;
 }
 
 impl DEFAULT_KEY_ASSIGN {
@@ -16080,6 +13475,7 @@ pub struct DIRECTION_CAMERA_PARAM_ST {
 
 impl ParamDef for DIRECTION_CAMERA_PARAM_ST {
     const NAME: &str = "DIRECTION_CAMERA_PARAM_ST";
+    const INDEX: usize = 45;
 }
 
 impl DIRECTION_CAMERA_PARAM_ST {
@@ -16111,6 +13507,7 @@ pub struct ENEMY_COMMON_PARAM_ST {
 
 impl ParamDef for ENEMY_COMMON_PARAM_ST {
     const NAME: &str = "ENEMY_COMMON_PARAM_ST";
+    const INDEX: usize = 193;
 }
 
 impl ENEMY_COMMON_PARAM_ST {
@@ -16166,192 +13563,6 @@ impl ENEMY_COMMON_PARAM_ST {
 #[derive(Debug, Clone)]
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub struct ENEMY_STANDARD_INFO_BANK {
-    enemy_behavior_id: i32,
-    hp: u16,
-    attack_power: u16,
-    chr_type: i32,
-    hit_height: f32,
-    hit_radius: f32,
-    weight: f32,
-    dynamic_friction: f32,
-    static_friction: f32,
-    upper_def_state: i32,
-    action_def_state: i32,
-    rot_y_per_second: f32,
-    reserve0: [u8; 20],
-    rot_y_per_second_old: u8,
-    enable_side_step: u8,
-    use_ragdoll_hit: u8,
-    reserve_last: [u8; 5],
-    stamina: u16,
-    stamina_recover: u16,
-    stamina_consumption: u16,
-    deffenct_phys: u16,
-    reserve_last2: [u8; 48],
-}
-
-impl ParamDef for ENEMY_STANDARD_INFO_BANK {
-    const NAME: &str = "ENEMY_STANDARD_INFO_BANK";
-}
-
-impl ENEMY_STANDARD_INFO_BANK {
-    pub fn enemy_behavior_id(&self) -> i32 {
-        self.enemy_behavior_id
-    }
-
-    pub fn set_enemy_behavior_id(&mut self, value: i32) {
-        self.enemy_behavior_id = value;
-    }
-
-    pub fn hp(&self) -> u16 {
-        self.hp
-    }
-
-    pub fn set_hp(&mut self, value: u16) {
-        self.hp = value;
-    }
-
-    pub fn attack_power(&self) -> u16 {
-        self.attack_power
-    }
-
-    pub fn set_attack_power(&mut self, value: u16) {
-        self.attack_power = value;
-    }
-
-    pub fn chr_type(&self) -> i32 {
-        self.chr_type
-    }
-
-    pub fn set_chr_type(&mut self, value: i32) {
-        self.chr_type = value;
-    }
-
-    pub fn hit_height(&self) -> f32 {
-        self.hit_height
-    }
-
-    pub fn set_hit_height(&mut self, value: f32) {
-        self.hit_height = value;
-    }
-
-    pub fn hit_radius(&self) -> f32 {
-        self.hit_radius
-    }
-
-    pub fn set_hit_radius(&mut self, value: f32) {
-        self.hit_radius = value;
-    }
-
-    pub fn weight(&self) -> f32 {
-        self.weight
-    }
-
-    pub fn set_weight(&mut self, value: f32) {
-        self.weight = value;
-    }
-
-    pub fn dynamic_friction(&self) -> f32 {
-        self.dynamic_friction
-    }
-
-    pub fn set_dynamic_friction(&mut self, value: f32) {
-        self.dynamic_friction = value;
-    }
-
-    pub fn static_friction(&self) -> f32 {
-        self.static_friction
-    }
-
-    pub fn set_static_friction(&mut self, value: f32) {
-        self.static_friction = value;
-    }
-
-    pub fn upper_def_state(&self) -> i32 {
-        self.upper_def_state
-    }
-
-    pub fn set_upper_def_state(&mut self, value: i32) {
-        self.upper_def_state = value;
-    }
-
-    pub fn action_def_state(&self) -> i32 {
-        self.action_def_state
-    }
-
-    pub fn set_action_def_state(&mut self, value: i32) {
-        self.action_def_state = value;
-    }
-
-    pub fn rot_y_per_second(&self) -> f32 {
-        self.rot_y_per_second
-    }
-
-    pub fn set_rot_y_per_second(&mut self, value: f32) {
-        self.rot_y_per_second = value;
-    }
-
-    pub fn rot_y_per_second_old(&self) -> u8 {
-        self.rot_y_per_second_old
-    }
-
-    pub fn set_rot_y_per_second_old(&mut self, value: u8) {
-        self.rot_y_per_second_old = value;
-    }
-
-    pub fn enable_side_step(&self) -> u8 {
-        self.enable_side_step
-    }
-
-    pub fn set_enable_side_step(&mut self, value: u8) {
-        self.enable_side_step = value;
-    }
-
-    pub fn use_ragdoll_hit(&self) -> u8 {
-        self.use_ragdoll_hit
-    }
-
-    pub fn set_use_ragdoll_hit(&mut self, value: u8) {
-        self.use_ragdoll_hit = value;
-    }
-
-    pub fn stamina(&self) -> u16 {
-        self.stamina
-    }
-
-    pub fn set_stamina(&mut self, value: u16) {
-        self.stamina = value;
-    }
-
-    pub fn stamina_recover(&self) -> u16 {
-        self.stamina_recover
-    }
-
-    pub fn set_stamina_recover(&mut self, value: u16) {
-        self.stamina_recover = value;
-    }
-
-    pub fn stamina_consumption(&self) -> u16 {
-        self.stamina_consumption
-    }
-
-    pub fn set_stamina_consumption(&mut self, value: u16) {
-        self.stamina_consumption = value;
-    }
-
-    pub fn deffenct_phys(&self) -> u16 {
-        self.deffenct_phys
-    }
-
-    pub fn set_deffenct_phys(&mut self, value: u16) {
-        self.deffenct_phys = value;
-    }
-}
-
-#[derive(Debug, Clone)]
-#[allow(non_camel_case_types)]
-#[repr(C)]
 pub struct ENV_OBJ_LOT_PARAM_ST {
     asset_id_0: i32,
     asset_id_1: i32,
@@ -16374,6 +13585,7 @@ pub struct ENV_OBJ_LOT_PARAM_ST {
 
 impl ParamDef for ENV_OBJ_LOT_PARAM_ST {
     const NAME: &str = "ENV_OBJ_LOT_PARAM_ST";
+    const INDEX: usize = 198;
 }
 
 impl ENV_OBJ_LOT_PARAM_ST {
@@ -16537,6 +13749,7 @@ pub struct EQUIP_MTRL_SET_PARAM_ST {
 
 impl ParamDef for EQUIP_MTRL_SET_PARAM_ST {
     const NAME: &str = "EQUIP_MTRL_SET_PARAM_ST";
+    const INDEX: usize = 127;
 }
 
 impl EQUIP_MTRL_SET_PARAM_ST {
@@ -16789,6 +14002,7 @@ pub struct EQUIP_PARAM_ACCESSORY_ST {
 
 impl ParamDef for EQUIP_PARAM_ACCESSORY_ST {
     const NAME: &str = "EQUIP_PARAM_ACCESSORY_ST";
+    const INDEX: usize = 121;
 }
 
 impl EQUIP_PARAM_ACCESSORY_ST {
@@ -17125,6 +14339,7 @@ pub struct EQUIP_PARAM_CUSTOM_WEAPON_ST {
 
 impl ParamDef for EQUIP_PARAM_CUSTOM_WEAPON_ST {
     const NAME: &str = "EQUIP_PARAM_CUSTOM_WEAPON_ST";
+    const INDEX: usize = 123;
 }
 
 impl EQUIP_PARAM_CUSTOM_WEAPON_ST {
@@ -17199,6 +14414,7 @@ pub struct EQUIP_PARAM_GEM_ST {
 
 impl ParamDef for EQUIP_PARAM_GEM_ST {
     const NAME: &str = "EQUIP_PARAM_GEM_ST";
+    const INDEX: usize = 16;
 }
 
 impl EQUIP_PARAM_GEM_ST {
@@ -18167,7 +15383,7 @@ pub struct EQUIP_PARAM_GOODS_ST {
     goods_type: u8,
     ref_category: u8,
     sp_effect_category: u8,
-    unknown_0x40: u8,
+    quick_match_use_restriction: u8,
     goods_use_anim: u8,
     opme_menu_type: u8,
     use_limit_category: u8,
@@ -18226,6 +15442,7 @@ pub struct EQUIP_PARAM_GOODS_ST {
 
 impl ParamDef for EQUIP_PARAM_GOODS_ST {
     const NAME: &str = "EQUIP_PARAM_GOODS_ST";
+    const INDEX: usize = 56;
 }
 
 impl EQUIP_PARAM_GOODS_ST {
@@ -18421,6 +15638,14 @@ impl EQUIP_PARAM_GOODS_ST {
 
     pub fn set_sp_effect_category(&mut self, value: u8) {
         self.sp_effect_category = value;
+    }
+
+    pub fn quick_match_use_restriction(&self) -> u8 {
+        self.quick_match_use_restriction
+    }
+
+    pub fn set_quick_match_use_restriction(&mut self, value: u8) {
+        self.quick_match_use_restriction = value;
     }
 
     pub fn goods_use_anim(&self) -> u8 {
@@ -18960,12 +16185,12 @@ impl EQUIP_PARAM_GOODS_ST {
     }
 
     #[allow(clippy::identity_op)]
-    pub fn quick_match_replanish(&self) -> u8 {
+    pub fn quick_match_replenish(&self) -> u8 {
         (self.bits_73 >> 2) & 0b00000001
     }
 
     #[allow(clippy::identity_op)]
-    pub fn set_quick_match_replanish(&mut self, value: u8) {
+    pub fn set_quick_match_replenish(&mut self, value: u8) {
         self.bits_73 = (self.bits_73 & !(0b00000001 << 2)) | ((value & 0b00000001) << 2);
     }
 
@@ -19409,6 +16634,7 @@ pub struct EQUIP_PARAM_PROTECTOR_ST {
 
 impl ParamDef for EQUIP_PARAM_PROTECTOR_ST {
     const NAME: &str = "EQUIP_PARAM_PROTECTOR_ST";
+    const INDEX: usize = 24;
 }
 
 impl EQUIP_PARAM_PROTECTOR_ST {
@@ -21672,6 +18898,7 @@ pub struct EQUIP_PARAM_WEAPON_ST {
 
 impl ParamDef for EQUIP_PARAM_WEAPON_ST {
     const NAME: &str = "EQUIP_PARAM_WEAPON_ST";
+    const INDEX: usize = 38;
 }
 
 impl EQUIP_PARAM_WEAPON_ST {
@@ -23108,12 +20335,12 @@ impl EQUIP_PARAM_WEAPON_ST {
     }
 
     #[allow(clippy::identity_op)]
-    pub fn quick_match_replanish(&self) -> u8 {
+    pub fn quick_match_replenish(&self) -> u8 {
         (self.bits_17c >> 6) & 0b00000001
     }
 
     #[allow(clippy::identity_op)]
-    pub fn set_quick_match_replanish(&mut self, value: u8) {
+    pub fn set_quick_match_replenish(&mut self, value: u8) {
         self.bits_17c = (self.bits_17c & !(0b00000001 << 6)) | ((value & 0b00000001) << 6);
     }
 
@@ -23957,6 +21184,7 @@ pub struct ESTUS_FLASK_RECOVERY_PARAM_ST {
 
 impl ParamDef for ESTUS_FLASK_RECOVERY_PARAM_ST {
     const NAME: &str = "ESTUS_FLASK_RECOVERY_PARAM_ST";
+    const INDEX: usize = 42;
 }
 
 impl ESTUS_FLASK_RECOVERY_PARAM_ST {
@@ -24118,47 +21346,6 @@ impl ESTUS_FLASK_RECOVERY_PARAM_ST {
 
     pub fn set_param_replace_id(&mut self, value: i32) {
         self.param_replace_id = value;
-    }
-}
-
-#[derive(Debug, Clone)]
-#[allow(non_camel_case_types)]
-#[repr(C)]
-pub struct EVENT_FLAG_USAGE_PARAM_ST {
-    usage_type: u8,
-    playlog_category: u8,
-    padding1: [u8; 2],
-    flag_num: i32,
-    padding2: [u8; 24],
-}
-
-impl ParamDef for EVENT_FLAG_USAGE_PARAM_ST {
-    const NAME: &str = "EVENT_FLAG_USAGE_PARAM_ST";
-}
-
-impl EVENT_FLAG_USAGE_PARAM_ST {
-    pub fn usage_type(&self) -> u8 {
-        self.usage_type
-    }
-
-    pub fn set_usage_type(&mut self, value: u8) {
-        self.usage_type = value;
-    }
-
-    pub fn playlog_category(&self) -> u8 {
-        self.playlog_category
-    }
-
-    pub fn set_playlog_category(&mut self, value: u8) {
-        self.playlog_category = value;
-    }
-
-    pub fn flag_num(&self) -> i32 {
-        self.flag_num
-    }
-
-    pub fn set_flag_num(&mut self, value: i32) {
-        self.flag_num = value;
     }
 }
 
@@ -24406,6 +21593,7 @@ pub struct FACE_PARAM_ST {
 
 impl ParamDef for FACE_PARAM_ST {
     const NAME: &str = "FACE_PARAM_ST";
+    const INDEX: usize = 171;
 }
 
 impl FACE_PARAM_ST {
@@ -26556,6 +23744,7 @@ pub struct FACE_RANGE_PARAM_ST {
 
 impl ParamDef for FACE_RANGE_PARAM_ST {
     const NAME: &str = "FACE_RANGE_PARAM_ST";
+    const INDEX: usize = 23;
 }
 
 impl FACE_RANGE_PARAM_ST {
@@ -28222,6 +25411,7 @@ pub struct FE_TEXT_EFFECT_PARAM_ST {
 
 impl ParamDef for FE_TEXT_EFFECT_PARAM_ST {
     const NAME: &str = "FE_TEXT_EFFECT_PARAM_ST";
+    const INDEX: usize = 104;
 }
 
 impl FE_TEXT_EFFECT_PARAM_ST {
@@ -28275,6 +25465,7 @@ pub struct FINAL_DAMAGE_RATE_PARAM_ST {
 
 impl ParamDef for FINAL_DAMAGE_RATE_PARAM_ST {
     const NAME: &str = "FINAL_DAMAGE_RATE_PARAM_ST";
+    const INDEX: usize = 174;
 }
 
 impl FINAL_DAMAGE_RATE_PARAM_ST {
@@ -28543,6 +25734,7 @@ pub struct FOOT_SFX_PARAM_ST {
 
 impl ParamDef for FOOT_SFX_PARAM_ST {
     const NAME: &str = "FOOT_SFX_PARAM_ST";
+    const INDEX: usize = 217;
 }
 
 impl FOOT_SFX_PARAM_ST {
@@ -30186,6 +27378,7 @@ pub struct GAME_AREA_PARAM_ST {
 
 impl ParamDef for GAME_AREA_PARAM_ST {
     const NAME: &str = "GAME_AREA_PARAM_ST";
+    const INDEX: usize = 197;
 }
 
 impl GAME_AREA_PARAM_ST {
@@ -30421,64 +27614,6 @@ impl GAME_AREA_PARAM_ST {
 
     pub fn set_boss_map_map_no(&mut self, value: u8) {
         self.boss_map_map_no = value;
-    }
-}
-
-#[derive(Debug, Clone)]
-#[allow(non_camel_case_types)]
-#[repr(C)]
-pub struct GAME_INFO_PARAM {
-    title_msg_id: i32,
-    content_msg_id: i32,
-    value: i32,
-    sort_id: i32,
-    event_id: i32,
-    pad: [u8; 12],
-}
-
-impl ParamDef for GAME_INFO_PARAM {
-    const NAME: &str = "GAME_INFO_PARAM";
-}
-
-impl GAME_INFO_PARAM {
-    pub fn title_msg_id(&self) -> i32 {
-        self.title_msg_id
-    }
-
-    pub fn set_title_msg_id(&mut self, value: i32) {
-        self.title_msg_id = value;
-    }
-
-    pub fn content_msg_id(&self) -> i32 {
-        self.content_msg_id
-    }
-
-    pub fn set_content_msg_id(&mut self, value: i32) {
-        self.content_msg_id = value;
-    }
-
-    pub fn value(&self) -> i32 {
-        self.value
-    }
-
-    pub fn set_value(&mut self, value: i32) {
-        self.value = value;
-    }
-
-    pub fn sort_id(&self) -> i32 {
-        self.sort_id
-    }
-
-    pub fn set_sort_id(&mut self, value: i32) {
-        self.sort_id = value;
-    }
-
-    pub fn event_id(&self) -> i32 {
-        self.event_id
-    }
-
-    pub fn set_event_id(&mut self, value: i32) {
-        self.event_id = value;
     }
 }
 
@@ -30770,34 +27905,34 @@ pub struct GAME_SYSTEM_COMMON_PARAM_ST {
     block_clear_bonus_delay_time: f32,
     bonfire_check_enemy_range: f32,
     unknown_0x2f0: i32,
-    matching_level_unk_upper_rel: u8,
-    matching_level_unk_upper_abs: u8,
-    matching_weapon_level_upper_unk_0: u8,
-    matching_weapon_level_upper_unk_1: u8,
-    matching_weapon_level_upper_unk_2: u8,
-    matching_weapon_level_upper_unk_3: u8,
-    matching_weapon_level_upper_unk_4: u8,
-    matching_weapon_level_upper_unk_5: u8,
-    matching_weapon_level_upper_unk_6: u8,
-    matching_weapon_level_upper_unk_7: u8,
-    matching_weapon_level_upper_unk_8: u8,
-    matching_weapon_level_upper_unk_9: u8,
-    matching_weapon_level_upper_unk_10: u8,
-    matching_weapon_level_upper_unk_11: u8,
-    matching_weapon_level_upper_unk_12: u8,
-    matching_weapon_level_upper_unk_13: u8,
-    matching_weapon_level_upper_unk_14: u8,
-    matching_weapon_level_upper_unk_15: u8,
-    matching_weapon_level_upper_unk_16: u8,
-    matching_weapon_level_upper_unk_17: u8,
-    matching_weapon_level_upper_unk_18: u8,
-    matching_weapon_level_upper_unk_19: u8,
-    matching_weapon_level_upper_unk_20: u8,
-    matching_weapon_level_upper_unk_21: u8,
-    matching_weapon_level_upper_unk_22: u8,
-    matching_weapon_level_upper_unk_23: u8,
-    matching_weapon_level_upper_unk_24: u8,
-    matching_weapon_level_upper_unk_25: u8,
+    matching_level_arena_upper_rel: u8,
+    matching_level_arena_upper_abs: u8,
+    matching_weapon_level_upper_arena_0: u8,
+    matching_weapon_level_upper_arena_1: u8,
+    matching_weapon_level_upper_arena_2: u8,
+    matching_weapon_level_upper_arena_3: u8,
+    matching_weapon_level_upper_arena_4: u8,
+    matching_weapon_level_upper_arena_5: u8,
+    matching_weapon_level_upper_arena_6: u8,
+    matching_weapon_level_upper_arena_7: u8,
+    matching_weapon_level_upper_arena_8: u8,
+    matching_weapon_level_upper_arena_9: u8,
+    matching_weapon_level_upper_arena_10: u8,
+    matching_weapon_level_upper_arena_11: u8,
+    matching_weapon_level_upper_arena_12: u8,
+    matching_weapon_level_upper_arena_13: u8,
+    matching_weapon_level_upper_arena_14: u8,
+    matching_weapon_level_upper_arena_15: u8,
+    matching_weapon_level_upper_arena_16: u8,
+    matching_weapon_level_upper_arena_17: u8,
+    matching_weapon_level_upper_arena_18: u8,
+    matching_weapon_level_upper_arena_19: u8,
+    matching_weapon_level_upper_arena_20: u8,
+    matching_weapon_level_upper_arena_21: u8,
+    matching_weapon_level_upper_arena_22: u8,
+    matching_weapon_level_upper_arena_23: u8,
+    matching_weapon_level_upper_arena_24: u8,
+    matching_weapon_level_upper_arena_25: u8,
     unknown_0x310: f32,
     unknown_0x314: f32,
     unknown_0x318: f32,
@@ -30812,11 +27947,20 @@ pub struct GAME_SYSTEM_COMMON_PARAM_ST {
     unknown_0x33c: f32,
     unknown_0x340: f32,
     unknown_0x344: f32,
-    unknown_0x34c: i32,
-    unknown_0x350: i32,
-    unknown_0x354: i32,
+    summon_data_coop_matching_spirit_ash_level_mul: i16,
+    matching_spirit_ash_level_upper_0: u8,
+    matching_spirit_ash_level_upper_1: u8,
+    matching_spirit_ash_level_upper_2: u8,
+    matching_spirit_ash_level_upper_3: u8,
+    matching_spirit_ash_level_upper_4: u8,
+    matching_spirit_ash_level_upper_5: u8,
+    matching_spirit_ash_level_upper_6: u8,
+    matching_spirit_ash_level_upper_7: u8,
+    matching_spirit_ash_level_upper_8: u8,
+    matching_spirit_ash_level_upper_9: u8,
+    matching_spirit_ash_level_upper_10: u8,
+    pad_0x34c: [u8; 3],
     unknown_0x358: i32,
-    unknown_0x35c: i32,
     base_scadu_blessing_sp_effect_id: i32,
     base_revered_spirit_ash_blessing_sp_effect_id: i32,
     unknown_0x368: i32,
@@ -30836,6 +27980,7 @@ pub struct GAME_SYSTEM_COMMON_PARAM_ST {
 
 impl ParamDef for GAME_SYSTEM_COMMON_PARAM_ST {
     const NAME: &str = "GAME_SYSTEM_COMMON_PARAM_ST";
+    const INDEX: usize = 35;
 }
 
 impl GAME_SYSTEM_COMMON_PARAM_ST {
@@ -33153,228 +30298,324 @@ impl GAME_SYSTEM_COMMON_PARAM_ST {
         self.bonfire_check_enemy_range = value;
     }
 
-    pub fn matching_level_unk_upper_rel(&self) -> u8 {
-        self.matching_level_unk_upper_rel
+    pub fn matching_level_arena_upper_rel(&self) -> u8 {
+        self.matching_level_arena_upper_rel
     }
 
-    pub fn set_matching_level_unk_upper_rel(&mut self, value: u8) {
-        self.matching_level_unk_upper_rel = value;
+    pub fn set_matching_level_arena_upper_rel(&mut self, value: u8) {
+        self.matching_level_arena_upper_rel = value;
     }
 
-    pub fn matching_level_unk_upper_abs(&self) -> u8 {
-        self.matching_level_unk_upper_abs
+    pub fn matching_level_arena_upper_abs(&self) -> u8 {
+        self.matching_level_arena_upper_abs
     }
 
-    pub fn set_matching_level_unk_upper_abs(&mut self, value: u8) {
-        self.matching_level_unk_upper_abs = value;
+    pub fn set_matching_level_arena_upper_abs(&mut self, value: u8) {
+        self.matching_level_arena_upper_abs = value;
     }
 
-    pub fn matching_weapon_level_upper_unk_0(&self) -> u8 {
-        self.matching_weapon_level_upper_unk_0
+    pub fn matching_weapon_level_upper_arena_0(&self) -> u8 {
+        self.matching_weapon_level_upper_arena_0
     }
 
-    pub fn set_matching_weapon_level_upper_unk_0(&mut self, value: u8) {
-        self.matching_weapon_level_upper_unk_0 = value;
+    pub fn set_matching_weapon_level_upper_arena_0(&mut self, value: u8) {
+        self.matching_weapon_level_upper_arena_0 = value;
     }
 
-    pub fn matching_weapon_level_upper_unk_1(&self) -> u8 {
-        self.matching_weapon_level_upper_unk_1
+    pub fn matching_weapon_level_upper_arena_1(&self) -> u8 {
+        self.matching_weapon_level_upper_arena_1
     }
 
-    pub fn set_matching_weapon_level_upper_unk_1(&mut self, value: u8) {
-        self.matching_weapon_level_upper_unk_1 = value;
+    pub fn set_matching_weapon_level_upper_arena_1(&mut self, value: u8) {
+        self.matching_weapon_level_upper_arena_1 = value;
     }
 
-    pub fn matching_weapon_level_upper_unk_2(&self) -> u8 {
-        self.matching_weapon_level_upper_unk_2
+    pub fn matching_weapon_level_upper_arena_2(&self) -> u8 {
+        self.matching_weapon_level_upper_arena_2
     }
 
-    pub fn set_matching_weapon_level_upper_unk_2(&mut self, value: u8) {
-        self.matching_weapon_level_upper_unk_2 = value;
+    pub fn set_matching_weapon_level_upper_arena_2(&mut self, value: u8) {
+        self.matching_weapon_level_upper_arena_2 = value;
     }
 
-    pub fn matching_weapon_level_upper_unk_3(&self) -> u8 {
-        self.matching_weapon_level_upper_unk_3
+    pub fn matching_weapon_level_upper_arena_3(&self) -> u8 {
+        self.matching_weapon_level_upper_arena_3
     }
 
-    pub fn set_matching_weapon_level_upper_unk_3(&mut self, value: u8) {
-        self.matching_weapon_level_upper_unk_3 = value;
+    pub fn set_matching_weapon_level_upper_arena_3(&mut self, value: u8) {
+        self.matching_weapon_level_upper_arena_3 = value;
     }
 
-    pub fn matching_weapon_level_upper_unk_4(&self) -> u8 {
-        self.matching_weapon_level_upper_unk_4
+    pub fn matching_weapon_level_upper_arena_4(&self) -> u8 {
+        self.matching_weapon_level_upper_arena_4
     }
 
-    pub fn set_matching_weapon_level_upper_unk_4(&mut self, value: u8) {
-        self.matching_weapon_level_upper_unk_4 = value;
+    pub fn set_matching_weapon_level_upper_arena_4(&mut self, value: u8) {
+        self.matching_weapon_level_upper_arena_4 = value;
     }
 
-    pub fn matching_weapon_level_upper_unk_5(&self) -> u8 {
-        self.matching_weapon_level_upper_unk_5
+    pub fn matching_weapon_level_upper_arena_5(&self) -> u8 {
+        self.matching_weapon_level_upper_arena_5
     }
 
-    pub fn set_matching_weapon_level_upper_unk_5(&mut self, value: u8) {
-        self.matching_weapon_level_upper_unk_5 = value;
+    pub fn set_matching_weapon_level_upper_arena_5(&mut self, value: u8) {
+        self.matching_weapon_level_upper_arena_5 = value;
     }
 
-    pub fn matching_weapon_level_upper_unk_6(&self) -> u8 {
-        self.matching_weapon_level_upper_unk_6
+    pub fn matching_weapon_level_upper_arena_6(&self) -> u8 {
+        self.matching_weapon_level_upper_arena_6
     }
 
-    pub fn set_matching_weapon_level_upper_unk_6(&mut self, value: u8) {
-        self.matching_weapon_level_upper_unk_6 = value;
+    pub fn set_matching_weapon_level_upper_arena_6(&mut self, value: u8) {
+        self.matching_weapon_level_upper_arena_6 = value;
     }
 
-    pub fn matching_weapon_level_upper_unk_7(&self) -> u8 {
-        self.matching_weapon_level_upper_unk_7
+    pub fn matching_weapon_level_upper_arena_7(&self) -> u8 {
+        self.matching_weapon_level_upper_arena_7
     }
 
-    pub fn set_matching_weapon_level_upper_unk_7(&mut self, value: u8) {
-        self.matching_weapon_level_upper_unk_7 = value;
+    pub fn set_matching_weapon_level_upper_arena_7(&mut self, value: u8) {
+        self.matching_weapon_level_upper_arena_7 = value;
     }
 
-    pub fn matching_weapon_level_upper_unk_8(&self) -> u8 {
-        self.matching_weapon_level_upper_unk_8
+    pub fn matching_weapon_level_upper_arena_8(&self) -> u8 {
+        self.matching_weapon_level_upper_arena_8
     }
 
-    pub fn set_matching_weapon_level_upper_unk_8(&mut self, value: u8) {
-        self.matching_weapon_level_upper_unk_8 = value;
+    pub fn set_matching_weapon_level_upper_arena_8(&mut self, value: u8) {
+        self.matching_weapon_level_upper_arena_8 = value;
     }
 
-    pub fn matching_weapon_level_upper_unk_9(&self) -> u8 {
-        self.matching_weapon_level_upper_unk_9
+    pub fn matching_weapon_level_upper_arena_9(&self) -> u8 {
+        self.matching_weapon_level_upper_arena_9
     }
 
-    pub fn set_matching_weapon_level_upper_unk_9(&mut self, value: u8) {
-        self.matching_weapon_level_upper_unk_9 = value;
+    pub fn set_matching_weapon_level_upper_arena_9(&mut self, value: u8) {
+        self.matching_weapon_level_upper_arena_9 = value;
     }
 
-    pub fn matching_weapon_level_upper_unk_10(&self) -> u8 {
-        self.matching_weapon_level_upper_unk_10
+    pub fn matching_weapon_level_upper_arena_10(&self) -> u8 {
+        self.matching_weapon_level_upper_arena_10
     }
 
-    pub fn set_matching_weapon_level_upper_unk_10(&mut self, value: u8) {
-        self.matching_weapon_level_upper_unk_10 = value;
+    pub fn set_matching_weapon_level_upper_arena_10(&mut self, value: u8) {
+        self.matching_weapon_level_upper_arena_10 = value;
     }
 
-    pub fn matching_weapon_level_upper_unk_11(&self) -> u8 {
-        self.matching_weapon_level_upper_unk_11
+    pub fn matching_weapon_level_upper_arena_11(&self) -> u8 {
+        self.matching_weapon_level_upper_arena_11
     }
 
-    pub fn set_matching_weapon_level_upper_unk_11(&mut self, value: u8) {
-        self.matching_weapon_level_upper_unk_11 = value;
+    pub fn set_matching_weapon_level_upper_arena_11(&mut self, value: u8) {
+        self.matching_weapon_level_upper_arena_11 = value;
     }
 
-    pub fn matching_weapon_level_upper_unk_12(&self) -> u8 {
-        self.matching_weapon_level_upper_unk_12
+    pub fn matching_weapon_level_upper_arena_12(&self) -> u8 {
+        self.matching_weapon_level_upper_arena_12
     }
 
-    pub fn set_matching_weapon_level_upper_unk_12(&mut self, value: u8) {
-        self.matching_weapon_level_upper_unk_12 = value;
+    pub fn set_matching_weapon_level_upper_arena_12(&mut self, value: u8) {
+        self.matching_weapon_level_upper_arena_12 = value;
     }
 
-    pub fn matching_weapon_level_upper_unk_13(&self) -> u8 {
-        self.matching_weapon_level_upper_unk_13
+    pub fn matching_weapon_level_upper_arena_13(&self) -> u8 {
+        self.matching_weapon_level_upper_arena_13
     }
 
-    pub fn set_matching_weapon_level_upper_unk_13(&mut self, value: u8) {
-        self.matching_weapon_level_upper_unk_13 = value;
+    pub fn set_matching_weapon_level_upper_arena_13(&mut self, value: u8) {
+        self.matching_weapon_level_upper_arena_13 = value;
     }
 
-    pub fn matching_weapon_level_upper_unk_14(&self) -> u8 {
-        self.matching_weapon_level_upper_unk_14
+    pub fn matching_weapon_level_upper_arena_14(&self) -> u8 {
+        self.matching_weapon_level_upper_arena_14
     }
 
-    pub fn set_matching_weapon_level_upper_unk_14(&mut self, value: u8) {
-        self.matching_weapon_level_upper_unk_14 = value;
+    pub fn set_matching_weapon_level_upper_arena_14(&mut self, value: u8) {
+        self.matching_weapon_level_upper_arena_14 = value;
     }
 
-    pub fn matching_weapon_level_upper_unk_15(&self) -> u8 {
-        self.matching_weapon_level_upper_unk_15
+    pub fn matching_weapon_level_upper_arena_15(&self) -> u8 {
+        self.matching_weapon_level_upper_arena_15
     }
 
-    pub fn set_matching_weapon_level_upper_unk_15(&mut self, value: u8) {
-        self.matching_weapon_level_upper_unk_15 = value;
+    pub fn set_matching_weapon_level_upper_arena_15(&mut self, value: u8) {
+        self.matching_weapon_level_upper_arena_15 = value;
     }
 
-    pub fn matching_weapon_level_upper_unk_16(&self) -> u8 {
-        self.matching_weapon_level_upper_unk_16
+    pub fn matching_weapon_level_upper_arena_16(&self) -> u8 {
+        self.matching_weapon_level_upper_arena_16
     }
 
-    pub fn set_matching_weapon_level_upper_unk_16(&mut self, value: u8) {
-        self.matching_weapon_level_upper_unk_16 = value;
+    pub fn set_matching_weapon_level_upper_arena_16(&mut self, value: u8) {
+        self.matching_weapon_level_upper_arena_16 = value;
     }
 
-    pub fn matching_weapon_level_upper_unk_17(&self) -> u8 {
-        self.matching_weapon_level_upper_unk_17
+    pub fn matching_weapon_level_upper_arena_17(&self) -> u8 {
+        self.matching_weapon_level_upper_arena_17
     }
 
-    pub fn set_matching_weapon_level_upper_unk_17(&mut self, value: u8) {
-        self.matching_weapon_level_upper_unk_17 = value;
+    pub fn set_matching_weapon_level_upper_arena_17(&mut self, value: u8) {
+        self.matching_weapon_level_upper_arena_17 = value;
     }
 
-    pub fn matching_weapon_level_upper_unk_18(&self) -> u8 {
-        self.matching_weapon_level_upper_unk_18
+    pub fn matching_weapon_level_upper_arena_18(&self) -> u8 {
+        self.matching_weapon_level_upper_arena_18
     }
 
-    pub fn set_matching_weapon_level_upper_unk_18(&mut self, value: u8) {
-        self.matching_weapon_level_upper_unk_18 = value;
+    pub fn set_matching_weapon_level_upper_arena_18(&mut self, value: u8) {
+        self.matching_weapon_level_upper_arena_18 = value;
     }
 
-    pub fn matching_weapon_level_upper_unk_19(&self) -> u8 {
-        self.matching_weapon_level_upper_unk_19
+    pub fn matching_weapon_level_upper_arena_19(&self) -> u8 {
+        self.matching_weapon_level_upper_arena_19
     }
 
-    pub fn set_matching_weapon_level_upper_unk_19(&mut self, value: u8) {
-        self.matching_weapon_level_upper_unk_19 = value;
+    pub fn set_matching_weapon_level_upper_arena_19(&mut self, value: u8) {
+        self.matching_weapon_level_upper_arena_19 = value;
     }
 
-    pub fn matching_weapon_level_upper_unk_20(&self) -> u8 {
-        self.matching_weapon_level_upper_unk_20
+    pub fn matching_weapon_level_upper_arena_20(&self) -> u8 {
+        self.matching_weapon_level_upper_arena_20
     }
 
-    pub fn set_matching_weapon_level_upper_unk_20(&mut self, value: u8) {
-        self.matching_weapon_level_upper_unk_20 = value;
+    pub fn set_matching_weapon_level_upper_arena_20(&mut self, value: u8) {
+        self.matching_weapon_level_upper_arena_20 = value;
     }
 
-    pub fn matching_weapon_level_upper_unk_21(&self) -> u8 {
-        self.matching_weapon_level_upper_unk_21
+    pub fn matching_weapon_level_upper_arena_21(&self) -> u8 {
+        self.matching_weapon_level_upper_arena_21
     }
 
-    pub fn set_matching_weapon_level_upper_unk_21(&mut self, value: u8) {
-        self.matching_weapon_level_upper_unk_21 = value;
+    pub fn set_matching_weapon_level_upper_arena_21(&mut self, value: u8) {
+        self.matching_weapon_level_upper_arena_21 = value;
     }
 
-    pub fn matching_weapon_level_upper_unk_22(&self) -> u8 {
-        self.matching_weapon_level_upper_unk_22
+    pub fn matching_weapon_level_upper_arena_22(&self) -> u8 {
+        self.matching_weapon_level_upper_arena_22
     }
 
-    pub fn set_matching_weapon_level_upper_unk_22(&mut self, value: u8) {
-        self.matching_weapon_level_upper_unk_22 = value;
+    pub fn set_matching_weapon_level_upper_arena_22(&mut self, value: u8) {
+        self.matching_weapon_level_upper_arena_22 = value;
     }
 
-    pub fn matching_weapon_level_upper_unk_23(&self) -> u8 {
-        self.matching_weapon_level_upper_unk_23
+    pub fn matching_weapon_level_upper_arena_23(&self) -> u8 {
+        self.matching_weapon_level_upper_arena_23
     }
 
-    pub fn set_matching_weapon_level_upper_unk_23(&mut self, value: u8) {
-        self.matching_weapon_level_upper_unk_23 = value;
+    pub fn set_matching_weapon_level_upper_arena_23(&mut self, value: u8) {
+        self.matching_weapon_level_upper_arena_23 = value;
     }
 
-    pub fn matching_weapon_level_upper_unk_24(&self) -> u8 {
-        self.matching_weapon_level_upper_unk_24
+    pub fn matching_weapon_level_upper_arena_24(&self) -> u8 {
+        self.matching_weapon_level_upper_arena_24
     }
 
-    pub fn set_matching_weapon_level_upper_unk_24(&mut self, value: u8) {
-        self.matching_weapon_level_upper_unk_24 = value;
+    pub fn set_matching_weapon_level_upper_arena_24(&mut self, value: u8) {
+        self.matching_weapon_level_upper_arena_24 = value;
     }
 
-    pub fn matching_weapon_level_upper_unk_25(&self) -> u8 {
-        self.matching_weapon_level_upper_unk_25
+    pub fn matching_weapon_level_upper_arena_25(&self) -> u8 {
+        self.matching_weapon_level_upper_arena_25
     }
 
-    pub fn set_matching_weapon_level_upper_unk_25(&mut self, value: u8) {
-        self.matching_weapon_level_upper_unk_25 = value;
+    pub fn set_matching_weapon_level_upper_arena_25(&mut self, value: u8) {
+        self.matching_weapon_level_upper_arena_25 = value;
+    }
+
+    pub fn summon_data_coop_matching_spirit_ash_level_mul(&self) -> i16 {
+        self.summon_data_coop_matching_spirit_ash_level_mul
+    }
+
+    pub fn set_summon_data_coop_matching_spirit_ash_level_mul(&mut self, value: i16) {
+        self.summon_data_coop_matching_spirit_ash_level_mul = value;
+    }
+
+    pub fn matching_spirit_ash_level_upper_0(&self) -> u8 {
+        self.matching_spirit_ash_level_upper_0
+    }
+
+    pub fn set_matching_spirit_ash_level_upper_0(&mut self, value: u8) {
+        self.matching_spirit_ash_level_upper_0 = value;
+    }
+
+    pub fn matching_spirit_ash_level_upper_1(&self) -> u8 {
+        self.matching_spirit_ash_level_upper_1
+    }
+
+    pub fn set_matching_spirit_ash_level_upper_1(&mut self, value: u8) {
+        self.matching_spirit_ash_level_upper_1 = value;
+    }
+
+    pub fn matching_spirit_ash_level_upper_2(&self) -> u8 {
+        self.matching_spirit_ash_level_upper_2
+    }
+
+    pub fn set_matching_spirit_ash_level_upper_2(&mut self, value: u8) {
+        self.matching_spirit_ash_level_upper_2 = value;
+    }
+
+    pub fn matching_spirit_ash_level_upper_3(&self) -> u8 {
+        self.matching_spirit_ash_level_upper_3
+    }
+
+    pub fn set_matching_spirit_ash_level_upper_3(&mut self, value: u8) {
+        self.matching_spirit_ash_level_upper_3 = value;
+    }
+
+    pub fn matching_spirit_ash_level_upper_4(&self) -> u8 {
+        self.matching_spirit_ash_level_upper_4
+    }
+
+    pub fn set_matching_spirit_ash_level_upper_4(&mut self, value: u8) {
+        self.matching_spirit_ash_level_upper_4 = value;
+    }
+
+    pub fn matching_spirit_ash_level_upper_5(&self) -> u8 {
+        self.matching_spirit_ash_level_upper_5
+    }
+
+    pub fn set_matching_spirit_ash_level_upper_5(&mut self, value: u8) {
+        self.matching_spirit_ash_level_upper_5 = value;
+    }
+
+    pub fn matching_spirit_ash_level_upper_6(&self) -> u8 {
+        self.matching_spirit_ash_level_upper_6
+    }
+
+    pub fn set_matching_spirit_ash_level_upper_6(&mut self, value: u8) {
+        self.matching_spirit_ash_level_upper_6 = value;
+    }
+
+    pub fn matching_spirit_ash_level_upper_7(&self) -> u8 {
+        self.matching_spirit_ash_level_upper_7
+    }
+
+    pub fn set_matching_spirit_ash_level_upper_7(&mut self, value: u8) {
+        self.matching_spirit_ash_level_upper_7 = value;
+    }
+
+    pub fn matching_spirit_ash_level_upper_8(&self) -> u8 {
+        self.matching_spirit_ash_level_upper_8
+    }
+
+    pub fn set_matching_spirit_ash_level_upper_8(&mut self, value: u8) {
+        self.matching_spirit_ash_level_upper_8 = value;
+    }
+
+    pub fn matching_spirit_ash_level_upper_9(&self) -> u8 {
+        self.matching_spirit_ash_level_upper_9
+    }
+
+    pub fn set_matching_spirit_ash_level_upper_9(&mut self, value: u8) {
+        self.matching_spirit_ash_level_upper_9 = value;
+    }
+
+    pub fn matching_spirit_ash_level_upper_10(&self) -> u8 {
+        self.matching_spirit_ash_level_upper_10
+    }
+
+    pub fn set_matching_spirit_ash_level_upper_10(&mut self, value: u8) {
+        self.matching_spirit_ash_level_upper_10 = value;
     }
 
     pub fn base_scadu_blessing_sp_effect_id(&self) -> i32 {
@@ -33440,6 +30681,7 @@ pub struct GESTURE_PARAM_ST {
 
 impl ParamDef for GESTURE_PARAM_ST {
     const NAME: &str = "GESTURE_PARAM_ST";
+    const INDEX: usize = 15;
 }
 
 impl GESTURE_PARAM_ST {
@@ -33483,28 +30725,6 @@ impl GESTURE_PARAM_ST {
 #[derive(Debug, Clone)]
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub struct GPARAM_GRID_REGION_INFO_PARAM_ST {
-    gparam_grid_region_id: u32,
-    reserve: [u8; 28],
-}
-
-impl ParamDef for GPARAM_GRID_REGION_INFO_PARAM_ST {
-    const NAME: &str = "GPARAM_GRID_REGION_INFO_PARAM_ST";
-}
-
-impl GPARAM_GRID_REGION_INFO_PARAM_ST {
-    pub fn gparam_grid_region_id(&self) -> u32 {
-        self.gparam_grid_region_id
-    }
-
-    pub fn set_gparam_grid_region_id(&mut self, value: u32) {
-        self.gparam_grid_region_id = value;
-    }
-}
-
-#[derive(Debug, Clone)]
-#[allow(non_camel_case_types)]
-#[repr(C)]
 pub struct GPARAM_REF_SETTINGS_PARAM_ST {
     bits_0: u8,
     disable_param_reserve2: [u8; 3],
@@ -33514,6 +30734,7 @@ pub struct GPARAM_REF_SETTINGS_PARAM_ST {
 
 impl ParamDef for GPARAM_REF_SETTINGS_PARAM_ST {
     const NAME: &str = "GPARAM_REF_SETTINGS_PARAM_ST";
+    const INDEX: usize = 33;
 }
 
 impl GPARAM_REF_SETTINGS_PARAM_ST {
@@ -33548,6 +30769,7 @@ pub struct GRAPHICS_COMMON_PARAM_ST {
 
 impl ParamDef for GRAPHICS_COMMON_PARAM_ST {
     const NAME: &str = "GRAPHICS_COMMON_PARAM_ST";
+    const INDEX: usize = 77;
 }
 
 impl GRAPHICS_COMMON_PARAM_ST {
@@ -33582,6 +30804,7 @@ pub struct GRASS_LOD_RANGE_PARAM_ST {
 
 impl ParamDef for GRASS_LOD_RANGE_PARAM_ST {
     const NAME: &str = "GRASS_LOD_RANGE_PARAM_ST";
+    const INDEX: usize = 43;
 }
 
 impl GRASS_LOD_RANGE_PARAM_ST {
@@ -33637,45 +30860,6 @@ impl GRASS_LOD_RANGE_PARAM_ST {
 #[derive(Debug, Clone)]
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub struct GRASS_MAP_SETTINGS_PARAM_ST {
-    grass_type0: u32,
-    grass_type1: u32,
-    grass_type2: u32,
-}
-
-impl ParamDef for GRASS_MAP_SETTINGS_PARAM_ST {
-    const NAME: &str = "GRASS_MAP_SETTINGS_PARAM_ST";
-}
-
-impl GRASS_MAP_SETTINGS_PARAM_ST {
-    pub fn grass_type0(&self) -> u32 {
-        self.grass_type0
-    }
-
-    pub fn set_grass_type0(&mut self, value: u32) {
-        self.grass_type0 = value;
-    }
-
-    pub fn grass_type1(&self) -> u32 {
-        self.grass_type1
-    }
-
-    pub fn set_grass_type1(&mut self, value: u32) {
-        self.grass_type1 = value;
-    }
-
-    pub fn grass_type2(&self) -> u32 {
-        self.grass_type2
-    }
-
-    pub fn set_grass_type2(&mut self, value: u32) {
-        self.grass_type2 = value;
-    }
-}
-
-#[derive(Debug, Clone)]
-#[allow(non_camel_case_types)]
-#[repr(C)]
 pub struct GRASS_TYPE_PARAM_ST {
     lod_range: u16,
     lod0_cluster_type: u8,
@@ -33719,6 +30903,7 @@ pub struct GRASS_TYPE_PARAM_ST {
 
 impl ParamDef for GRASS_TYPE_PARAM_ST {
     const NAME: &str = "GRASS_TYPE_PARAM_ST";
+    const INDEX: usize = 55;
 }
 
 impl GRASS_TYPE_PARAM_ST {
@@ -34147,6 +31332,7 @@ pub struct HIT_EFFECT_SE_PARAM_ST {
 
 impl ParamDef for HIT_EFFECT_SE_PARAM_ST {
     const NAME: &str = "HIT_EFFECT_SE_PARAM_ST";
+    const INDEX: usize = 151;
 }
 
 impl HIT_EFFECT_SE_PARAM_ST {
@@ -35253,6 +32439,7 @@ pub struct HIT_EFFECT_SFX_CONCEPT_PARAM_ST {
 
 impl ParamDef for HIT_EFFECT_SFX_CONCEPT_PARAM_ST {
     const NAME: &str = "HIT_EFFECT_SFX_CONCEPT_PARAM_ST";
+    const INDEX: usize = 139;
 }
 
 impl HIT_EFFECT_SFX_CONCEPT_PARAM_ST {
@@ -35381,6 +32568,7 @@ pub struct HIT_EFFECT_SFX_PARAM_ST {
 
 impl ParamDef for HIT_EFFECT_SFX_PARAM_ST {
     const NAME: &str = "HIT_EFFECT_SFX_PARAM_ST";
+    const INDEX: usize = 81;
 }
 
 impl HIT_EFFECT_SFX_PARAM_ST {
@@ -35580,6 +32768,7 @@ pub struct HIT_MTRL_PARAM_ST {
 
 impl ParamDef for HIT_MTRL_PARAM_ST {
     const NAME: &str = "HIT_MTRL_PARAM_ST";
+    const INDEX: usize = 226;
 }
 
 impl HIT_MTRL_PARAM_ST {
@@ -35891,6 +33080,7 @@ pub struct ITEMLOT_PARAM_ST {
 
 impl ParamDef for ITEMLOT_PARAM_ST {
     const NAME: &str = "ITEMLOT_PARAM_ST";
+    const INDEX: usize = 18;
 }
 
 impl ITEMLOT_PARAM_ST {
@@ -36513,6 +33703,7 @@ pub struct KEY_ASSIGN_PARAM_ST {
 
 impl ParamDef for KEY_ASSIGN_PARAM_ST {
     const NAME: &str = "KEY_ASSIGN_PARAM_ST";
+    const INDEX: usize = 207;
 }
 
 impl KEY_ASSIGN_PARAM_ST {
@@ -36588,6 +33779,7 @@ pub struct KNOCKBACK_PARAM_ST {
 
 impl ParamDef for KNOCKBACK_PARAM_ST {
     const NAME: &str = "KNOCKBACK_PARAM_ST";
+    const INDEX: usize = 19;
 }
 
 impl KNOCKBACK_PARAM_ST {
@@ -36845,6 +34037,7 @@ pub struct KNOWLEDGE_LOADSCREEN_ITEM_PARAM_ST {
 
 impl ParamDef for KNOWLEDGE_LOADSCREEN_ITEM_PARAM_ST {
     const NAME: &str = "KNOWLEDGE_LOADSCREEN_ITEM_PARAM_ST";
+    const INDEX: usize = 17;
 }
 
 impl KNOWLEDGE_LOADSCREEN_ITEM_PARAM_ST {
@@ -36910,6 +34103,7 @@ pub struct LEGACY_DISTANT_VIEW_PARTS_REPLACE_PARAM {
 
 impl ParamDef for LEGACY_DISTANT_VIEW_PARTS_REPLACE_PARAM {
     const NAME: &str = "LEGACY_DISTANT_VIEW_PARTS_REPLACE_PARAM";
+    const INDEX: usize = 178;
 }
 
 impl LEGACY_DISTANT_VIEW_PARTS_REPLACE_PARAM {
@@ -37088,6 +34282,7 @@ pub struct LOAD_BALANCER_DRAW_DIST_SCALE_PARAM_ST {
 
 impl ParamDef for LOAD_BALANCER_DRAW_DIST_SCALE_PARAM_ST {
     const NAME: &str = "LOAD_BALANCER_DRAW_DIST_SCALE_PARAM_ST";
+    const INDEX: usize = 2;
 }
 
 impl LOAD_BALANCER_DRAW_DIST_SCALE_PARAM_ST {
@@ -37279,6 +34474,7 @@ pub struct LOAD_BALANCER_NEW_DRAW_DIST_SCALE_PARAM_ST {
 
 impl ParamDef for LOAD_BALANCER_NEW_DRAW_DIST_SCALE_PARAM_ST {
     const NAME: &str = "LOAD_BALANCER_NEW_DRAW_DIST_SCALE_PARAM_ST";
+    const INDEX: usize = 25;
 }
 
 impl LOAD_BALANCER_NEW_DRAW_DIST_SCALE_PARAM_ST {
@@ -37388,6 +34584,7 @@ pub struct LOAD_BALANCER_PARAM_ST {
 
 impl ParamDef for LOAD_BALANCER_PARAM_ST {
     const NAME: &str = "LOAD_BALANCER_PARAM_ST";
+    const INDEX: usize = 205;
 }
 
 impl LOAD_BALANCER_PARAM_ST {
@@ -37669,6 +34866,7 @@ pub struct LOCK_CAM_PARAM_ST {
 
 impl ParamDef for LOCK_CAM_PARAM_ST {
     const NAME: &str = "LOCK_CAM_PARAM_ST";
+    const INDEX: usize = 92;
 }
 
 impl LOCK_CAM_PARAM_ST {
@@ -37924,6 +35122,7 @@ pub struct MAGIC_PARAM_ST {
 
 impl ParamDef for MAGIC_PARAM_ST {
     const NAME: &str = "MAGIC_PARAM_ST";
+    const INDEX: usize = 134;
 }
 
 impl MAGIC_PARAM_ST {
@@ -38889,6 +36088,7 @@ pub struct MAP_DEFAULT_INFO_PARAM_ST {
 
 impl ParamDef for MAP_DEFAULT_INFO_PARAM_ST {
     const NAME: &str = "MAP_DEFAULT_INFO_PARAM_ST";
+    const INDEX: usize = 149;
 }
 
 impl MAP_DEFAULT_INFO_PARAM_ST {
@@ -39090,6 +36290,7 @@ pub struct MAP_GD_REGION_DRAW_PARAM {
 
 impl ParamDef for MAP_GD_REGION_DRAW_PARAM {
     const NAME: &str = "MAP_GD_REGION_DRAW_PARAM";
+    const INDEX: usize = 172;
 }
 
 impl MAP_GD_REGION_DRAW_PARAM {
@@ -39124,6 +36325,7 @@ pub struct MAP_GD_REGION_ID_PARAM_ST {
 
 impl ParamDef for MAP_GD_REGION_ID_PARAM_ST {
     const NAME: &str = "MAP_GD_REGION_ID_PARAM_ST";
+    const INDEX: usize = 9;
 }
 
 impl MAP_GD_REGION_ID_PARAM_ST {
@@ -39175,6 +36377,7 @@ pub struct MAP_GRID_CREATE_HEIGHT_LIMIT_DETAIL_INFO_PARAM_ST {
 
 impl ParamDef for MAP_GRID_CREATE_HEIGHT_LIMIT_DETAIL_INFO_PARAM_ST {
     const NAME: &str = "MAP_GRID_CREATE_HEIGHT_LIMIT_DETAIL_INFO_PARAM_ST";
+    const INDEX: usize = 231;
 }
 
 impl MAP_GRID_CREATE_HEIGHT_LIMIT_DETAIL_INFO_PARAM_ST {
@@ -39198,6 +36401,7 @@ pub struct MAP_GRID_CREATE_HEIGHT_LIMIT_INFO_PARAM_ST {
 
 impl ParamDef for MAP_GRID_CREATE_HEIGHT_LIMIT_INFO_PARAM_ST {
     const NAME: &str = "MAP_GRID_CREATE_HEIGHT_LIMIT_INFO_PARAM_ST";
+    const INDEX: usize = 154;
 }
 
 impl MAP_GRID_CREATE_HEIGHT_LIMIT_INFO_PARAM_ST {
@@ -39239,6 +36443,7 @@ pub struct MAP_MIMICRY_ESTABLISHMENT_PARAM_ST {
 
 impl ParamDef for MAP_MIMICRY_ESTABLISHMENT_PARAM_ST {
     const NAME: &str = "MAP_MIMICRY_ESTABLISHMENT_PARAM_ST";
+    const INDEX: usize = 225;
 }
 
 impl MAP_MIMICRY_ESTABLISHMENT_PARAM_ST {
@@ -39355,6 +36560,7 @@ pub struct MAP_NAME_TEX_PARAM_ST {
 
 impl ParamDef for MAP_NAME_TEX_PARAM_ST {
     const NAME: &str = "MAP_NAME_TEX_PARAM_ST";
+    const INDEX: usize = 177;
 }
 
 impl MAP_NAME_TEX_PARAM_ST {
@@ -39426,6 +36632,7 @@ pub struct MAP_NAME_TEX_PARAM_ST_DLC02 {
 
 impl ParamDef for MAP_NAME_TEX_PARAM_ST_DLC02 {
     const NAME: &str = "MAP_NAME_TEX_PARAM_ST_DLC02";
+    const INDEX: usize = 11;
 }
 
 impl MAP_NAME_TEX_PARAM_ST_DLC02 {
@@ -39488,6 +36695,7 @@ pub struct MAP_PIECE_TEX_PARAM_ST {
 
 impl ParamDef for MAP_PIECE_TEX_PARAM_ST {
     const NAME: &str = "MAP_PIECE_TEX_PARAM_ST";
+    const INDEX: usize = 147;
 }
 
 impl MAP_PIECE_TEX_PARAM_ST {
@@ -39564,6 +36772,7 @@ pub struct MAP_PIECE_TEX_PARAM_ST_DLC02 {
 
 impl ParamDef for MAP_PIECE_TEX_PARAM_ST_DLC02 {
     const NAME: &str = "MAP_PIECE_TEX_PARAM_ST_DLC02";
+    const INDEX: usize = 108;
 }
 
 impl MAP_PIECE_TEX_PARAM_ST_DLC02 {
@@ -39634,6 +36843,7 @@ pub struct MATERIAL_EX_PARAM_ST {
 
 impl ParamDef for MATERIAL_EX_PARAM_ST {
     const NAME: &str = "MATERIAL_EX_PARAM_ST";
+    const INDEX: usize = 138;
 }
 
 impl MATERIAL_EX_PARAM_ST {
@@ -39707,6 +36917,7 @@ pub struct MENUPROPERTY_LAYOUT {
 
 impl ParamDef for MENUPROPERTY_LAYOUT {
     const NAME: &str = "MENUPROPERTY_LAYOUT";
+    const INDEX: usize = 166;
 }
 
 impl MENUPROPERTY_LAYOUT {
@@ -39758,6 +36969,7 @@ pub struct MENUPROPERTY_SPEC {
 
 impl ParamDef for MENUPROPERTY_SPEC {
     const NAME: &str = "MENUPROPERTY_SPEC";
+    const INDEX: usize = 88;
 }
 
 impl MENUPROPERTY_SPEC {
@@ -39865,10 +37077,7 @@ pub struct MENU_COMMON_PARAM_ST {
     enemy_tag_safe_top: u16,
     enemy_tag_safe_bottom: u16,
     pc_horse_hp_recover_disp_threshold: u32,
-    unknown_0xe0: u8,
-    unknown_0xe1: u8,
-    unknown_0xe2: u8,
-    unknown_0xe3: u8,
+    world_map_dlc_layer_event_flag_id: u32,
     unknown_0xe4: u8,
     unknown_0xe5: u8,
     unknown_0xe6: u8,
@@ -39885,6 +37094,7 @@ pub struct MENU_COMMON_PARAM_ST {
 
 impl ParamDef for MENU_COMMON_PARAM_ST {
     const NAME: &str = "MENU_COMMON_PARAM_ST";
+    const INDEX: usize = 120;
 }
 
 impl MENU_COMMON_PARAM_ST {
@@ -40343,6 +37553,14 @@ impl MENU_COMMON_PARAM_ST {
     pub fn set_pc_horse_hp_recover_disp_threshold(&mut self, value: u32) {
         self.pc_horse_hp_recover_disp_threshold = value;
     }
+
+    pub fn world_map_dlc_layer_event_flag_id(&self) -> u32 {
+        self.world_map_dlc_layer_event_flag_id
+    }
+
+    pub fn set_world_map_dlc_layer_event_flag_id(&mut self, value: u32) {
+        self.world_map_dlc_layer_event_flag_id = value;
+    }
 }
 
 #[derive(Debug, Clone)]
@@ -40369,6 +37587,7 @@ pub struct MENU_OFFSCR_REND_PARAM_ST {
 
 impl ParamDef for MENU_OFFSCR_REND_PARAM_ST {
     const NAME: &str = "MENU_OFFSCR_REND_PARAM_ST";
+    const INDEX: usize = 5;
 }
 
 impl MENU_OFFSCR_REND_PARAM_ST {
@@ -40511,6 +37730,7 @@ pub struct MENU_PARAM_COLOR_TABLE_ST {
 
 impl ParamDef for MENU_PARAM_COLOR_TABLE_ST {
     const NAME: &str = "MENU_PARAM_COLOR_TABLE_ST";
+    const INDEX: usize = 215;
 }
 
 impl MENU_PARAM_COLOR_TABLE_ST {
@@ -40591,6 +37811,7 @@ pub struct MENU_VALUE_TABLE_SPEC {
 
 impl ParamDef for MENU_VALUE_TABLE_SPEC {
     const NAME: &str = "MENU_VALUE_TABLE_SPEC";
+    const INDEX: usize = 28;
 }
 
 impl MENU_VALUE_TABLE_SPEC {
@@ -40635,6 +37856,7 @@ pub struct MIMICRY_ESTABLISHMENT_TEX_PARAM_ST {
 
 impl ParamDef for MIMICRY_ESTABLISHMENT_TEX_PARAM_ST {
     const NAME: &str = "MIMICRY_ESTABLISHMENT_TEX_PARAM_ST";
+    const INDEX: usize = 73;
 }
 
 impl MIMICRY_ESTABLISHMENT_TEX_PARAM_ST {
@@ -40701,6 +37923,7 @@ pub struct MIMICRY_ESTABLISHMENT_TEX_PARAM_ST_DLC02 {
 
 impl ParamDef for MIMICRY_ESTABLISHMENT_TEX_PARAM_ST_DLC02 {
     const NAME: &str = "MIMICRY_ESTABLISHMENT_TEX_PARAM_ST_DLC02";
+    const INDEX: usize = 68;
 }
 
 impl MIMICRY_ESTABLISHMENT_TEX_PARAM_ST_DLC02 {
@@ -40744,320 +37967,6 @@ impl MIMICRY_ESTABLISHMENT_TEX_PARAM_ST_DLC02 {
 
     pub fn set_mimicry_establishment_param_id(&mut self, value: i32) {
         self.mimicry_establishment_param_id = value;
-    }
-}
-
-#[derive(Debug, Clone)]
-#[allow(non_camel_case_types)]
-#[repr(C)]
-pub struct MISSILE_PARAM_ST {
-    ffxid: i32,
-    life_time: u16,
-    hit_sphere_radius: u16,
-    hit_damage: u16,
-    reserve0: [u8; 6],
-    init_velocity: f32,
-    distance: f32,
-    gravity_in_range: f32,
-    gravity_out_range: f32,
-    mp: i32,
-    accel_in_range: f32,
-    accel_out_range: f32,
-    reserve1: [u8; 20],
-    hit_missile_id: u16,
-    died_naturaly: u8,
-    explosion_die: u8,
-    behavior_id: i32,
-    reserve_last: [u8; 56],
-}
-
-impl ParamDef for MISSILE_PARAM_ST {
-    const NAME: &str = "MISSILE_PARAM_ST";
-}
-
-impl MISSILE_PARAM_ST {
-    pub fn ffxid(&self) -> i32 {
-        self.ffxid
-    }
-
-    pub fn set_ffxid(&mut self, value: i32) {
-        self.ffxid = value;
-    }
-
-    pub fn life_time(&self) -> u16 {
-        self.life_time
-    }
-
-    pub fn set_life_time(&mut self, value: u16) {
-        self.life_time = value;
-    }
-
-    pub fn hit_sphere_radius(&self) -> u16 {
-        self.hit_sphere_radius
-    }
-
-    pub fn set_hit_sphere_radius(&mut self, value: u16) {
-        self.hit_sphere_radius = value;
-    }
-
-    pub fn hit_damage(&self) -> u16 {
-        self.hit_damage
-    }
-
-    pub fn set_hit_damage(&mut self, value: u16) {
-        self.hit_damage = value;
-    }
-
-    pub fn init_velocity(&self) -> f32 {
-        self.init_velocity
-    }
-
-    pub fn set_init_velocity(&mut self, value: f32) {
-        self.init_velocity = value;
-    }
-
-    pub fn distance(&self) -> f32 {
-        self.distance
-    }
-
-    pub fn set_distance(&mut self, value: f32) {
-        self.distance = value;
-    }
-
-    pub fn gravity_in_range(&self) -> f32 {
-        self.gravity_in_range
-    }
-
-    pub fn set_gravity_in_range(&mut self, value: f32) {
-        self.gravity_in_range = value;
-    }
-
-    pub fn gravity_out_range(&self) -> f32 {
-        self.gravity_out_range
-    }
-
-    pub fn set_gravity_out_range(&mut self, value: f32) {
-        self.gravity_out_range = value;
-    }
-
-    pub fn mp(&self) -> i32 {
-        self.mp
-    }
-
-    pub fn set_mp(&mut self, value: i32) {
-        self.mp = value;
-    }
-
-    pub fn accel_in_range(&self) -> f32 {
-        self.accel_in_range
-    }
-
-    pub fn set_accel_in_range(&mut self, value: f32) {
-        self.accel_in_range = value;
-    }
-
-    pub fn accel_out_range(&self) -> f32 {
-        self.accel_out_range
-    }
-
-    pub fn set_accel_out_range(&mut self, value: f32) {
-        self.accel_out_range = value;
-    }
-
-    pub fn hit_missile_id(&self) -> u16 {
-        self.hit_missile_id
-    }
-
-    pub fn set_hit_missile_id(&mut self, value: u16) {
-        self.hit_missile_id = value;
-    }
-
-    pub fn died_naturaly(&self) -> u8 {
-        self.died_naturaly
-    }
-
-    pub fn set_died_naturaly(&mut self, value: u8) {
-        self.died_naturaly = value;
-    }
-
-    pub fn explosion_die(&self) -> u8 {
-        self.explosion_die
-    }
-
-    pub fn set_explosion_die(&mut self, value: u8) {
-        self.explosion_die = value;
-    }
-
-    pub fn behavior_id(&self) -> i32 {
-        self.behavior_id
-    }
-
-    pub fn set_behavior_id(&mut self, value: i32) {
-        self.behavior_id = value;
-    }
-}
-
-#[derive(Debug, Clone)]
-#[allow(non_camel_case_types)]
-#[repr(C)]
-pub struct MODEL_SFX_PARAM_ST {
-    sfx_id_0: i32,
-    dmypoly_id_0: i32,
-    reserve_0: [u8; 8],
-    sfx_id_1: i32,
-    dmypoly_id_1: i32,
-    reserve_1: [u8; 8],
-    sfx_id_2: i32,
-    dmypoly_id_2: i32,
-    reserve_2: [u8; 8],
-    sfx_id_3: i32,
-    dmypoly_id_3: i32,
-    reserve_3: [u8; 8],
-    sfx_id_4: i32,
-    dmypoly_id_4: i32,
-    reserve_4: [u8; 8],
-    sfx_id_5: i32,
-    dmypoly_id_5: i32,
-    reserve_5: [u8; 8],
-    sfx_id_6: i32,
-    dmypoly_id_6: i32,
-    reserve_6: [u8; 8],
-    sfx_id_7: i32,
-    dmypoly_id_7: i32,
-    reserve_7: [u8; 8],
-}
-
-impl ParamDef for MODEL_SFX_PARAM_ST {
-    const NAME: &str = "MODEL_SFX_PARAM_ST";
-}
-
-impl MODEL_SFX_PARAM_ST {
-    pub fn sfx_id_0(&self) -> i32 {
-        self.sfx_id_0
-    }
-
-    pub fn set_sfx_id_0(&mut self, value: i32) {
-        self.sfx_id_0 = value;
-    }
-
-    pub fn dmypoly_id_0(&self) -> i32 {
-        self.dmypoly_id_0
-    }
-
-    pub fn set_dmypoly_id_0(&mut self, value: i32) {
-        self.dmypoly_id_0 = value;
-    }
-
-    pub fn sfx_id_1(&self) -> i32 {
-        self.sfx_id_1
-    }
-
-    pub fn set_sfx_id_1(&mut self, value: i32) {
-        self.sfx_id_1 = value;
-    }
-
-    pub fn dmypoly_id_1(&self) -> i32 {
-        self.dmypoly_id_1
-    }
-
-    pub fn set_dmypoly_id_1(&mut self, value: i32) {
-        self.dmypoly_id_1 = value;
-    }
-
-    pub fn sfx_id_2(&self) -> i32 {
-        self.sfx_id_2
-    }
-
-    pub fn set_sfx_id_2(&mut self, value: i32) {
-        self.sfx_id_2 = value;
-    }
-
-    pub fn dmypoly_id_2(&self) -> i32 {
-        self.dmypoly_id_2
-    }
-
-    pub fn set_dmypoly_id_2(&mut self, value: i32) {
-        self.dmypoly_id_2 = value;
-    }
-
-    pub fn sfx_id_3(&self) -> i32 {
-        self.sfx_id_3
-    }
-
-    pub fn set_sfx_id_3(&mut self, value: i32) {
-        self.sfx_id_3 = value;
-    }
-
-    pub fn dmypoly_id_3(&self) -> i32 {
-        self.dmypoly_id_3
-    }
-
-    pub fn set_dmypoly_id_3(&mut self, value: i32) {
-        self.dmypoly_id_3 = value;
-    }
-
-    pub fn sfx_id_4(&self) -> i32 {
-        self.sfx_id_4
-    }
-
-    pub fn set_sfx_id_4(&mut self, value: i32) {
-        self.sfx_id_4 = value;
-    }
-
-    pub fn dmypoly_id_4(&self) -> i32 {
-        self.dmypoly_id_4
-    }
-
-    pub fn set_dmypoly_id_4(&mut self, value: i32) {
-        self.dmypoly_id_4 = value;
-    }
-
-    pub fn sfx_id_5(&self) -> i32 {
-        self.sfx_id_5
-    }
-
-    pub fn set_sfx_id_5(&mut self, value: i32) {
-        self.sfx_id_5 = value;
-    }
-
-    pub fn dmypoly_id_5(&self) -> i32 {
-        self.dmypoly_id_5
-    }
-
-    pub fn set_dmypoly_id_5(&mut self, value: i32) {
-        self.dmypoly_id_5 = value;
-    }
-
-    pub fn sfx_id_6(&self) -> i32 {
-        self.sfx_id_6
-    }
-
-    pub fn set_sfx_id_6(&mut self, value: i32) {
-        self.sfx_id_6 = value;
-    }
-
-    pub fn dmypoly_id_6(&self) -> i32 {
-        self.dmypoly_id_6
-    }
-
-    pub fn set_dmypoly_id_6(&mut self, value: i32) {
-        self.dmypoly_id_6 = value;
-    }
-
-    pub fn sfx_id_7(&self) -> i32 {
-        self.sfx_id_7
-    }
-
-    pub fn set_sfx_id_7(&mut self, value: i32) {
-        self.sfx_id_7 = value;
-    }
-
-    pub fn dmypoly_id_7(&self) -> i32 {
-        self.dmypoly_id_7
-    }
-
-    pub fn set_dmypoly_id_7(&mut self, value: i32) {
-        self.dmypoly_id_7 = value;
     }
 }
 
@@ -41108,6 +38017,7 @@ pub struct MOVE_PARAM_ST {
 
 impl ParamDef for MOVE_PARAM_ST {
     const NAME: &str = "MOVE_PARAM_ST";
+    const INDEX: usize = 111;
 }
 
 impl MOVE_PARAM_ST {
@@ -41449,6 +38359,7 @@ pub struct MULTI_ESTUS_FLASK_BONUS_PARAM_ST {
 
 impl ParamDef for MULTI_ESTUS_FLASK_BONUS_PARAM_ST {
     const NAME: &str = "MULTI_ESTUS_FLASK_BONUS_PARAM_ST";
+    const INDEX: usize = 101;
 }
 
 impl MULTI_ESTUS_FLASK_BONUS_PARAM_ST {
@@ -41596,6 +38507,7 @@ pub struct MULTI_PLAY_CORRECTION_PARAM_ST {
 
 impl ParamDef for MULTI_PLAY_CORRECTION_PARAM_ST {
     const NAME: &str = "MULTI_PLAY_CORRECTION_PARAM_ST";
+    const INDEX: usize = 67;
 }
 
 impl MULTI_PLAY_CORRECTION_PARAM_ST {
@@ -41667,6 +38579,7 @@ pub struct MULTI_SOUL_BONUS_RATE_PARAM_ST {
 
 impl ParamDef for MULTI_SOUL_BONUS_RATE_PARAM_ST {
     const NAME: &str = "MULTI_SOUL_BONUS_RATE_PARAM_ST";
+    const INDEX: usize = 168;
 }
 
 impl MULTI_SOUL_BONUS_RATE_PARAM_ST {
@@ -41815,6 +38728,7 @@ pub struct NETWORK_AREA_PARAM_ST {
 
 impl ParamDef for NETWORK_AREA_PARAM_ST {
     const NAME: &str = "NETWORK_AREA_PARAM_ST";
+    const INDEX: usize = 41;
 }
 
 impl NETWORK_AREA_PARAM_ST {
@@ -41974,16 +38888,17 @@ pub struct NETWORK_MSG_PARAM_ST {
     force_join_black_npc: i32,
     force_join_black_b_npc: i32,
     force_join_black_c_npc: i32,
-    unknown_0xa4: i32,
-    unknown_0xa8: i32,
-    unknown_0xac: i32,
-    unknown_0xb0: i32,
-    unknown_0xb4: i32,
+    npc17: i32,
+    npc18: i32,
+    npc19: i32,
+    npc20: i32,
+    npc21: i32,
     pad2_new: [u8; 8],
 }
 
 impl ParamDef for NETWORK_MSG_PARAM_ST {
     const NAME: &str = "NETWORK_MSG_PARAM_ST";
+    const INDEX: usize = 87;
 }
 
 impl NETWORK_MSG_PARAM_ST {
@@ -42322,6 +39237,46 @@ impl NETWORK_MSG_PARAM_ST {
     pub fn set_force_join_black_c_npc(&mut self, value: i32) {
         self.force_join_black_c_npc = value;
     }
+
+    pub fn npc17(&self) -> i32 {
+        self.npc17
+    }
+
+    pub fn set_npc17(&mut self, value: i32) {
+        self.npc17 = value;
+    }
+
+    pub fn npc18(&self) -> i32 {
+        self.npc18
+    }
+
+    pub fn set_npc18(&mut self, value: i32) {
+        self.npc18 = value;
+    }
+
+    pub fn npc19(&self) -> i32 {
+        self.npc19
+    }
+
+    pub fn set_npc19(&mut self, value: i32) {
+        self.npc19 = value;
+    }
+
+    pub fn npc20(&self) -> i32 {
+        self.npc20
+    }
+
+    pub fn set_npc20(&mut self, value: i32) {
+        self.npc20 = value;
+    }
+
+    pub fn npc21(&self) -> i32 {
+        self.npc21
+    }
+
+    pub fn set_npc21(&mut self, value: i32) {
+        self.npc21 = value;
+    }
 }
 
 #[derive(Debug, Clone)]
@@ -42333,9 +39288,9 @@ pub struct NETWORK_PARAM_ST {
     summon_timeout_time: f32,
     pad_0: [u8; 4],
     sign_puddle_active_message_interval_sec: f32,
-    key_guide_height_0: f32,
-    reload_sign_interval_time1: f32,
-    reload_sign_interval_time2: f32,
+    sign_puddle_send_interval: f32,
+    sign_puddle_match_areas_num: i32,
+    sign_puddle_update_sign_interval: f32,
     reload_sign_total_count_0: u32,
     reload_sign_cell_count_0: u32,
     update_sign_interval_time: f32,
@@ -42373,7 +39328,7 @@ pub struct NETWORK_PARAM_ST {
     sign_visible_range_1: f32,
     max_write_sign_count: u32,
     max_read_sign_count: u32,
-    reload_sign_interval_time_0: f32,
+    blood_message_download_time: f32,
     cell_group_horizontal_range_1: u32,
     cell_group_top_range_1: u32,
     cell_group_bottom_range_1: u32,
@@ -42389,7 +39344,7 @@ pub struct NETWORK_PARAM_ST {
     reload_sign_cell_count_1: u32,
     max_sign_total_count_1: u32,
     max_sign_cell_count_1: u32,
-    reload_sign_interval_time_1: f32,
+    blood_stain_download_time: f32,
     sign_visible_range_2: f32,
     basic_exclusive_range_2: f32,
     basic_exclusive_height_2: f32,
@@ -42469,13 +39424,13 @@ pub struct NETWORK_PARAM_ST {
     guest_player_no_time_out_time: f32,
     host_player_no_time_out_time: f32,
     request_search_quick_match_limit: u32,
-    avatar_match_search_max: u32,
+    quick_match_search_timeout: u32,
     battle_royal_match_search_min: u32,
     battle_royal_match_search_max: u32,
     pad11: [u8; 8],
     visitor_list_max: u32,
     visitor_time_out_time: f32,
-    download_span_2: f32,
+    visitor_download_span: f32,
     visitor_guest_request_message_interval_sec: f32,
     wander_ghost_interval_life_time: f32,
     pad13: [u8; 12],
@@ -42488,6 +39443,7 @@ pub struct NETWORK_PARAM_ST {
 
 impl ParamDef for NETWORK_PARAM_ST {
     const NAME: &str = "NETWORK_PARAM_ST";
+    const INDEX: usize = 176;
 }
 
 impl NETWORK_PARAM_ST {
@@ -42523,28 +39479,28 @@ impl NETWORK_PARAM_ST {
         self.sign_puddle_active_message_interval_sec = value;
     }
 
-    pub fn key_guide_height_0(&self) -> f32 {
-        self.key_guide_height_0
+    pub fn sign_puddle_send_interval(&self) -> f32 {
+        self.sign_puddle_send_interval
     }
 
-    pub fn set_key_guide_height_0(&mut self, value: f32) {
-        self.key_guide_height_0 = value;
+    pub fn set_sign_puddle_send_interval(&mut self, value: f32) {
+        self.sign_puddle_send_interval = value;
     }
 
-    pub fn reload_sign_interval_time1(&self) -> f32 {
-        self.reload_sign_interval_time1
+    pub fn sign_puddle_match_areas_num(&self) -> i32 {
+        self.sign_puddle_match_areas_num
     }
 
-    pub fn set_reload_sign_interval_time1(&mut self, value: f32) {
-        self.reload_sign_interval_time1 = value;
+    pub fn set_sign_puddle_match_areas_num(&mut self, value: i32) {
+        self.sign_puddle_match_areas_num = value;
     }
 
-    pub fn reload_sign_interval_time2(&self) -> f32 {
-        self.reload_sign_interval_time2
+    pub fn sign_puddle_update_sign_interval(&self) -> f32 {
+        self.sign_puddle_update_sign_interval
     }
 
-    pub fn set_reload_sign_interval_time2(&mut self, value: f32) {
-        self.reload_sign_interval_time2 = value;
+    pub fn set_sign_puddle_update_sign_interval(&mut self, value: f32) {
+        self.sign_puddle_update_sign_interval = value;
     }
 
     pub fn reload_sign_total_count_0(&self) -> u32 {
@@ -42827,12 +39783,12 @@ impl NETWORK_PARAM_ST {
         self.max_read_sign_count = value;
     }
 
-    pub fn reload_sign_interval_time_0(&self) -> f32 {
-        self.reload_sign_interval_time_0
+    pub fn blood_message_download_time(&self) -> f32 {
+        self.blood_message_download_time
     }
 
-    pub fn set_reload_sign_interval_time_0(&mut self, value: f32) {
-        self.reload_sign_interval_time_0 = value;
+    pub fn set_blood_message_download_time(&mut self, value: f32) {
+        self.blood_message_download_time = value;
     }
 
     pub fn cell_group_horizontal_range_1(&self) -> u32 {
@@ -42947,12 +39903,12 @@ impl NETWORK_PARAM_ST {
         self.max_sign_cell_count_1 = value;
     }
 
-    pub fn reload_sign_interval_time_1(&self) -> f32 {
-        self.reload_sign_interval_time_1
+    pub fn blood_stain_download_time(&self) -> f32 {
+        self.blood_stain_download_time
     }
 
-    pub fn set_reload_sign_interval_time_1(&mut self, value: f32) {
-        self.reload_sign_interval_time_1 = value;
+    pub fn set_blood_stain_download_time(&mut self, value: f32) {
+        self.blood_stain_download_time = value;
     }
 
     pub fn sign_visible_range_2(&self) -> f32 {
@@ -43555,12 +40511,12 @@ impl NETWORK_PARAM_ST {
         self.request_search_quick_match_limit = value;
     }
 
-    pub fn avatar_match_search_max(&self) -> u32 {
-        self.avatar_match_search_max
+    pub fn quick_match_search_timeout(&self) -> u32 {
+        self.quick_match_search_timeout
     }
 
-    pub fn set_avatar_match_search_max(&mut self, value: u32) {
-        self.avatar_match_search_max = value;
+    pub fn set_quick_match_search_timeout(&mut self, value: u32) {
+        self.quick_match_search_timeout = value;
     }
 
     pub fn battle_royal_match_search_min(&self) -> u32 {
@@ -43595,12 +40551,12 @@ impl NETWORK_PARAM_ST {
         self.visitor_time_out_time = value;
     }
 
-    pub fn download_span_2(&self) -> f32 {
-        self.download_span_2
+    pub fn visitor_download_span(&self) -> f32 {
+        self.visitor_download_span
     }
 
-    pub fn set_download_span_2(&mut self, value: f32) {
-        self.download_span_2 = value;
+    pub fn set_visitor_download_span(&mut self, value: f32) {
+        self.visitor_download_span = value;
     }
 
     pub fn visitor_guest_request_message_interval_sec(&self) -> f32 {
@@ -43663,6 +40619,7 @@ pub struct NPC_AI_ACTION_PARAM_ST {
 
 impl ParamDef for NPC_AI_ACTION_PARAM_ST {
     const NAME: &str = "NPC_AI_ACTION_PARAM_ST";
+    const INDEX: usize = 91;
 }
 
 impl NPC_AI_ACTION_PARAM_ST {
@@ -43955,6 +40912,7 @@ pub struct NPC_AI_BEHAVIOR_PROBABILITY_PARAM_ST {
 
 impl ParamDef for NPC_AI_BEHAVIOR_PROBABILITY_PARAM_ST {
     const NAME: &str = "NPC_AI_BEHAVIOR_PROBABILITY_PARAM_ST";
+    const INDEX: usize = 62;
 }
 
 impl NPC_AI_BEHAVIOR_PROBABILITY_PARAM_ST {
@@ -45822,6 +42780,7 @@ pub struct NPC_PARAM_ST {
 
 impl ParamDef for NPC_PARAM_ST {
     const NAME: &str = "NPC_PARAM_ST";
+    const INDEX: usize = 64;
 }
 
 impl NPC_PARAM_ST {
@@ -48601,6 +45560,7 @@ pub struct NPC_THINK_PARAM_ST {
 
 impl ParamDef for NPC_THINK_PARAM_ST {
     const NAME: &str = "NPC_THINK_PARAM_ST";
+    const INDEX: usize = 230;
 }
 
 impl NPC_THINK_PARAM_ST {
@@ -49408,1008 +46368,6 @@ impl NPC_THINK_PARAM_ST {
 #[derive(Debug, Clone)]
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub struct OBJECT_MATERIAL_SFX_PARAM_ST {
-    sfx_id_00: u32,
-    sfx_id_01: u32,
-    sfx_id_02: u32,
-    sfx_id_03: u32,
-    sfx_id_04: u32,
-    sfx_id_05: u32,
-    sfx_id_06: u32,
-    sfx_id_07: u32,
-    sfx_id_08: u32,
-    sfx_id_09: u32,
-    sfx_id_10: u32,
-    sfx_id_11: u32,
-    sfx_id_12: u32,
-    sfx_id_13: u32,
-    sfx_id_14: u32,
-    sfx_id_15: u32,
-    sfx_id_16: u32,
-    sfx_id_17: u32,
-    sfx_id_18: u32,
-    sfx_id_19: u32,
-    sfx_id_20: u32,
-    sfx_id_21: u32,
-    sfx_id_22: u32,
-    sfx_id_23: u32,
-    sfx_id_24: u32,
-    sfx_id_25: u32,
-    sfx_id_26: u32,
-    sfx_id_27: u32,
-    sfx_id_28: u32,
-    sfx_id_29: u32,
-    sfx_id_30: u32,
-    sfx_id_31: u32,
-}
-
-impl ParamDef for OBJECT_MATERIAL_SFX_PARAM_ST {
-    const NAME: &str = "OBJECT_MATERIAL_SFX_PARAM_ST";
-}
-
-impl OBJECT_MATERIAL_SFX_PARAM_ST {
-    pub fn sfx_id_00(&self) -> u32 {
-        self.sfx_id_00
-    }
-
-    pub fn set_sfx_id_00(&mut self, value: u32) {
-        self.sfx_id_00 = value;
-    }
-
-    pub fn sfx_id_01(&self) -> u32 {
-        self.sfx_id_01
-    }
-
-    pub fn set_sfx_id_01(&mut self, value: u32) {
-        self.sfx_id_01 = value;
-    }
-
-    pub fn sfx_id_02(&self) -> u32 {
-        self.sfx_id_02
-    }
-
-    pub fn set_sfx_id_02(&mut self, value: u32) {
-        self.sfx_id_02 = value;
-    }
-
-    pub fn sfx_id_03(&self) -> u32 {
-        self.sfx_id_03
-    }
-
-    pub fn set_sfx_id_03(&mut self, value: u32) {
-        self.sfx_id_03 = value;
-    }
-
-    pub fn sfx_id_04(&self) -> u32 {
-        self.sfx_id_04
-    }
-
-    pub fn set_sfx_id_04(&mut self, value: u32) {
-        self.sfx_id_04 = value;
-    }
-
-    pub fn sfx_id_05(&self) -> u32 {
-        self.sfx_id_05
-    }
-
-    pub fn set_sfx_id_05(&mut self, value: u32) {
-        self.sfx_id_05 = value;
-    }
-
-    pub fn sfx_id_06(&self) -> u32 {
-        self.sfx_id_06
-    }
-
-    pub fn set_sfx_id_06(&mut self, value: u32) {
-        self.sfx_id_06 = value;
-    }
-
-    pub fn sfx_id_07(&self) -> u32 {
-        self.sfx_id_07
-    }
-
-    pub fn set_sfx_id_07(&mut self, value: u32) {
-        self.sfx_id_07 = value;
-    }
-
-    pub fn sfx_id_08(&self) -> u32 {
-        self.sfx_id_08
-    }
-
-    pub fn set_sfx_id_08(&mut self, value: u32) {
-        self.sfx_id_08 = value;
-    }
-
-    pub fn sfx_id_09(&self) -> u32 {
-        self.sfx_id_09
-    }
-
-    pub fn set_sfx_id_09(&mut self, value: u32) {
-        self.sfx_id_09 = value;
-    }
-
-    pub fn sfx_id_10(&self) -> u32 {
-        self.sfx_id_10
-    }
-
-    pub fn set_sfx_id_10(&mut self, value: u32) {
-        self.sfx_id_10 = value;
-    }
-
-    pub fn sfx_id_11(&self) -> u32 {
-        self.sfx_id_11
-    }
-
-    pub fn set_sfx_id_11(&mut self, value: u32) {
-        self.sfx_id_11 = value;
-    }
-
-    pub fn sfx_id_12(&self) -> u32 {
-        self.sfx_id_12
-    }
-
-    pub fn set_sfx_id_12(&mut self, value: u32) {
-        self.sfx_id_12 = value;
-    }
-
-    pub fn sfx_id_13(&self) -> u32 {
-        self.sfx_id_13
-    }
-
-    pub fn set_sfx_id_13(&mut self, value: u32) {
-        self.sfx_id_13 = value;
-    }
-
-    pub fn sfx_id_14(&self) -> u32 {
-        self.sfx_id_14
-    }
-
-    pub fn set_sfx_id_14(&mut self, value: u32) {
-        self.sfx_id_14 = value;
-    }
-
-    pub fn sfx_id_15(&self) -> u32 {
-        self.sfx_id_15
-    }
-
-    pub fn set_sfx_id_15(&mut self, value: u32) {
-        self.sfx_id_15 = value;
-    }
-
-    pub fn sfx_id_16(&self) -> u32 {
-        self.sfx_id_16
-    }
-
-    pub fn set_sfx_id_16(&mut self, value: u32) {
-        self.sfx_id_16 = value;
-    }
-
-    pub fn sfx_id_17(&self) -> u32 {
-        self.sfx_id_17
-    }
-
-    pub fn set_sfx_id_17(&mut self, value: u32) {
-        self.sfx_id_17 = value;
-    }
-
-    pub fn sfx_id_18(&self) -> u32 {
-        self.sfx_id_18
-    }
-
-    pub fn set_sfx_id_18(&mut self, value: u32) {
-        self.sfx_id_18 = value;
-    }
-
-    pub fn sfx_id_19(&self) -> u32 {
-        self.sfx_id_19
-    }
-
-    pub fn set_sfx_id_19(&mut self, value: u32) {
-        self.sfx_id_19 = value;
-    }
-
-    pub fn sfx_id_20(&self) -> u32 {
-        self.sfx_id_20
-    }
-
-    pub fn set_sfx_id_20(&mut self, value: u32) {
-        self.sfx_id_20 = value;
-    }
-
-    pub fn sfx_id_21(&self) -> u32 {
-        self.sfx_id_21
-    }
-
-    pub fn set_sfx_id_21(&mut self, value: u32) {
-        self.sfx_id_21 = value;
-    }
-
-    pub fn sfx_id_22(&self) -> u32 {
-        self.sfx_id_22
-    }
-
-    pub fn set_sfx_id_22(&mut self, value: u32) {
-        self.sfx_id_22 = value;
-    }
-
-    pub fn sfx_id_23(&self) -> u32 {
-        self.sfx_id_23
-    }
-
-    pub fn set_sfx_id_23(&mut self, value: u32) {
-        self.sfx_id_23 = value;
-    }
-
-    pub fn sfx_id_24(&self) -> u32 {
-        self.sfx_id_24
-    }
-
-    pub fn set_sfx_id_24(&mut self, value: u32) {
-        self.sfx_id_24 = value;
-    }
-
-    pub fn sfx_id_25(&self) -> u32 {
-        self.sfx_id_25
-    }
-
-    pub fn set_sfx_id_25(&mut self, value: u32) {
-        self.sfx_id_25 = value;
-    }
-
-    pub fn sfx_id_26(&self) -> u32 {
-        self.sfx_id_26
-    }
-
-    pub fn set_sfx_id_26(&mut self, value: u32) {
-        self.sfx_id_26 = value;
-    }
-
-    pub fn sfx_id_27(&self) -> u32 {
-        self.sfx_id_27
-    }
-
-    pub fn set_sfx_id_27(&mut self, value: u32) {
-        self.sfx_id_27 = value;
-    }
-
-    pub fn sfx_id_28(&self) -> u32 {
-        self.sfx_id_28
-    }
-
-    pub fn set_sfx_id_28(&mut self, value: u32) {
-        self.sfx_id_28 = value;
-    }
-
-    pub fn sfx_id_29(&self) -> u32 {
-        self.sfx_id_29
-    }
-
-    pub fn set_sfx_id_29(&mut self, value: u32) {
-        self.sfx_id_29 = value;
-    }
-
-    pub fn sfx_id_30(&self) -> u32 {
-        self.sfx_id_30
-    }
-
-    pub fn set_sfx_id_30(&mut self, value: u32) {
-        self.sfx_id_30 = value;
-    }
-
-    pub fn sfx_id_31(&self) -> u32 {
-        self.sfx_id_31
-    }
-
-    pub fn set_sfx_id_31(&mut self, value: u32) {
-        self.sfx_id_31 = value;
-    }
-}
-
-#[derive(Debug, Clone)]
-#[allow(non_camel_case_types)]
-#[repr(C)]
-pub struct OBJECT_PARAM_ST {
-    hp: i16,
-    defense: u16,
-    ext_ref_tex_id: i16,
-    material_id: i16,
-    anim_break_id_max: u8,
-    bits_9: u8,
-    bits_a: u8,
-    default_lod_param_id: i8,
-    break_sfx_id: i32,
-    break_sfx_cp_id: i32,
-    break_bullet_behavior_id: i32,
-    break_bullet_cp_id: i32,
-    break_fall_height: u8,
-    wind_effect_type_0: u8,
-    wind_effect_type_1: u8,
-    cam_avoid_type: u8,
-    wind_effect_rate_0: f32,
-    wind_effect_rate_1: f32,
-    break_stop_time: f32,
-    burn_time: f32,
-    burn_braek_rate: f32,
-    burn_sfx_id: i32,
-    burn_sfx_id_1: i32,
-    burn_sfx_id_2: i32,
-    burn_sfx_id_3: i32,
-    burn_bullet_behavior_id: i32,
-    burn_bullet_behavior_id_1: i32,
-    burn_bullet_behavior_id_2: i32,
-    burn_bullet_behavior_id_3: i32,
-    burn_bullet_interval: u16,
-    navimesh_flag: u8,
-    collision_type: u8,
-    burn_bullet_delay_time: f32,
-    burn_sfx_delay_time_min: f32,
-    burn_sfx_delay_time_min_1: f32,
-    burn_sfx_delay_time_min_2: f32,
-    burn_sfx_delay_time_min_3: f32,
-    burn_sfx_delay_time_max: f32,
-    burn_sfx_delay_time_max_1: f32,
-    burn_sfx_delay_time_max_2: f32,
-    burn_sfx_delay_time_max_3: f32,
-    break_ai_sound_id: i32,
-    fragment_invisible_wait_time: f32,
-    fragment_invisible_time: f32,
-    pad_3: [u8; 16],
-    rigid_penetration_scale_soft: f32,
-    rigid_penetration_scale_normal: f32,
-    rigid_penetration_scale_hard: f32,
-    land_touch_sfx_id: i32,
-    bits_a8: u8,
-    pad_4: [u8; 1],
-    paint_decal_target_texture_size: u16,
-    life_time_for_dc: f32,
-    cloth_update_dist: f32,
-    contact_se_id: i32,
-    break_landing_sfx_id: i32,
-    waypoint_dummy_poly_id_0: i32,
-    waypoint_param_id_0: i32,
-    sound_bank_id: i32,
-    ref_draw_param_id: i32,
-    auto_create_dynamic_offset_height: f32,
-    reserved0: i32,
-    sound_break_se_id: i32,
-    pad_5: [u8; 40],
-}
-
-impl ParamDef for OBJECT_PARAM_ST {
-    const NAME: &str = "OBJECT_PARAM_ST";
-}
-
-impl OBJECT_PARAM_ST {
-    pub fn hp(&self) -> i16 {
-        self.hp
-    }
-
-    pub fn set_hp(&mut self, value: i16) {
-        self.hp = value;
-    }
-
-    pub fn defense(&self) -> u16 {
-        self.defense
-    }
-
-    pub fn set_defense(&mut self, value: u16) {
-        self.defense = value;
-    }
-
-    pub fn ext_ref_tex_id(&self) -> i16 {
-        self.ext_ref_tex_id
-    }
-
-    pub fn set_ext_ref_tex_id(&mut self, value: i16) {
-        self.ext_ref_tex_id = value;
-    }
-
-    pub fn material_id(&self) -> i16 {
-        self.material_id
-    }
-
-    pub fn set_material_id(&mut self, value: i16) {
-        self.material_id = value;
-    }
-
-    pub fn anim_break_id_max(&self) -> u8 {
-        self.anim_break_id_max
-    }
-
-    pub fn set_anim_break_id_max(&mut self, value: u8) {
-        self.anim_break_id_max = value;
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn is_cam_hit(&self) -> u8 {
-        (self.bits_9 >> 0) & 0b00000001
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn set_is_cam_hit(&mut self, value: u8) {
-        self.bits_9 = (self.bits_9 & !(0b00000001 << 0)) | ((value & 0b00000001) << 0);
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn is_break_by_player_collide(&self) -> u8 {
-        (self.bits_9 >> 1) & 0b00000001
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn set_is_break_by_player_collide(&mut self, value: u8) {
-        self.bits_9 = (self.bits_9 & !(0b00000001 << 1)) | ((value & 0b00000001) << 1);
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn is_anim_break(&self) -> u8 {
-        (self.bits_9 >> 2) & 0b00000001
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn set_is_anim_break(&mut self, value: u8) {
-        self.bits_9 = (self.bits_9 & !(0b00000001 << 2)) | ((value & 0b00000001) << 2);
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn is_penetration_bullet_hit(&self) -> u8 {
-        (self.bits_9 >> 3) & 0b00000001
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn set_is_penetration_bullet_hit(&mut self, value: u8) {
-        self.bits_9 = (self.bits_9 & !(0b00000001 << 3)) | ((value & 0b00000001) << 3);
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn is_chr_hit(&self) -> u8 {
-        (self.bits_9 >> 4) & 0b00000001
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn set_is_chr_hit(&mut self, value: u8) {
-        self.bits_9 = (self.bits_9 & !(0b00000001 << 4)) | ((value & 0b00000001) << 4);
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn is_attack_backlash(&self) -> u8 {
-        (self.bits_9 >> 5) & 0b00000001
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn set_is_attack_backlash(&mut self, value: u8) {
-        self.bits_9 = (self.bits_9 & !(0b00000001 << 5)) | ((value & 0b00000001) << 5);
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn is_disable_break_for_first_appear(&self) -> u8 {
-        (self.bits_9 >> 6) & 0b00000001
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn set_is_disable_break_for_first_appear(&mut self, value: u8) {
-        self.bits_9 = (self.bits_9 & !(0b00000001 << 6)) | ((value & 0b00000001) << 6);
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn is_ladder(&self) -> u8 {
-        (self.bits_9 >> 7) & 0b00000001
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn set_is_ladder(&mut self, value: u8) {
-        self.bits_9 = (self.bits_9 & !(0b00000001 << 7)) | ((value & 0b00000001) << 7);
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn is_anim_pause_on_remo_play(&self) -> u8 {
-        (self.bits_a >> 0) & 0b00000001
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn set_is_anim_pause_on_remo_play(&mut self, value: u8) {
-        self.bits_a = (self.bits_a & !(0b00000001 << 0)) | ((value & 0b00000001) << 0);
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn is_damage_no_hit(&self) -> u8 {
-        (self.bits_a >> 1) & 0b00000001
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn set_is_damage_no_hit(&mut self, value: u8) {
-        self.bits_a = (self.bits_a & !(0b00000001 << 1)) | ((value & 0b00000001) << 1);
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn is_move_obj(&self) -> u8 {
-        (self.bits_a >> 2) & 0b00000001
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn set_is_move_obj(&mut self, value: u8) {
-        self.bits_a = (self.bits_a & !(0b00000001 << 2)) | ((value & 0b00000001) << 2);
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn is_rope_bridge(&self) -> u8 {
-        (self.bits_a >> 3) & 0b00000001
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn set_is_rope_bridge(&mut self, value: u8) {
-        self.bits_a = (self.bits_a & !(0b00000001 << 3)) | ((value & 0b00000001) << 3);
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn is_add_rigid_impulse_by_damage(&self) -> u8 {
-        (self.bits_a >> 4) & 0b00000001
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn set_is_add_rigid_impulse_by_damage(&mut self, value: u8) {
-        self.bits_a = (self.bits_a & !(0b00000001 << 4)) | ((value & 0b00000001) << 4);
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn is_break_by_chr_ride(&self) -> u8 {
-        (self.bits_a >> 5) & 0b00000001
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn set_is_break_by_chr_ride(&mut self, value: u8) {
-        self.bits_a = (self.bits_a & !(0b00000001 << 5)) | ((value & 0b00000001) << 5);
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn is_burn(&self) -> u8 {
-        (self.bits_a >> 6) & 0b00000001
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn set_is_burn(&mut self, value: u8) {
-        self.bits_a = (self.bits_a & !(0b00000001 << 6)) | ((value & 0b00000001) << 6);
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn is_break_by_enemy_collide(&self) -> u8 {
-        (self.bits_a >> 7) & 0b00000001
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn set_is_break_by_enemy_collide(&mut self, value: u8) {
-        self.bits_a = (self.bits_a & !(0b00000001 << 7)) | ((value & 0b00000001) << 7);
-    }
-
-    pub fn default_lod_param_id(&self) -> i8 {
-        self.default_lod_param_id
-    }
-
-    pub fn set_default_lod_param_id(&mut self, value: i8) {
-        self.default_lod_param_id = value;
-    }
-
-    pub fn break_sfx_id(&self) -> i32 {
-        self.break_sfx_id
-    }
-
-    pub fn set_break_sfx_id(&mut self, value: i32) {
-        self.break_sfx_id = value;
-    }
-
-    pub fn break_sfx_cp_id(&self) -> i32 {
-        self.break_sfx_cp_id
-    }
-
-    pub fn set_break_sfx_cp_id(&mut self, value: i32) {
-        self.break_sfx_cp_id = value;
-    }
-
-    pub fn break_bullet_behavior_id(&self) -> i32 {
-        self.break_bullet_behavior_id
-    }
-
-    pub fn set_break_bullet_behavior_id(&mut self, value: i32) {
-        self.break_bullet_behavior_id = value;
-    }
-
-    pub fn break_bullet_cp_id(&self) -> i32 {
-        self.break_bullet_cp_id
-    }
-
-    pub fn set_break_bullet_cp_id(&mut self, value: i32) {
-        self.break_bullet_cp_id = value;
-    }
-
-    pub fn break_fall_height(&self) -> u8 {
-        self.break_fall_height
-    }
-
-    pub fn set_break_fall_height(&mut self, value: u8) {
-        self.break_fall_height = value;
-    }
-
-    pub fn wind_effect_type_0(&self) -> u8 {
-        self.wind_effect_type_0
-    }
-
-    pub fn set_wind_effect_type_0(&mut self, value: u8) {
-        self.wind_effect_type_0 = value;
-    }
-
-    pub fn wind_effect_type_1(&self) -> u8 {
-        self.wind_effect_type_1
-    }
-
-    pub fn set_wind_effect_type_1(&mut self, value: u8) {
-        self.wind_effect_type_1 = value;
-    }
-
-    pub fn cam_avoid_type(&self) -> u8 {
-        self.cam_avoid_type
-    }
-
-    pub fn set_cam_avoid_type(&mut self, value: u8) {
-        self.cam_avoid_type = value;
-    }
-
-    pub fn wind_effect_rate_0(&self) -> f32 {
-        self.wind_effect_rate_0
-    }
-
-    pub fn set_wind_effect_rate_0(&mut self, value: f32) {
-        self.wind_effect_rate_0 = value;
-    }
-
-    pub fn wind_effect_rate_1(&self) -> f32 {
-        self.wind_effect_rate_1
-    }
-
-    pub fn set_wind_effect_rate_1(&mut self, value: f32) {
-        self.wind_effect_rate_1 = value;
-    }
-
-    pub fn break_stop_time(&self) -> f32 {
-        self.break_stop_time
-    }
-
-    pub fn set_break_stop_time(&mut self, value: f32) {
-        self.break_stop_time = value;
-    }
-
-    pub fn burn_time(&self) -> f32 {
-        self.burn_time
-    }
-
-    pub fn set_burn_time(&mut self, value: f32) {
-        self.burn_time = value;
-    }
-
-    pub fn burn_braek_rate(&self) -> f32 {
-        self.burn_braek_rate
-    }
-
-    pub fn set_burn_braek_rate(&mut self, value: f32) {
-        self.burn_braek_rate = value;
-    }
-
-    pub fn burn_sfx_id(&self) -> i32 {
-        self.burn_sfx_id
-    }
-
-    pub fn set_burn_sfx_id(&mut self, value: i32) {
-        self.burn_sfx_id = value;
-    }
-
-    pub fn burn_sfx_id_1(&self) -> i32 {
-        self.burn_sfx_id_1
-    }
-
-    pub fn set_burn_sfx_id_1(&mut self, value: i32) {
-        self.burn_sfx_id_1 = value;
-    }
-
-    pub fn burn_sfx_id_2(&self) -> i32 {
-        self.burn_sfx_id_2
-    }
-
-    pub fn set_burn_sfx_id_2(&mut self, value: i32) {
-        self.burn_sfx_id_2 = value;
-    }
-
-    pub fn burn_sfx_id_3(&self) -> i32 {
-        self.burn_sfx_id_3
-    }
-
-    pub fn set_burn_sfx_id_3(&mut self, value: i32) {
-        self.burn_sfx_id_3 = value;
-    }
-
-    pub fn burn_bullet_behavior_id(&self) -> i32 {
-        self.burn_bullet_behavior_id
-    }
-
-    pub fn set_burn_bullet_behavior_id(&mut self, value: i32) {
-        self.burn_bullet_behavior_id = value;
-    }
-
-    pub fn burn_bullet_behavior_id_1(&self) -> i32 {
-        self.burn_bullet_behavior_id_1
-    }
-
-    pub fn set_burn_bullet_behavior_id_1(&mut self, value: i32) {
-        self.burn_bullet_behavior_id_1 = value;
-    }
-
-    pub fn burn_bullet_behavior_id_2(&self) -> i32 {
-        self.burn_bullet_behavior_id_2
-    }
-
-    pub fn set_burn_bullet_behavior_id_2(&mut self, value: i32) {
-        self.burn_bullet_behavior_id_2 = value;
-    }
-
-    pub fn burn_bullet_behavior_id_3(&self) -> i32 {
-        self.burn_bullet_behavior_id_3
-    }
-
-    pub fn set_burn_bullet_behavior_id_3(&mut self, value: i32) {
-        self.burn_bullet_behavior_id_3 = value;
-    }
-
-    pub fn burn_bullet_interval(&self) -> u16 {
-        self.burn_bullet_interval
-    }
-
-    pub fn set_burn_bullet_interval(&mut self, value: u16) {
-        self.burn_bullet_interval = value;
-    }
-
-    pub fn navimesh_flag(&self) -> u8 {
-        self.navimesh_flag
-    }
-
-    pub fn set_navimesh_flag(&mut self, value: u8) {
-        self.navimesh_flag = value;
-    }
-
-    pub fn collision_type(&self) -> u8 {
-        self.collision_type
-    }
-
-    pub fn set_collision_type(&mut self, value: u8) {
-        self.collision_type = value;
-    }
-
-    pub fn burn_bullet_delay_time(&self) -> f32 {
-        self.burn_bullet_delay_time
-    }
-
-    pub fn set_burn_bullet_delay_time(&mut self, value: f32) {
-        self.burn_bullet_delay_time = value;
-    }
-
-    pub fn burn_sfx_delay_time_min(&self) -> f32 {
-        self.burn_sfx_delay_time_min
-    }
-
-    pub fn set_burn_sfx_delay_time_min(&mut self, value: f32) {
-        self.burn_sfx_delay_time_min = value;
-    }
-
-    pub fn burn_sfx_delay_time_min_1(&self) -> f32 {
-        self.burn_sfx_delay_time_min_1
-    }
-
-    pub fn set_burn_sfx_delay_time_min_1(&mut self, value: f32) {
-        self.burn_sfx_delay_time_min_1 = value;
-    }
-
-    pub fn burn_sfx_delay_time_min_2(&self) -> f32 {
-        self.burn_sfx_delay_time_min_2
-    }
-
-    pub fn set_burn_sfx_delay_time_min_2(&mut self, value: f32) {
-        self.burn_sfx_delay_time_min_2 = value;
-    }
-
-    pub fn burn_sfx_delay_time_min_3(&self) -> f32 {
-        self.burn_sfx_delay_time_min_3
-    }
-
-    pub fn set_burn_sfx_delay_time_min_3(&mut self, value: f32) {
-        self.burn_sfx_delay_time_min_3 = value;
-    }
-
-    pub fn burn_sfx_delay_time_max(&self) -> f32 {
-        self.burn_sfx_delay_time_max
-    }
-
-    pub fn set_burn_sfx_delay_time_max(&mut self, value: f32) {
-        self.burn_sfx_delay_time_max = value;
-    }
-
-    pub fn burn_sfx_delay_time_max_1(&self) -> f32 {
-        self.burn_sfx_delay_time_max_1
-    }
-
-    pub fn set_burn_sfx_delay_time_max_1(&mut self, value: f32) {
-        self.burn_sfx_delay_time_max_1 = value;
-    }
-
-    pub fn burn_sfx_delay_time_max_2(&self) -> f32 {
-        self.burn_sfx_delay_time_max_2
-    }
-
-    pub fn set_burn_sfx_delay_time_max_2(&mut self, value: f32) {
-        self.burn_sfx_delay_time_max_2 = value;
-    }
-
-    pub fn burn_sfx_delay_time_max_3(&self) -> f32 {
-        self.burn_sfx_delay_time_max_3
-    }
-
-    pub fn set_burn_sfx_delay_time_max_3(&mut self, value: f32) {
-        self.burn_sfx_delay_time_max_3 = value;
-    }
-
-    pub fn break_ai_sound_id(&self) -> i32 {
-        self.break_ai_sound_id
-    }
-
-    pub fn set_break_ai_sound_id(&mut self, value: i32) {
-        self.break_ai_sound_id = value;
-    }
-
-    pub fn fragment_invisible_wait_time(&self) -> f32 {
-        self.fragment_invisible_wait_time
-    }
-
-    pub fn set_fragment_invisible_wait_time(&mut self, value: f32) {
-        self.fragment_invisible_wait_time = value;
-    }
-
-    pub fn fragment_invisible_time(&self) -> f32 {
-        self.fragment_invisible_time
-    }
-
-    pub fn set_fragment_invisible_time(&mut self, value: f32) {
-        self.fragment_invisible_time = value;
-    }
-
-    pub fn rigid_penetration_scale_soft(&self) -> f32 {
-        self.rigid_penetration_scale_soft
-    }
-
-    pub fn set_rigid_penetration_scale_soft(&mut self, value: f32) {
-        self.rigid_penetration_scale_soft = value;
-    }
-
-    pub fn rigid_penetration_scale_normal(&self) -> f32 {
-        self.rigid_penetration_scale_normal
-    }
-
-    pub fn set_rigid_penetration_scale_normal(&mut self, value: f32) {
-        self.rigid_penetration_scale_normal = value;
-    }
-
-    pub fn rigid_penetration_scale_hard(&self) -> f32 {
-        self.rigid_penetration_scale_hard
-    }
-
-    pub fn set_rigid_penetration_scale_hard(&mut self, value: f32) {
-        self.rigid_penetration_scale_hard = value;
-    }
-
-    pub fn land_touch_sfx_id(&self) -> i32 {
-        self.land_touch_sfx_id
-    }
-
-    pub fn set_land_touch_sfx_id(&mut self, value: i32) {
-        self.land_touch_sfx_id = value;
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn is_damage_cover(&self) -> u8 {
-        (self.bits_a8 >> 0) & 0b00000001
-    }
-
-    #[allow(clippy::identity_op)]
-    pub fn set_is_damage_cover(&mut self, value: u8) {
-        self.bits_a8 = (self.bits_a8 & !(0b00000001 << 0)) | ((value & 0b00000001) << 0);
-    }
-
-    pub fn paint_decal_target_texture_size(&self) -> u16 {
-        self.paint_decal_target_texture_size
-    }
-
-    pub fn set_paint_decal_target_texture_size(&mut self, value: u16) {
-        self.paint_decal_target_texture_size = value;
-    }
-
-    pub fn life_time_for_dc(&self) -> f32 {
-        self.life_time_for_dc
-    }
-
-    pub fn set_life_time_for_dc(&mut self, value: f32) {
-        self.life_time_for_dc = value;
-    }
-
-    pub fn cloth_update_dist(&self) -> f32 {
-        self.cloth_update_dist
-    }
-
-    pub fn set_cloth_update_dist(&mut self, value: f32) {
-        self.cloth_update_dist = value;
-    }
-
-    pub fn contact_se_id(&self) -> i32 {
-        self.contact_se_id
-    }
-
-    pub fn set_contact_se_id(&mut self, value: i32) {
-        self.contact_se_id = value;
-    }
-
-    pub fn break_landing_sfx_id(&self) -> i32 {
-        self.break_landing_sfx_id
-    }
-
-    pub fn set_break_landing_sfx_id(&mut self, value: i32) {
-        self.break_landing_sfx_id = value;
-    }
-
-    pub fn waypoint_dummy_poly_id_0(&self) -> i32 {
-        self.waypoint_dummy_poly_id_0
-    }
-
-    pub fn set_waypoint_dummy_poly_id_0(&mut self, value: i32) {
-        self.waypoint_dummy_poly_id_0 = value;
-    }
-
-    pub fn waypoint_param_id_0(&self) -> i32 {
-        self.waypoint_param_id_0
-    }
-
-    pub fn set_waypoint_param_id_0(&mut self, value: i32) {
-        self.waypoint_param_id_0 = value;
-    }
-
-    pub fn sound_bank_id(&self) -> i32 {
-        self.sound_bank_id
-    }
-
-    pub fn set_sound_bank_id(&mut self, value: i32) {
-        self.sound_bank_id = value;
-    }
-
-    pub fn ref_draw_param_id(&self) -> i32 {
-        self.ref_draw_param_id
-    }
-
-    pub fn set_ref_draw_param_id(&mut self, value: i32) {
-        self.ref_draw_param_id = value;
-    }
-
-    pub fn auto_create_dynamic_offset_height(&self) -> f32 {
-        self.auto_create_dynamic_offset_height
-    }
-
-    pub fn set_auto_create_dynamic_offset_height(&mut self, value: f32) {
-        self.auto_create_dynamic_offset_height = value;
-    }
-
-    pub fn sound_break_se_id(&self) -> i32 {
-        self.sound_break_se_id
-    }
-
-    pub fn set_sound_break_se_id(&mut self, value: i32) {
-        self.sound_break_se_id = value;
-    }
-}
-
-#[derive(Debug, Clone)]
-#[allow(non_camel_case_types)]
-#[repr(C)]
 pub struct OBJ_ACT_PARAM_ST {
     action_enable_msg_id: i32,
     action_failed_msg_id: i32,
@@ -50440,6 +46398,7 @@ pub struct OBJ_ACT_PARAM_ST {
 
 impl ParamDef for OBJ_ACT_PARAM_ST {
     const NAME: &str = "OBJ_ACT_PARAM_ST";
+    const INDEX: usize = 8;
 }
 
 impl OBJ_ACT_PARAM_ST {
@@ -50675,6 +46634,7 @@ pub struct PARTS_DRAW_PARAM_ST {
 
 impl ParamDef for PARTS_DRAW_PARAM_ST {
     const NAME: &str = "PARTS_DRAW_PARAM_ST";
+    const INDEX: usize = 181;
 }
 
 impl PARTS_DRAW_PARAM_ST {
@@ -50988,65 +46948,6 @@ impl PARTS_DRAW_PARAM_ST {
 #[derive(Debug, Clone)]
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub struct PERFORMANCE_CHECK_PARAM {
-    work_tag: u8,
-    category_tag: u8,
-    compare_type: u8,
-    dummy1: [u8; 1],
-    compare_value: f32,
-    dummy2: [u8; 8],
-    user_tag: [u16; 16],
-}
-
-impl ParamDef for PERFORMANCE_CHECK_PARAM {
-    const NAME: &str = "PERFORMANCE_CHECK_PARAM";
-}
-
-impl PERFORMANCE_CHECK_PARAM {
-    pub fn work_tag(&self) -> u8 {
-        self.work_tag
-    }
-
-    pub fn set_work_tag(&mut self, value: u8) {
-        self.work_tag = value;
-    }
-
-    pub fn category_tag(&self) -> u8 {
-        self.category_tag
-    }
-
-    pub fn set_category_tag(&mut self, value: u8) {
-        self.category_tag = value;
-    }
-
-    pub fn compare_type(&self) -> u8 {
-        self.compare_type
-    }
-
-    pub fn set_compare_type(&mut self, value: u8) {
-        self.compare_type = value;
-    }
-
-    pub fn compare_value(&self) -> f32 {
-        self.compare_value
-    }
-
-    pub fn set_compare_value(&mut self, value: f32) {
-        self.compare_value = value;
-    }
-
-    pub fn user_tag(&self) -> &[u16; 16] {
-        &self.user_tag
-    }
-
-    pub fn set_user_tag(&mut self, value: [u16; 16]) {
-        self.user_tag = value;
-    }
-}
-
-#[derive(Debug, Clone)]
-#[allow(non_camel_case_types)]
-#[repr(C)]
 pub struct PHANTOM_PARAM_ST {
     edge_color_a: f32,
     front_color_a: f32,
@@ -51081,6 +46982,7 @@ pub struct PHANTOM_PARAM_ST {
 
 impl ParamDef for PHANTOM_PARAM_ST {
     const NAME: &str = "PHANTOM_PARAM_ST";
+    const INDEX: usize = 66;
 }
 
 impl PHANTOM_PARAM_ST {
@@ -51388,6 +47290,7 @@ pub struct PLAYER_COMMON_PARAM_ST {
 
 impl ParamDef for PLAYER_COMMON_PARAM_ST {
     const NAME: &str = "PLAYER_COMMON_PARAM_ST";
+    const INDEX: usize = 3;
 }
 
 impl PLAYER_COMMON_PARAM_ST {
@@ -51933,6 +47836,7 @@ pub struct PLAY_REGION_PARAM_ST {
 
 impl ParamDef for PLAY_REGION_PARAM_ST {
     const NAME: &str = "PLAY_REGION_PARAM_ST";
+    const INDEX: usize = 132;
 }
 
 impl PLAY_REGION_PARAM_ST {
@@ -52641,6 +48545,7 @@ pub struct POSTURE_CONTROL_PARAM_GENDER_ST {
 
 impl ParamDef for POSTURE_CONTROL_PARAM_GENDER_ST {
     const NAME: &str = "POSTURE_CONTROL_PARAM_GENDER_ST";
+    const INDEX: usize = 22;
 }
 
 impl POSTURE_CONTROL_PARAM_GENDER_ST {
@@ -52906,6 +48811,7 @@ pub struct POSTURE_CONTROL_PARAM_PRO_ST {
 
 impl ParamDef for POSTURE_CONTROL_PARAM_PRO_ST {
     const NAME: &str = "POSTURE_CONTROL_PARAM_PRO_ST";
+    const INDEX: usize = 76;
 }
 
 impl POSTURE_CONTROL_PARAM_PRO_ST {
@@ -53219,6 +49125,7 @@ pub struct POSTURE_CONTROL_PARAM_WEP_LEFT_ST {
 
 impl ParamDef for POSTURE_CONTROL_PARAM_WEP_LEFT_ST {
     const NAME: &str = "POSTURE_CONTROL_PARAM_WEP_LEFT_ST";
+    const INDEX: usize = 224;
 }
 
 impl POSTURE_CONTROL_PARAM_WEP_LEFT_ST {
@@ -53399,6 +49306,7 @@ pub struct POSTURE_CONTROL_PARAM_WEP_RIGHT_ST {
 
 impl ParamDef for POSTURE_CONTROL_PARAM_WEP_RIGHT_ST {
     const NAME: &str = "POSTURE_CONTROL_PARAM_WEP_RIGHT_ST";
+    const INDEX: usize = 146;
 }
 
 impl POSTURE_CONTROL_PARAM_WEP_RIGHT_ST {
@@ -53982,459 +49890,6 @@ impl POSTURE_CONTROL_PARAM_WEP_RIGHT_ST {
 #[derive(Debug, Clone)]
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub struct RANDOM_APPEAR_EDIT_PARAM_ST {
-    appear_num: u32,
-    param_id1: i32,
-    rate1: u32,
-    param_id2: i32,
-    rate2: u32,
-    param_id3: i32,
-    rate3: u32,
-    param_id4: i32,
-    rate4: u32,
-    param_id5: i32,
-    rate5: u32,
-    param_id6: i32,
-    rate6: u32,
-    param_id7: i32,
-    rate7: u32,
-    param_id8: i32,
-    rate8: u32,
-    param_id9: i32,
-    rate9: u32,
-    param_id10: i32,
-    rate10: u32,
-    param_id11: i32,
-    rate11: u32,
-    param_id12: i32,
-    rate12: u32,
-    param_id13: i32,
-    rate13: u32,
-    param_id14: i32,
-    rate14: u32,
-    param_id15: i32,
-    rate15: u32,
-    param_id16: i32,
-    rate16: u32,
-    param_id17: i32,
-    rate17: u32,
-    param_id18: i32,
-    rate18: u32,
-    param_id19: i32,
-    rate19: u32,
-    param_id20: i32,
-    rate20: u32,
-    param_id21: i32,
-    rate21: u32,
-    param_id22: i32,
-    rate22: u32,
-    param_id23: i32,
-    rate23: u32,
-    param_id24: i32,
-    rate24: u32,
-}
-
-impl ParamDef for RANDOM_APPEAR_EDIT_PARAM_ST {
-    const NAME: &str = "RANDOM_APPEAR_EDIT_PARAM_ST";
-}
-
-impl RANDOM_APPEAR_EDIT_PARAM_ST {
-    pub fn appear_num(&self) -> u32 {
-        self.appear_num
-    }
-
-    pub fn set_appear_num(&mut self, value: u32) {
-        self.appear_num = value;
-    }
-
-    pub fn param_id1(&self) -> i32 {
-        self.param_id1
-    }
-
-    pub fn set_param_id1(&mut self, value: i32) {
-        self.param_id1 = value;
-    }
-
-    pub fn rate1(&self) -> u32 {
-        self.rate1
-    }
-
-    pub fn set_rate1(&mut self, value: u32) {
-        self.rate1 = value;
-    }
-
-    pub fn param_id2(&self) -> i32 {
-        self.param_id2
-    }
-
-    pub fn set_param_id2(&mut self, value: i32) {
-        self.param_id2 = value;
-    }
-
-    pub fn rate2(&self) -> u32 {
-        self.rate2
-    }
-
-    pub fn set_rate2(&mut self, value: u32) {
-        self.rate2 = value;
-    }
-
-    pub fn param_id3(&self) -> i32 {
-        self.param_id3
-    }
-
-    pub fn set_param_id3(&mut self, value: i32) {
-        self.param_id3 = value;
-    }
-
-    pub fn rate3(&self) -> u32 {
-        self.rate3
-    }
-
-    pub fn set_rate3(&mut self, value: u32) {
-        self.rate3 = value;
-    }
-
-    pub fn param_id4(&self) -> i32 {
-        self.param_id4
-    }
-
-    pub fn set_param_id4(&mut self, value: i32) {
-        self.param_id4 = value;
-    }
-
-    pub fn rate4(&self) -> u32 {
-        self.rate4
-    }
-
-    pub fn set_rate4(&mut self, value: u32) {
-        self.rate4 = value;
-    }
-
-    pub fn param_id5(&self) -> i32 {
-        self.param_id5
-    }
-
-    pub fn set_param_id5(&mut self, value: i32) {
-        self.param_id5 = value;
-    }
-
-    pub fn rate5(&self) -> u32 {
-        self.rate5
-    }
-
-    pub fn set_rate5(&mut self, value: u32) {
-        self.rate5 = value;
-    }
-
-    pub fn param_id6(&self) -> i32 {
-        self.param_id6
-    }
-
-    pub fn set_param_id6(&mut self, value: i32) {
-        self.param_id6 = value;
-    }
-
-    pub fn rate6(&self) -> u32 {
-        self.rate6
-    }
-
-    pub fn set_rate6(&mut self, value: u32) {
-        self.rate6 = value;
-    }
-
-    pub fn param_id7(&self) -> i32 {
-        self.param_id7
-    }
-
-    pub fn set_param_id7(&mut self, value: i32) {
-        self.param_id7 = value;
-    }
-
-    pub fn rate7(&self) -> u32 {
-        self.rate7
-    }
-
-    pub fn set_rate7(&mut self, value: u32) {
-        self.rate7 = value;
-    }
-
-    pub fn param_id8(&self) -> i32 {
-        self.param_id8
-    }
-
-    pub fn set_param_id8(&mut self, value: i32) {
-        self.param_id8 = value;
-    }
-
-    pub fn rate8(&self) -> u32 {
-        self.rate8
-    }
-
-    pub fn set_rate8(&mut self, value: u32) {
-        self.rate8 = value;
-    }
-
-    pub fn param_id9(&self) -> i32 {
-        self.param_id9
-    }
-
-    pub fn set_param_id9(&mut self, value: i32) {
-        self.param_id9 = value;
-    }
-
-    pub fn rate9(&self) -> u32 {
-        self.rate9
-    }
-
-    pub fn set_rate9(&mut self, value: u32) {
-        self.rate9 = value;
-    }
-
-    pub fn param_id10(&self) -> i32 {
-        self.param_id10
-    }
-
-    pub fn set_param_id10(&mut self, value: i32) {
-        self.param_id10 = value;
-    }
-
-    pub fn rate10(&self) -> u32 {
-        self.rate10
-    }
-
-    pub fn set_rate10(&mut self, value: u32) {
-        self.rate10 = value;
-    }
-
-    pub fn param_id11(&self) -> i32 {
-        self.param_id11
-    }
-
-    pub fn set_param_id11(&mut self, value: i32) {
-        self.param_id11 = value;
-    }
-
-    pub fn rate11(&self) -> u32 {
-        self.rate11
-    }
-
-    pub fn set_rate11(&mut self, value: u32) {
-        self.rate11 = value;
-    }
-
-    pub fn param_id12(&self) -> i32 {
-        self.param_id12
-    }
-
-    pub fn set_param_id12(&mut self, value: i32) {
-        self.param_id12 = value;
-    }
-
-    pub fn rate12(&self) -> u32 {
-        self.rate12
-    }
-
-    pub fn set_rate12(&mut self, value: u32) {
-        self.rate12 = value;
-    }
-
-    pub fn param_id13(&self) -> i32 {
-        self.param_id13
-    }
-
-    pub fn set_param_id13(&mut self, value: i32) {
-        self.param_id13 = value;
-    }
-
-    pub fn rate13(&self) -> u32 {
-        self.rate13
-    }
-
-    pub fn set_rate13(&mut self, value: u32) {
-        self.rate13 = value;
-    }
-
-    pub fn param_id14(&self) -> i32 {
-        self.param_id14
-    }
-
-    pub fn set_param_id14(&mut self, value: i32) {
-        self.param_id14 = value;
-    }
-
-    pub fn rate14(&self) -> u32 {
-        self.rate14
-    }
-
-    pub fn set_rate14(&mut self, value: u32) {
-        self.rate14 = value;
-    }
-
-    pub fn param_id15(&self) -> i32 {
-        self.param_id15
-    }
-
-    pub fn set_param_id15(&mut self, value: i32) {
-        self.param_id15 = value;
-    }
-
-    pub fn rate15(&self) -> u32 {
-        self.rate15
-    }
-
-    pub fn set_rate15(&mut self, value: u32) {
-        self.rate15 = value;
-    }
-
-    pub fn param_id16(&self) -> i32 {
-        self.param_id16
-    }
-
-    pub fn set_param_id16(&mut self, value: i32) {
-        self.param_id16 = value;
-    }
-
-    pub fn rate16(&self) -> u32 {
-        self.rate16
-    }
-
-    pub fn set_rate16(&mut self, value: u32) {
-        self.rate16 = value;
-    }
-
-    pub fn param_id17(&self) -> i32 {
-        self.param_id17
-    }
-
-    pub fn set_param_id17(&mut self, value: i32) {
-        self.param_id17 = value;
-    }
-
-    pub fn rate17(&self) -> u32 {
-        self.rate17
-    }
-
-    pub fn set_rate17(&mut self, value: u32) {
-        self.rate17 = value;
-    }
-
-    pub fn param_id18(&self) -> i32 {
-        self.param_id18
-    }
-
-    pub fn set_param_id18(&mut self, value: i32) {
-        self.param_id18 = value;
-    }
-
-    pub fn rate18(&self) -> u32 {
-        self.rate18
-    }
-
-    pub fn set_rate18(&mut self, value: u32) {
-        self.rate18 = value;
-    }
-
-    pub fn param_id19(&self) -> i32 {
-        self.param_id19
-    }
-
-    pub fn set_param_id19(&mut self, value: i32) {
-        self.param_id19 = value;
-    }
-
-    pub fn rate19(&self) -> u32 {
-        self.rate19
-    }
-
-    pub fn set_rate19(&mut self, value: u32) {
-        self.rate19 = value;
-    }
-
-    pub fn param_id20(&self) -> i32 {
-        self.param_id20
-    }
-
-    pub fn set_param_id20(&mut self, value: i32) {
-        self.param_id20 = value;
-    }
-
-    pub fn rate20(&self) -> u32 {
-        self.rate20
-    }
-
-    pub fn set_rate20(&mut self, value: u32) {
-        self.rate20 = value;
-    }
-
-    pub fn param_id21(&self) -> i32 {
-        self.param_id21
-    }
-
-    pub fn set_param_id21(&mut self, value: i32) {
-        self.param_id21 = value;
-    }
-
-    pub fn rate21(&self) -> u32 {
-        self.rate21
-    }
-
-    pub fn set_rate21(&mut self, value: u32) {
-        self.rate21 = value;
-    }
-
-    pub fn param_id22(&self) -> i32 {
-        self.param_id22
-    }
-
-    pub fn set_param_id22(&mut self, value: i32) {
-        self.param_id22 = value;
-    }
-
-    pub fn rate22(&self) -> u32 {
-        self.rate22
-    }
-
-    pub fn set_rate22(&mut self, value: u32) {
-        self.rate22 = value;
-    }
-
-    pub fn param_id23(&self) -> i32 {
-        self.param_id23
-    }
-
-    pub fn set_param_id23(&mut self, value: i32) {
-        self.param_id23 = value;
-    }
-
-    pub fn rate23(&self) -> u32 {
-        self.rate23
-    }
-
-    pub fn set_rate23(&mut self, value: u32) {
-        self.rate23 = value;
-    }
-
-    pub fn param_id24(&self) -> i32 {
-        self.param_id24
-    }
-
-    pub fn set_param_id24(&mut self, value: i32) {
-        self.param_id24 = value;
-    }
-
-    pub fn rate24(&self) -> u32 {
-        self.rate24
-    }
-
-    pub fn set_rate24(&mut self, value: u32) {
-        self.rate24 = value;
-    }
-}
-
-#[derive(Debug, Clone)]
-#[allow(non_camel_case_types)]
-#[repr(C)]
 pub struct RANDOM_APPEAR_PARAM_ST {
     bits_0: u8,
     bits_1: u8,
@@ -54453,6 +49908,7 @@ pub struct RANDOM_APPEAR_PARAM_ST {
 
 impl ParamDef for RANDOM_APPEAR_PARAM_ST {
     const NAME: &str = "RANDOM_APPEAR_PARAM_ST";
+    const INDEX: usize = 187;
 }
 
 impl RANDOM_APPEAR_PARAM_ST {
@@ -55484,6 +50940,7 @@ pub struct REINFORCE_PARAM_PROTECTOR_ST {
 
 impl ParamDef for REINFORCE_PARAM_PROTECTOR_ST {
     const NAME: &str = "REINFORCE_PARAM_PROTECTOR_ST";
+    const INDEX: usize = 46;
 }
 
 impl REINFORCE_PARAM_PROTECTOR_ST {
@@ -55687,6 +51144,7 @@ pub struct REINFORCE_PARAM_WEAPON_ST {
 
 impl ParamDef for REINFORCE_PARAM_WEAPON_ST {
     const NAME: &str = "REINFORCE_PARAM_WEAPON_ST";
+    const INDEX: usize = 110;
 }
 
 impl REINFORCE_PARAM_WEAPON_ST {
@@ -56013,6 +51471,7 @@ pub struct RESIST_CORRECT_PARAM_ST {
 
 impl ParamDef for RESIST_CORRECT_PARAM_ST {
     const NAME: &str = "RESIST_CORRECT_PARAM_ST";
+    const INDEX: usize = 117;
 }
 
 impl RESIST_CORRECT_PARAM_ST {
@@ -56106,6 +51565,7 @@ pub struct REVERB_AUX_SEND_BUS_PARAM_ST {
 
 impl ParamDef for REVERB_AUX_SEND_BUS_PARAM_ST {
     const NAME: &str = "REVERB_AUX_SEND_BUS_PARAM_ST";
+    const INDEX: usize = 141;
 }
 
 impl REVERB_AUX_SEND_BUS_PARAM_ST {
@@ -56140,6 +51600,7 @@ pub struct RIDE_PARAM_ST {
 
 impl ParamDef for RIDE_PARAM_ST {
     const NAME: &str = "RIDE_PARAM_ST";
+    const INDEX: usize = 213;
 }
 
 impl RIDE_PARAM_ST {
@@ -56288,6 +51749,7 @@ pub struct ROLE_PARAM_ST {
 
 impl ParamDef for ROLE_PARAM_ST {
     const NAME: &str = "ROLE_PARAM_ST";
+    const INDEX: usize = 44;
 }
 
 impl ROLE_PARAM_ST {
@@ -56551,6 +52013,7 @@ pub struct ROLLING_OBJ_LOT_PARAM_ST {
 
 impl ParamDef for ROLLING_OBJ_LOT_PARAM_ST {
     const NAME: &str = "ROLLING_OBJ_LOT_PARAM_ST";
+    const INDEX: usize = 204;
 }
 
 impl ROLLING_OBJ_LOT_PARAM_ST {
@@ -56707,6 +52170,7 @@ pub struct RUNTIME_BONE_CONTROL_PARAM_ST {
 
 impl ParamDef for RUNTIME_BONE_CONTROL_PARAM_ST {
     const NAME: &str = "RUNTIME_BONE_CONTROL_PARAM_ST";
+    const INDEX: usize = 27;
 }
 
 impl RUNTIME_BONE_CONTROL_PARAM_ST {
@@ -56760,6 +52224,7 @@ pub struct SE_ACTIVATION_RANGE_PARAM_ST {
 
 impl ParamDef for SE_ACTIVATION_RANGE_PARAM_ST {
     const NAME: &str = "SE_ACTIVATION_RANGE_PARAM_ST";
+    const INDEX: usize = 0;
 }
 
 impl SE_ACTIVATION_RANGE_PARAM_ST {
@@ -56782,6 +52247,7 @@ pub struct SE_MATERIAL_CONVERT_PARAM_ST {
 
 impl ParamDef for SE_MATERIAL_CONVERT_PARAM_ST {
     const NAME: &str = "SE_MATERIAL_CONVERT_PARAM_ST";
+    const INDEX: usize = 137;
 }
 
 impl SE_MATERIAL_CONVERT_PARAM_ST {
@@ -56803,6 +52269,7 @@ pub struct SFX_BLOCK_RES_SHARE_PARAM {
 
 impl ParamDef for SFX_BLOCK_RES_SHARE_PARAM {
     const NAME: &str = "SFX_BLOCK_RES_SHARE_PARAM";
+    const INDEX: usize = 116;
 }
 
 impl SFX_BLOCK_RES_SHARE_PARAM {
@@ -56841,6 +52308,7 @@ pub struct SHOP_LINEUP_PARAM {
 
 impl ParamDef for SHOP_LINEUP_PARAM {
     const NAME: &str = "SHOP_LINEUP_PARAM";
+    const INDEX: usize = 145;
 }
 
 impl SHOP_LINEUP_PARAM {
@@ -56989,6 +52457,7 @@ pub struct SIGN_PUDDLE_PARAM_ST {
 
 impl ParamDef for SIGN_PUDDLE_PARAM_ST {
     const NAME: &str = "SIGN_PUDDLE_PARAM_ST";
+    const INDEX: usize = 144;
 }
 
 impl SIGN_PUDDLE_PARAM_ST {
@@ -57096,6 +52565,7 @@ pub struct SIGN_PUDDLE_SUB_CATEGORY_PARAM_ST {
 
 impl ParamDef for SIGN_PUDDLE_SUB_CATEGORY_PARAM_ST {
     const NAME: &str = "SIGN_PUDDLE_SUB_CATEGORY_PARAM_ST";
+    const INDEX: usize = 115;
 }
 
 impl SIGN_PUDDLE_SUB_CATEGORY_PARAM_ST {
@@ -57128,6 +52598,7 @@ pub struct SIGN_PUDDLE_TAB_PARAM_ST {
 
 impl ParamDef for SIGN_PUDDLE_TAB_PARAM_ST {
     const NAME: &str = "SIGN_PUDDLE_TAB_PARAM_ST";
+    const INDEX: usize = 220;
 }
 
 impl SIGN_PUDDLE_TAB_PARAM_ST {
@@ -57157,6 +52628,7 @@ pub struct SOUND_ASSET_SOUND_OBJ_ENABLE_DIST_PARAM_ST {
 
 impl ParamDef for SOUND_ASSET_SOUND_OBJ_ENABLE_DIST_PARAM_ST {
     const NAME: &str = "SOUND_ASSET_SOUND_OBJ_ENABLE_DIST_PARAM_ST";
+    const INDEX: usize = 227;
 }
 
 impl SOUND_ASSET_SOUND_OBJ_ENABLE_DIST_PARAM_ST {
@@ -57181,6 +52653,7 @@ pub struct SOUND_AUTO_ENV_SOUND_GROUP_PARAM_ST {
 
 impl ParamDef for SOUND_AUTO_ENV_SOUND_GROUP_PARAM_ST {
     const NAME: &str = "SOUND_AUTO_ENV_SOUND_GROUP_PARAM_ST";
+    const INDEX: usize = 184;
 }
 
 impl SOUND_AUTO_ENV_SOUND_GROUP_PARAM_ST {
@@ -57233,6 +52706,7 @@ pub struct SOUND_AUTO_REVERB_EVALUATION_DIST_PARAM_ST {
 
 impl ParamDef for SOUND_AUTO_REVERB_EVALUATION_DIST_PARAM_ST {
     const NAME: &str = "SOUND_AUTO_REVERB_EVALUATION_DIST_PARAM_ST";
+    const INDEX: usize = 114;
 }
 
 impl SOUND_AUTO_REVERB_EVALUATION_DIST_PARAM_ST {
@@ -57320,6 +52794,7 @@ pub struct SOUND_AUTO_REVERB_SELECT_PARAM_ST {
 
 impl ParamDef for SOUND_AUTO_REVERB_SELECT_PARAM_ST {
     const NAME: &str = "SOUND_AUTO_REVERB_SELECT_PARAM_ST";
+    const INDEX: usize = 85;
 }
 
 impl SOUND_AUTO_REVERB_SELECT_PARAM_ST {
@@ -57440,6 +52915,7 @@ pub struct SOUND_CHR_PHYSICS_SE_PARAM_ST {
 
 impl ParamDef for SOUND_CHR_PHYSICS_SE_PARAM_ST {
     const NAME: &str = "SOUND_CHR_PHYSICS_SE_PARAM_ST";
+    const INDEX: usize = 219;
 }
 
 impl SOUND_CHR_PHYSICS_SE_PARAM_ST {
@@ -57664,6 +53140,7 @@ pub struct SOUND_COMMON_INGAME_PARAM_ST {
 
 impl ParamDef for SOUND_COMMON_INGAME_PARAM_ST {
     const NAME: &str = "SOUND_COMMON_INGAME_PARAM_ST";
+    const INDEX: usize = 131;
 }
 
 impl SOUND_COMMON_INGAME_PARAM_ST {
@@ -57694,6 +53171,7 @@ pub struct SOUND_COMMON_SYSTEM_PARAM_ST {
 
 impl ParamDef for SOUND_COMMON_SYSTEM_PARAM_ST {
     const NAME: &str = "SOUND_COMMON_SYSTEM_PARAM_ST";
+    const INDEX: usize = 53;
 }
 
 impl SOUND_COMMON_SYSTEM_PARAM_ST {
@@ -57737,6 +53215,7 @@ pub struct SOUND_CUTSCENE_PARAM_ST {
 
 impl ParamDef for SOUND_CUTSCENE_PARAM_ST {
     const NAME: &str = "SOUND_CUTSCENE_PARAM_ST";
+    const INDEX: usize = 60;
 }
 
 impl SOUND_CUTSCENE_PARAM_ST {
@@ -57817,6 +53296,7 @@ pub struct SPEEDTREE_MODEL_PARAM_ST {
 
 impl ParamDef for SPEEDTREE_MODEL_PARAM_ST {
     const NAME: &str = "SPEEDTREE_MODEL_PARAM_ST";
+    const INDEX: usize = 51;
 }
 
 impl SPEEDTREE_MODEL_PARAM_ST {
@@ -58197,6 +53677,7 @@ pub struct SP_EFFECT_PARAM_ST {
 
 impl ParamDef for SP_EFFECT_PARAM_ST {
     const NAME: &str = "SP_EFFECT_PARAM_ST";
+    const INDEX: usize = 86;
 }
 
 impl SP_EFFECT_PARAM_ST {
@@ -61281,6 +56762,7 @@ pub struct SP_EFFECT_SET_PARAM_ST {
 
 impl ParamDef for SP_EFFECT_SET_PARAM_ST {
     const NAME: &str = "SP_EFFECT_SET_PARAM_ST";
+    const INDEX: usize = 153;
 }
 
 impl SP_EFFECT_SET_PARAM_ST {
@@ -61381,6 +56863,7 @@ pub struct SP_EFFECT_VFX_PARAM_ST {
 
 impl ParamDef for SP_EFFECT_VFX_PARAM_ST {
     const NAME: &str = "SP_EFFECT_VFX_PARAM_ST";
+    const INDEX: usize = 99;
 }
 
 impl SP_EFFECT_VFX_PARAM_ST {
@@ -61945,6 +57428,7 @@ pub struct SWORD_ARTS_PARAM_ST {
 
 impl ParamDef for SWORD_ARTS_PARAM_ST {
     const NAME: &str = "SWORD_ARTS_PARAM_ST";
+    const INDEX: usize = 167;
 }
 
 impl SWORD_ARTS_PARAM_ST {
@@ -62147,6 +57631,7 @@ pub struct TALK_PARAM_ST {
 
 impl ParamDef for TALK_PARAM_ST {
     const NAME: &str = "TALK_PARAM_ST";
+    const INDEX: usize = 195;
 }
 
 impl TALK_PARAM_ST {
@@ -62331,6 +57816,7 @@ pub struct THROW_DIRECTION_SFX_PARAM_ST {
 
 impl ParamDef for THROW_DIRECTION_SFX_PARAM_ST {
     const NAME: &str = "THROW_DIRECTION_SFX_PARAM_ST";
+    const INDEX: usize = 40;
 }
 
 impl THROW_DIRECTION_SFX_PARAM_ST {
@@ -62627,6 +58113,7 @@ pub struct THROW_PARAM_ST {
 
 impl ParamDef for THROW_PARAM_ST {
     const NAME: &str = "THROW_PARAM_ST";
+    const INDEX: usize = 183;
 }
 
 impl THROW_PARAM_ST {
@@ -62964,6 +58451,7 @@ pub struct TOUGHNESS_PARAM_ST {
 
 impl ParamDef for TOUGHNESS_PARAM_ST {
     const NAME: &str = "TOUGHNESS_PARAM_ST";
+    const INDEX: usize = 156;
 }
 
 impl TOUGHNESS_PARAM_ST {
@@ -63029,6 +58517,7 @@ pub struct TUTORIAL_PARAM_ST {
 
 impl ParamDef for TUTORIAL_PARAM_ST {
     const NAME: &str = "TUTORIAL_PARAM_ST";
+    const INDEX: usize = 212;
 }
 
 impl TUTORIAL_PARAM_ST {
@@ -63120,6 +58609,7 @@ pub struct WAYPOINT_PARAM_ST {
 
 impl ParamDef for WAYPOINT_PARAM_ST {
     const NAME: &str = "WAYPOINT_PARAM_ST";
+    const INDEX: usize = 234;
 }
 
 impl WAYPOINT_PARAM_ST {
@@ -63188,6 +58678,7 @@ pub struct WEATHER_ASSET_CREATE_PARAM_ST {
 
 impl ParamDef for WEATHER_ASSET_CREATE_PARAM_ST {
     const NAME: &str = "WEATHER_ASSET_CREATE_PARAM_ST";
+    const INDEX: usize = 107;
 }
 
 impl WEATHER_ASSET_CREATE_PARAM_ST {
@@ -63388,6 +58879,7 @@ pub struct WEATHER_ASSET_REPLACE_PARAM_ST {
 
 impl ParamDef for WEATHER_ASSET_REPLACE_PARAM_ST {
     const NAME: &str = "WEATHER_ASSET_REPLACE_PARAM_ST";
+    const INDEX: usize = 32;
 }
 
 impl WEATHER_ASSET_REPLACE_PARAM_ST {
@@ -63560,6 +59052,7 @@ pub struct WEATHER_LOT_PARAM_ST {
 
 impl ParamDef for WEATHER_LOT_PARAM_ST {
     const NAME: &str = "WEATHER_LOT_PARAM_ST";
+    const INDEX: usize = 173;
 }
 
 impl WEATHER_LOT_PARAM_ST {
@@ -63886,6 +59379,7 @@ pub struct WEATHER_LOT_TEX_PARAM_ST {
 
 impl ParamDef for WEATHER_LOT_TEX_PARAM_ST {
     const NAME: &str = "WEATHER_LOT_TEX_PARAM_ST";
+    const INDEX: usize = 72;
 }
 
 impl WEATHER_LOT_TEX_PARAM_ST {
@@ -63951,6 +59445,7 @@ pub struct WEATHER_LOT_TEX_PARAM_ST_DLC02 {
 
 impl ParamDef for WEATHER_LOT_TEX_PARAM_ST_DLC02 {
     const NAME: &str = "WEATHER_LOT_TEX_PARAM_ST_DLC02";
+    const INDEX: usize = 80;
 }
 
 impl WEATHER_LOT_TEX_PARAM_ST_DLC02 {
@@ -64022,6 +59517,7 @@ pub struct WEATHER_PARAM_ST {
 
 impl ParamDef for WEATHER_PARAM_ST {
     const NAME: &str = "WEATHER_PARAM_ST";
+    const INDEX: usize = 165;
 }
 
 impl WEATHER_PARAM_ST {
@@ -64232,6 +59728,7 @@ pub struct WEP_ABSORP_POS_PARAM_ST {
 
 impl ParamDef for WEP_ABSORP_POS_PARAM_ST {
     const NAME: &str = "WEP_ABSORP_POS_PARAM_ST";
+    const INDEX: usize = 75;
 }
 
 impl WEP_ABSORP_POS_PARAM_ST {
@@ -64699,6 +60196,7 @@ pub struct WET_ASPECT_PARAM_ST {
 
 impl ParamDef for WET_ASPECT_PARAM_ST {
     const NAME: &str = "WET_ASPECT_PARAM_ST";
+    const INDEX: usize = 218;
 }
 
 impl WET_ASPECT_PARAM_ST {
@@ -64779,6 +60277,7 @@ pub struct WHITE_SIGN_COOL_TIME_PARAM_ST {
 
 impl ParamDef for WHITE_SIGN_COOL_TIME_PARAM_ST {
     const NAME: &str = "WHITE_SIGN_COOL_TIME_PARAM_ST";
+    const INDEX: usize = 59;
 }
 
 impl WHITE_SIGN_COOL_TIME_PARAM_ST {
@@ -64841,6 +60340,7 @@ pub struct WORLD_MAP_LEGACY_CONV_PARAM_ST {
 
 impl ParamDef for WORLD_MAP_LEGACY_CONV_PARAM_ST {
     const NAME: &str = "WORLD_MAP_LEGACY_CONV_PARAM_ST";
+    const INDEX: usize = 233;
 }
 
 impl WORLD_MAP_LEGACY_CONV_PARAM_ST {
@@ -64984,6 +60484,7 @@ pub struct WORLD_MAP_PIECE_PARAM_ST {
 
 impl ParamDef for WORLD_MAP_PIECE_PARAM_ST {
     const NAME: &str = "WORLD_MAP_PIECE_PARAM_ST";
+    const INDEX: usize = 74;
 }
 
 impl WORLD_MAP_PIECE_PARAM_ST {
@@ -65114,6 +60615,7 @@ pub struct WORLD_MAP_PLACE_NAME_PARAM_ST {
 
 impl ParamDef for WORLD_MAP_PLACE_NAME_PARAM_ST {
     const NAME: &str = "WORLD_MAP_PLACE_NAME_PARAM_ST";
+    const INDEX: usize = 109;
 }
 
 impl WORLD_MAP_PLACE_NAME_PARAM_ST {
@@ -65283,6 +60785,7 @@ pub struct WORLD_MAP_POINT_PARAM_ST {
 
 impl ParamDef for WORLD_MAP_POINT_PARAM_ST {
     const NAME: &str = "WORLD_MAP_POINT_PARAM_ST";
+    const INDEX: usize = 122;
 }
 
 impl WORLD_MAP_POINT_PARAM_ST {
@@ -65968,6 +61471,7 @@ pub struct WWISE_VALUE_TO_STR_CONVERT_PARAM_ST {
 
 impl ParamDef for WWISE_VALUE_TO_STR_CONVERT_PARAM_ST {
     const NAME: &str = "WWISE_VALUE_TO_STR_CONVERT_PARAM_ST";
+    const INDEX: usize = 4;
 }
 
 impl WWISE_VALUE_TO_STR_CONVERT_PARAM_ST {

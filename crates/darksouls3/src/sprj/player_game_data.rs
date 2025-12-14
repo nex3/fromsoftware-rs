@@ -1,16 +1,14 @@
-use std::marker::PhantomData;
-use std::mem;
+use std::iter;
 use std::num::NonZero;
 use std::ops::{Index, IndexMut};
 use std::ptr::NonNull;
 use std::slice;
-use std::{iter, iter::FusedIterator};
 
 use bitfield::bitfield;
-use shared::{empty::*, FromStatic, InstanceResult, OwnedPtr};
+use shared::{FromStatic, InstanceResult, OwnedPtr, empty::*};
 
-use crate::sprj::{CategorizedItemID, ItemGetMenuMan, MaybeInvalidCategorizedItemID, PlayerIns};
 use crate::CxxVec;
+use crate::sprj::{CategorizedItemID, ItemGetMenuMan, MaybeInvalidCategorizedItemID, PlayerIns};
 
 mod gesture;
 
@@ -46,7 +44,7 @@ impl PlayerGameData {
     /// Grants the player a gesture, similarly to the `AwardGesture` EMEVD command.
     pub fn grant_gesture(&mut self, gesture_index: u32, item_id: CategorizedItemID) {
         self.gesture_data.set_gesture_acquired(gesture_index, true);
-        if let Ok(menu_man) = (unsafe { ItemGetMenuMan::instance() }) {
+        if let Ok(menu_man) = unsafe { ItemGetMenuMan::instance() } {
             menu_man.show_item(item_id, 1, false);
         }
     }
@@ -178,7 +176,7 @@ impl EquipGameData {
         // items than that, so we check for 12 items which is exactly how many
         // the loading screen has. This could be tricked if a player discarded
         // all their starting equipment, so... don't do that.
-        return self.equip_inventory_data.items_data.normal_items_count == 12;
+        self.equip_inventory_data.items_data.normal_items_count == 12
     }
 }
 

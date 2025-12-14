@@ -3,7 +3,6 @@ use std::ptr::NonNull;
 use shared::{
     FromStatic, InstanceError, InstanceResult, OwnedPtr, Subclass, Superclass, UnknownStruct,
 };
-use vtable_rs::VPtr;
 
 use super::{ChrInsModuleContainer, ChrSetEntry, PlayerGameData, WorldChrMan};
 use crate::{dlkr::DLAllocatorRef, fd4::FD4Time, rva};

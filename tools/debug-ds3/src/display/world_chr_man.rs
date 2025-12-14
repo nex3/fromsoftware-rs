@@ -1,7 +1,7 @@
 use hudhook::imgui::{TreeNodeFlags, Ui};
 
 use darksouls3::sprj::*;
-use shared::{Subclass, Superclass};
+use fromsoftware_shared::{Subclass, Superclass};
 
 use super::DebugDisplay;
 
