@@ -9,8 +9,10 @@
 /// These are populated from `mapper-profile.toml` in the root of this package
 /// using `tools/binary-generator`.
 pub struct RvaBundle {
+    pub character_type_properties: u32,
     pub chr_ins_apply_speffect: u32,
     pub chr_ins_remove_speffect: u32,
+    pub crypto_spi_registry: u32,
     pub cs_action_button_man_execute_action_button: u32,
     pub cs_bullet_manager_spawn_bullet: u32,
     pub cs_ez_draw_draw_capsule: u32,
@@ -21,8 +23,10 @@ pub struct RvaBundle {
     pub cs_ez_draw_draw_wedge: u32,
     pub cs_menu_man_imp_display_status_message: u32,
     pub cs_phys_world_cast_ray: u32,
+    pub game_man: u32,
     pub global_hinstance: u32,
     pub initialize_spawn_geometry_request: u32,
+    pub multiplay_properties: u32,
     pub register_task: u32,
     pub spawn_geometry: u32,
 }

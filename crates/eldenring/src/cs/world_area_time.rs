@@ -17,7 +17,7 @@ pub struct WorldAreaTime {
 }
 
 impl WorldAreaTime {
-    fn request_time(&mut self, hour: u32, minute: u32, second: u32) {
+    pub fn request_time(&mut self, hour: u32, minute: u32, second: u32) {
         self.target_hour = hour;
         self.target_minute = minute;
         self.target_second = second;
@@ -25,6 +25,7 @@ impl WorldAreaTime {
 }
 
 #[repr(u32)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 pub enum AiSightTimeOfDay {
     Morning = 0x0,
     Noon = 0x1,

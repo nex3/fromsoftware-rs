@@ -9,7 +9,7 @@ use crate::{
 };
 use shared::OwnedPtr;
 
-use super::{BlockId, CSEzTask, CSEzUpdateTask, PlayerIns};
+use super::{BlockId, CSEzTask, CSEzUpdateTask};
 
 #[repr(C)]
 #[shared::singleton("CSNetMan")]
@@ -113,7 +113,7 @@ pub struct QuickmatchManager {
 }
 
 #[repr(u32)]
-#[derive(Debug, PartialEq)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 pub enum CSQuickMatchingCtrlState {
     None = 0x0,
     SearchRegister = 0x1,

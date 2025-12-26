@@ -2,9 +2,9 @@ use std::ptr::NonNull;
 
 use bitfield::bitfield;
 use pelite::pe64::Pe;
-use shared::{program::Program, OwnedPtr};
+use shared::program::Program;
 
-use super::{CSEzTask, CSEzUpdateTask, ItemId};
+use super::{CSEzTask, CSEzUpdateTask, OptionalItemId};
 use crate::rva;
 
 pub const STATUS_MESSAGE_DEMIGOD_FELLED: i32 = 1;
@@ -73,7 +73,9 @@ impl CSMenuManImp {
             .rva_to_va(rva::get().cs_menu_man_imp_display_status_message)
             .unwrap();
 
-        let target = unsafe { std::mem::transmute::<u64, fn(&mut CSMenuManImp, i32) -> bool>(rva) };
+        let target = unsafe {
+            std::mem::transmute::<u64, extern "C" fn(&mut CSMenuManImp, i32) -> bool>(rva)
+        };
         target(self, message)
     }
 }
@@ -116,8 +118,8 @@ pub struct CSPopupMenu {
 #[repr(C)]
 pub struct CSPlayerMenuCtrl {
     vftable: usize,
-    pub selected_goods_item: ItemId,
-    pub selected_magic_item: ItemId,
+    pub selected_goods_item: OptionalItemId,
+    pub selected_magic_item: OptionalItemId,
     unk10: i32,
     unk14: i32,
     pub chr_menu_flags: CSChrMenuFlags,

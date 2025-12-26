@@ -12,9 +12,10 @@ pub use arxan::*;
 pub use dl_math::*;
 pub use owned_pointer::*;
 pub use program::*;
-pub use r#static::*;
 pub use rtti::*;
+pub use r#static::*;
 pub use task::*;
 pub use util::*;
 
-pub use shared_macros::singleton;
+pub use from_singleton::FromSingleton;
+pub use fromsoftware_shared_macros::singleton;

@@ -1,12 +1,16 @@
 use std::ops::Index;
 use std::ptr::NonNull;
 
+use bitfield::bitfield;
 use thiserror::Error;
 
-use crate::Vector;
+use crate::{
+    BasicVector, Vector,
+    cs::{ChrType, MultiplayRole},
+};
 use shared::OwnedPtr;
 
-use crate::cs::{FieldInsHandle, GaitemHandle, ItemId};
+use crate::cs::{FieldInsHandle, GaitemHandle, ItemId, OptionalItemId};
 
 #[repr(C)]
 /// Source of name: RTTI
@@ -34,9 +38,9 @@ pub struct PlayerGameData {
     pub intelligence: u32,
     pub faith: u32,
     pub arcane: u32,
-    unk5c: f32,
-    unk60: f32,
-    unk64: f32,
+    pub base_hero_point: f32,
+    pub base_hero_point_2: f32,
+    pub base_durability: f32,
     pub level: u32,
     pub rune_count: u32,
     pub rune_memory: u32,
@@ -48,11 +52,9 @@ pub struct PlayerGameData {
     pub frost_resist: u32,
     pub sleep_resist: u32,
     pub madness_resist: u32,
-    pub block_clear_bonus: u32,
-    unk98: u32,
-    character_name: [u16; 16],
-    unkbc: u8,
-    unkbd: u8,
+    pub pending_block_clear_bonus: f32,
+    pub chr_type: ChrType,
+    character_name: [u16; 17],
     pub gender: u8,
     pub archetype: u8,
     pub vow_type: u8,
@@ -65,19 +67,23 @@ pub struct PlayerGameData {
     pub matchmaking_spirit_ashes_level: u8,
     pub total_summon_count: u32,
     pub coop_success_count: u32,
-    unkd0: [u8; 0xf],
+    /// Index into [crate::cs::GameDataMan]'s player game data array
+    pub game_data_man_index: u32,
+    unkd4: [u8; 0xb],
     pub furlcalling_finger_remedy_active: bool,
     unke0: u8,
     unke1: u8,
     pub matching_weapon_level: u8,
     pub white_ring_active: u8,
     pub blue_ring_active: u8,
-    pub team_type: u8,
+    /// [MultiplayRole] of the player this game data belongs to
+    pub multiplay_role: MultiplayRole,
     unke6: u8,
     /// True if the player is in their own world.
     pub is_my_world: bool,
-    unke8: [u8; 0x4],
-    unkec: u32,
+    unke8: [u8; 0x3],
+    unke9: bool,
+    pub character_id: u32,
     pub invasions_success_count: u32,
     pub solo_breakin_point: u32,
     pub invaders_killed: u32,
@@ -85,10 +91,12 @@ pub struct PlayerGameData {
     pub reversed_spirit_ash: u8,
     pub resist_curse_item_count: u8,
     pub rune_arc_active: bool,
-    unk100: u8,
+    unk100: bool,
     pub max_hp_flask: u8,
     pub max_fp_flask: u8,
-    unk103: [u8; 0x6],
+    unk103: [u8; 0x4],
+    pub sell_region: SellRegion,
+    unk108: u8,
     pub reached_max_rune_memory: u8,
     unk10a: [u8; 0xE],
     pub password: [u16; 0x8],
@@ -130,6 +138,7 @@ pub struct PlayerGameData {
     gesture_game_data: usize,
     ride_game_data: usize,
     unk8e8: usize,
+    /// True when this game data belongs to the main (local) player.
     pub is_main_player: bool,
     /// Did this player agreed to voice chat?
     pub is_voice_chat_enabled: bool,
@@ -143,7 +152,8 @@ pub struct PlayerGameData {
     pub fp_estus_additional: u8,
     _pad931: [u8; 3],
     unk934: u32,
-    visited_areas: [u8; 0x18],
+    /// Vector of all visited play area IDs
+    pub visited_areas: BasicVector<u32>,
     pub mount_handle: FieldInsHandle,
     unk958: [u8; 0x8],
     pub damage_negation_physical: i32,
@@ -166,7 +176,8 @@ pub struct PlayerGameData {
     pub proc_status_timers: [f32; 7],
     pub proc_status_timer_max: [f32; 7],
     unka54: u32,
-    unka58: [u8; 0xF],
+    pub frontend_flags: PlayerGameDataFrontendFlags,
+    unka59: [u8; 0xE],
     pub quickmatch_kill_count: u8,
     unka68: [u8; 0x4],
     pub poise: f32,
@@ -175,22 +186,61 @@ pub struct PlayerGameData {
     menu_ref_special_effect_2: usize,
     menu_ref_special_effect_3: usize,
     pub is_using_festering_bloody_finger: bool,
-    unka91: [u8; 3],
-    pub networked_speffect_entry_count: u32,
+    pub used_invasion_item_type: PlayerDataInvasionItemType,
+    unka92: [u8; 2],
+    pub packed_time_stamp: u32,
     pub quick_match_team: u8,
-    unka99: [u8; 0x12],
+    unka99: [u8; 0x3],
+    unka9c: i32,
+    pub quick_match_duel_points: u16,
+    pub quick_match_united_combat_points: u16,
+    pub quick_match_spirit_ashes_points: u16,
+    pub quickmatch_duel_rank: u8,
+    pub quickmatch_united_combat_rank: u8,
+    pub quickmatch_spirit_ashes_rank: u8,
+    pub unkaa9: bool,
+    unkaa: u8,
     pub is_quick_match_host: bool,
     pub quick_match_map_load_ready: bool,
     pub quick_match_desired_team: u8,
     unkaae: u8,
     /// Should sign cooldown be enabled?
     /// Each time your coop player dies and you have someone in your world
-    /// you will get a cooldown depending on WhiteSignCoolTimeParam and level from SosSignMan
+    /// you will get a cooldown depending on [crate::param::WHITE_SIGN_COOL_TIME_PARAM_ST] and level from [crate::cs::CSSosSignMan::white_sign_cool_time_param_id]
     pub sign_cooldown_enabled: bool,
     unkab0: [u8; 0x2],
     pub has_preorder_gesture: bool,
     pub has_preorder_sote_gesture: bool,
     unkab4: [u8; 0x34],
+}
+
+#[repr(u8)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
+pub enum SellRegion {
+    None = 0,
+    Japan = 1,
+    NorthAmerica = 2,
+    Europe = 3,
+    Asia = 4,
+    Global = 5,
+}
+
+bitfield! {
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
+    pub struct PlayerGameDataFrontendFlags(u8);
+    impl Debug;
+
+    bool;
+    pub disable_status_effect_bars, set_disable_status_effect_bars: 0;
+    pub rune_arc_active, set_rune_arc_active: 1;
+}
+
+#[repr(u8)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
+pub enum PlayerDataInvasionItemType {
+    BloodyFinger = 0,
+    FesteringBloodyFinger = 1,
+    RecusantFinger = 2,
 }
 
 #[repr(C)]
@@ -230,13 +280,13 @@ pub struct PlayerGameDataSpEffect {
 
 #[repr(C)]
 pub struct ItemReplenishStateEntry {
-    pub item_id: ItemId,
+    pub item_id: OptionalItemId,
     pub auto_replenish: bool,
 }
 
 #[repr(C)]
 pub struct ItemReplenishStateEntryUnk {
-    pub item_id: ItemId,
+    pub item_id: OptionalItemId,
     pub auto_replenish: bool,
 }
 
@@ -262,7 +312,7 @@ impl ItemReplenishStateTracker {
 
 #[repr(C)]
 pub struct QMItemBackupVectorItem {
-    pub item_id: ItemId,
+    pub item_id: OptionalItemId,
     pub quantity: u32,
 }
 
@@ -275,21 +325,21 @@ pub struct ChrAsmEquipEntries {
     pub weapon_secondary_right: ItemId,
     pub weapon_tertiary_left: ItemId,
     pub weapon_tertiary_right: ItemId,
-    pub arrow_primary: ItemId,
-    pub bolt_primary: ItemId,
-    pub arrow_secondary: ItemId,
-    pub bolt_secondary: ItemId,
-    pub arrow_tertiary: ItemId,
-    pub bolt_tertiary: ItemId,
+    pub arrow_primary: OptionalItemId,
+    pub bolt_primary: OptionalItemId,
+    pub arrow_secondary: OptionalItemId,
+    pub bolt_secondary: OptionalItemId,
+    pub arrow_tertiary: OptionalItemId,
+    pub bolt_tertiary: OptionalItemId,
     pub protector_head: ItemId,
     pub protector_chest: ItemId,
     pub protector_hands: ItemId,
     pub protector_legs: ItemId,
-    pub unused40: ItemId,
-    pub accessories: [ItemId; 4],
-    pub covenant: ItemId,
-    pub quick_tems: [ItemId; 10],
-    pub pouch: [ItemId; 6],
+    pub unused40: OptionalItemId,
+    pub accessories: [OptionalItemId; 4],
+    pub covenant: OptionalItemId,
+    pub quick_tems: [OptionalItemId; 10],
+    pub pouch: [OptionalItemId; 6],
 }
 
 #[repr(C)]
@@ -311,7 +361,44 @@ pub struct EquipGameData {
     unk3e0: usize,
     unk3e8: usize,
     pub player_game_data: NonNull<PlayerGameData>,
-    unk3f8: [u8; 0xb8],
+    unk3f8: [u8; 0x8],
+    /// Bitfield tracking which equipment slots have fully broken equipment
+    /// Used to sync visuals of broken equipment in multiplayer
+    /// (DS3 leftover)
+    pub broken_equipment_slots: BrokenEquipmentSlots,
+    unk404: [u8; 0xac],
+}
+
+bitfield! {
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
+    /// Flags indicating that certain equipment slots are fully broken
+    /// (DS3 leftover)
+    pub struct BrokenEquipmentSlots(u32);
+    impl Debug;
+
+    bool;
+    pub weapon_left1, set_weapon_left1: 0;
+    pub weapon_right1, set_weapon_right1: 1;
+    pub weapon_left2, set_weapon_left2: 2;
+    pub weapon_right2, set_weapon_right2: 3;
+    pub weapon_left3, set_weapon_left3: 4;
+    pub weapon_right3, set_weapon_right3: 5;
+    pub arrow1, set_arrow1: 6;
+    pub bolt1, set_bolt1: 7;
+    pub arrow2, set_arrow2: 8;
+    pub bolt2, set_bolt2: 9;
+    pub arrow3, set_arrow3: 10;
+    pub bolt3, set_bolt3: 11;
+    pub protector_head, set_protector_head: 12;
+    pub protector_chest, set_protector_chest: 13;
+    pub protector_hands, set_protector_hands: 14;
+    pub protector_legs, set_protector_legs: 15;
+    pub unused16, set_unused16: 16;
+    pub accessory1, set_accessory1: 17;
+    pub accessory2, set_accessory2: 18;
+    pub accessory3, set_accessory3: 19;
+    pub accessory4, set_accessory4: 20;
+    pub accessory_covenant, set_accessory_covenant: 21;
 }
 
 #[repr(C)]
@@ -436,7 +523,9 @@ pub struct EquipInventoryData {
     vftable: usize,
     pub items_data: InventoryItemsData,
     pub total_item_entry_count: u32,
-    unk84: u32,
+    /// Next sort ID to assign to newly added items.
+    /// Used to sort items by acquisition order.
+    pub next_sort_id: u32,
     /// Count of all pot items by their pot group
     pub pot_items_count: [u32; 16],
     /// Capacity of all pot items by their pot group
@@ -451,23 +540,33 @@ pub struct EquipInventoryData {
     unk124: u32,
 }
 
+bitfield! {
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
+    struct ItemIdMappingBits(u32);
+    impl Debug;
+
+    u32;
+    mapping_index, _: 23, 12;
+    item_slot, _: 11, 0;
+}
+
 #[repr(C)]
 pub struct ItemIdMapping {
-    pub item_id: u32,
-    bits4: u32,
+    pub item_id: OptionalItemId,
+    bits4: ItemIdMappingBits,
 }
 
 impl ItemIdMapping {
     /// Returns the offset of the next item ID mapping with the same modulo result.
     pub fn next_mapping_item(&self) -> u32 {
-        ((self.bits4 >> 12) & 0xFFF) - 1
+        self.bits4.mapping_index() - 1
     }
 
     /// Returns the index of the item slot. This index is first checked against the key items
     /// capacity to see if it's contained in that. If not you will need to subtract the key items
     /// capacity to get the index for the normal items list.
     pub fn item_slot(&self) -> u32 {
-        self.bits4 & 0xFFF
+        self.bits4.item_slot()
     }
 }
 
@@ -476,10 +575,11 @@ pub struct EquipInventoryDataListEntry {
     /// Handle to the gaitem instance which describes additional properties to the inventory item,
     /// like durability and gems in the case of weapons.
     pub gaitem_handle: GaitemHandle,
-    pub item_id: ItemId,
+    pub item_id: OptionalItemId,
     /// Quantity of the item we have.
     pub quantity: u32,
-    pub display_id: u32,
+    /// Sort ID used to sort items by acquisition order.
+    pub sort_id: u32,
     unk10: u8,
     _pad11: [u8; 3],
     pub pot_group: i32,
@@ -519,7 +619,7 @@ pub struct EquipDataItem {
 }
 
 #[repr(u32)]
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 pub enum ChrAsmSlot {
     WeaponLeft1 = 0,
     WeaponRight1 = 1,
@@ -610,8 +710,9 @@ pub struct ChrAsmEquipmentSlots {
     /// 0 for primary, 1 for secondary.
     pub right_bolt_slot: u32,
 }
+
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 pub enum ChrAsmArmStyle {
     EmptyHanded = 0,
     OneHanded = 1,
@@ -642,4 +743,31 @@ pub struct ChrAsm {
     unkd4: u32,
     unkd8: u32,
     _paddc: [u8; 12],
+}
+
+#[repr(u8)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
+pub enum EquipmentDurabilityStatus {
+    Ok = 0,
+    AtRisk = 1,
+    Broken = 2,
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_item_id_mapping() {
+        let mapping = ItemIdMapping {
+            item_id: OptionalItemId::from(0x40002760),
+            bits4: ItemIdMappingBits(0x003B8000),
+        };
+        assert_eq!(mapping.item_id, OptionalItemId::from(0x40002760));
+        assert_eq!(
+            mapping.next_mapping_item(),
+            ((mapping.bits4.0 >> 12) & 0xFFF) - 1
+        );
+        assert_eq!(mapping.item_slot(), mapping.bits4.0 & 0xFFF);
+    }
 }

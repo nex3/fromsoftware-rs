@@ -16,6 +16,14 @@ For Dark Souls III:
 $ cargo run --bin binary-mapper -- ds3 --exe "<game exe path>"
 ```
 
+These shortcuts expect the repository folder structure to be the same as this repository. To override the output root path, pass `--project-root <path>` to either command.
+
+For example, to output to the eldenring crate while running from the repository root:
+
+```
+$ cargo run --bin binary-mapper -- er --ww-exe "<game exe path>" --jp-exe "<game exe path>" --project-root crates/eldenring
+```
+
 You can also set environment variables for the executable paths rather than passing them by flag every time. These take the form `MAPPER_{GAME}_{REGION}_EXE`. For example, instead of `er --ww-exe`, you can set `MAPPER_ER_WW_EXE`. Because Dark Souls III has the same mappings for all regions, it just takes `MAPPER_DS3_EXE`.
 
 ## Manual Mapping and Debugging
@@ -63,6 +71,7 @@ Patterns can also be located using RTTI information embedded in the executable t
 [[vmts]]
 class = "DLUID::MouseDevice<DLKR::DLMultiThreadingPolicy>"
 captures = { "MOUSE_DEVICE_SHOULD_BLOCK_INPUT" = 27 }
+vftable = "MOUSE_DEVICE_VFTABLE"
 ```
 
-The `class` field is the (unmangled) RTTI name of the class whose table to check, and `captures` is a map from capture names to the 0-based index of the virtual method being captured. Note that the resulting RVA points to the function itself, *not* its entry in the VMT.
+The `class` field is the (unmangled) RTTI name of the class whose table to check, and `captures` is a map from capture names to the 0-based index of the virtual method being captured. Note that the resulting RVA points to the function itself, *not* its entry in the VMT. The optional `vftable` field is the capture name for the virtual method table itself.

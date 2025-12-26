@@ -6,7 +6,7 @@ use shared::OwnedPtr;
 use std::ptr::NonNull;
 
 #[repr(u8)]
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 pub enum RemotePlayerDataSlotState {
     /// Player data slot is free / unoccupied
     Free = 0,
@@ -23,7 +23,7 @@ pub enum RemotePlayerDataSlotState {
 }
 
 #[repr(u32)]
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 /// Source of name: global_event.lua from DS3
 pub enum DeathState {
     Normal = 0,
@@ -54,7 +54,14 @@ pub struct GameDataMan {
     pc_option_data: usize,
     unk88: [u8; 0x4],
     pub request_full_recovery: bool,
-    unk90: u32,
+    unk8d: [u8; 0x2],
+    /// Whether game should give the player the phantom great rune
+    /// Will be true for some time during loading when Mogh's great rune is active and
+    /// the player is invading someone else's world
+    pub award_phantom_great_rune_requested: bool,
+    /// Whether game should give the player the rebreak in item
+    /// Will be true for some time during loading when the player is invading someone else's world
+    pub award_rebreak_in_item_requested: bool,
     pub death_count: u32,
     pub chr_type: ChrType,
     unk9c: [u8; 0x4],
@@ -62,8 +69,10 @@ pub struct GameDataMan {
     /// will be maxed out at 999:59:59.999
     pub play_time: u32,
     unka4: [u8; 0xC],
-    unkb0: FD4Time,
-    unkc0: bool,
+    /// Timer for tracking boss fight duration
+    pub boss_fight_timer: FD4Time,
+    /// Whether a boss fight is currently active
+    pub boss_fight_active: bool,
     /// Count of white phantoms currently summoned
     /// Used to apply enemy level scaling
     pub white_phantom_count: u32,
@@ -79,13 +88,17 @@ pub struct GameDataMan {
     /// Leave request status for each player slot
     /// Used by lua script imitation to track on leave events
     pub leave_requests: [bool; 5],
-    unkdf: [u8; 0x41],
+    unkdf: [u8; 0x39],
+    pub net_penalty_forgive_item_cooldown_active: bool,
+    pub net_penalty_requested: bool,
+    pub net_penalty_points: u16,
+    pub net_penalty_forgive_item_limit_time: f32,
     pub ng_lvl: u32,
     unk124: [u8; 0x34],
 }
 
 #[repr(u8)]
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 pub enum DisplayBlood {
     Off = 0,
     On = 1,
@@ -93,14 +106,14 @@ pub enum DisplayBlood {
 }
 
 #[repr(u8)]
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 pub enum PerformanceSetting {
     PrioritizeQuality = 0,
     PrioritizeFramerate = 1,
 }
 
 #[repr(u8)]
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 pub enum HudType {
     Off = 0,
     On = 1,

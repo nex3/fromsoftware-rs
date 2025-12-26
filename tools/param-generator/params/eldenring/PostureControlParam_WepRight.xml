@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PARAMDEF XmlVersion="2">
   <ParamType>POSTURE_CONTROL_PARAM_WEP_RIGHT_ST</ParamType>
+  <Index>146</Index>
   <DataVersion>1</DataVersion>
   <BigEndian>False</BigEndian>
   <Unicode>True</Unicode>
@@ -75,8 +76,6 @@
     <Field Def="s16 a014_leftWristFB" />
     <Field Def="s16 a014_leftWristIO" />
     <Field Def="s16 a014_lefttWeaponRotation" />
-    
-    <Field Def="dummy8 pad[4]" RemovedVersion="11210015" />
     
     <Field Def="s16 a015_rightArmFB" FirstVersion="11210015"/>
     <Field Def="s16 a015_rightWristFB" FirstVersion="11210015"/>

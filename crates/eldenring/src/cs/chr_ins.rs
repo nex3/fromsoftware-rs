@@ -1,33 +1,29 @@
 use bitfield::bitfield;
-use std::ffi;
 use std::mem::transmute;
-use std::ops::Index;
 use std::ptr::NonNull;
-use std::slice::SliceIndex;
 
 use pelite::pe64::Pe;
 use vtable_rs::VPtr;
 use windows::core::PCWSTR;
 
+use crate::Vector;
 use crate::cs::field_ins::{FieldInsBaseVmt, FieldInsHandle};
-use crate::cs::gaitem::GaitemHandle;
 use crate::cs::network_session::PlayerNetworkSession;
 use crate::cs::player_game_data::{ChrAsm, PlayerGameData};
-use crate::cs::session_manager::{SessionManagerPlayerEntry, SessionManagerPlayerEntryBase};
+use crate::cs::session_manager::SessionManagerPlayerEntryBase;
 use crate::cs::sp_effect::{NpcSpEffectEquipCtrl, SpecialEffect};
 use crate::cs::task::{CSEzRabbitNoUpdateTask, CSEzVoidTask};
 use crate::cs::world_chr_man::{ChrSetEntry, WorldBlockChr};
-use crate::cs::world_geom_man::{CSMsbParts, CSMsbPartsEne};
-use crate::cs::{BlockId, CSPlayerMenuCtrl, ItemId};
+use crate::cs::world_geom_man::CSMsbPartsEne;
+use crate::cs::{BlockId, CSPlayerMenuCtrl, EquipmentDurabilityStatus, OptionalItemId};
 use crate::dltx::DLString;
 use crate::fd4::FD4Time;
 use crate::param::{ATK_PARAM_ST, NPC_PARAM_ST};
 use crate::position::{BlockPosition, HavokPosition};
 use crate::rotation::Quaternion;
 use crate::rva;
-use crate::Vector;
 use shared::program::Program;
-use shared::{Aabb, F32Matrix4x4, F32Vector3, F32Vector4, OwnedPtr};
+use shared::{Aabb, F32Matrix4x4, F32ModelMatrix, F32Vector3, F32Vector4, OwnedPtr};
 
 #[repr(C)]
 #[derive(Debug, Clone, PartialEq, Eq, Hash)]
@@ -61,7 +57,7 @@ pub trait ChrInsVmt: FieldInsBaseVmt {
 }
 
 #[repr(i32)]
-#[derive(Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 pub enum OmissionMode {
     NoUpdate = -2,
     Normal = 0,
@@ -93,7 +89,12 @@ pub struct ChrIns {
     unk48: usize,
     pub chr_model_ins: OwnedPtr<CSChrModelIns>,
     pub chr_ctrl: OwnedPtr<ChrCtrl>,
-    pub think_param_id: i32,
+    /// NPC param ID for this character.
+    /// See [NPC_PARAM_ST]
+    pub npc_param_id: i32,
+    /// 4 number identifier for this npc.
+    /// eg. 8000 for Torrent
+    /// Same as [Self::character_id]
     pub npc_id: i32,
     pub chr_type: ChrType,
     pub team_type: u8,
@@ -126,7 +127,7 @@ pub struct ChrIns {
     pub stamina_recovery_modifier: f32,
     unkec: [u8; 0x74],
     /// Used by TAE's UseGoods to figure out what item to actually apply.
-    pub tae_queued_use_item: ItemId,
+    pub tae_queued_use_item: OptionalItemId,
     unk164: u32,
     unk168: u32,
     unk16c: u32,
@@ -136,6 +137,9 @@ pub struct ChrIns {
     pub special_effect: OwnedPtr<SpecialEffect>,
     /// Refers to what field ins you were last hit by.
     pub last_hit_by: FieldInsHandle,
+    /// 4 number identifier for this character.
+    /// eg. 8000 for Torrent
+    /// Same as [Self::npc_id]
     pub character_id: u32,
     unk18c: u32,
     pub module_container: OwnedPtr<ChrInsModuleContainer>,
@@ -262,7 +266,7 @@ impl ChrIns {
             .rva_to_va(rva::get().chr_ins_apply_speffect)
             .unwrap();
 
-        let call = unsafe { transmute::<u64, fn(&mut ChrIns, i32, bool) -> u64>(rva) };
+        let call = unsafe { transmute::<u64, extern "C" fn(&mut ChrIns, i32, bool) -> u64>(rva) };
         call(self, sp_effect, dont_sync);
     }
 
@@ -271,7 +275,7 @@ impl ChrIns {
             .rva_to_va(rva::get().chr_ins_remove_speffect)
             .unwrap();
 
-        let call = unsafe { transmute::<u64, fn(&mut ChrIns, i32) -> u64>(rva) };
+        let call = unsafe { transmute::<u64, extern "C" fn(&mut ChrIns, i32) -> u64>(rva) };
         call(self, sp_effect);
     }
 }
@@ -435,7 +439,7 @@ pub struct ChrInsModuleContainer {
     magic: usize,
     /// Describes the characters physics-related properties.
     pub physics: OwnedPtr<CSChrPhysicsModule>,
-    fall: usize,
+    pub fall: OwnedPtr<CSChrFallModule>,
     ladder: usize,
     pub action_request: OwnedPtr<CSChrActionRequestModule>,
     pub throw: OwnedPtr<CSChrThrowModule>,
@@ -693,10 +697,12 @@ pub struct CSChrActionFlagModule {
     pub unused_parry_window_arg: u8,
     unk1d1: [u8; 0xf],
     /// Angle for a cone to disable lock-on when character is inside it.
-    /// Read from npc param NPC_PARAM_ST::disableLockOnAngle
+    /// Read from npc param [crate::param::NPC_PARAM_ST::disable_lock_on_ang]
     /// Only set for the Fire Giant in the second phase of the fight.
     pub disable_lock_on_angle: f32,
-    unk1e4: f32,
+    /// Set by TAE Event 155 SetLockCamParamTarget \
+    /// See [crate::param::LOCK_CAM_PARAM_ST]
+    pub camera_lock_on_param_id: i32,
     unk1e8: [u8; 0x10],
     /// Set by TAE Event 800 SetMovementMultiplier
     pub mov_dist_multiplier: f32,
@@ -737,7 +743,7 @@ pub struct CSChrActionFlagModule {
 }
 
 #[repr(u8)]
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 pub enum SpEffectWetConditionDepth {
     Default = 0,
     LowerBody = 1,
@@ -745,7 +751,7 @@ pub enum SpEffectWetConditionDepth {
 }
 
 #[repr(i8)]
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 pub enum WeaponModelChangeType {
     MoveToDefaultLocation = -1,
     MoveTo1HRightWeaponLocation = 0,
@@ -993,8 +999,8 @@ bitfield! {
 
 #[repr(C)]
 pub struct ChrPhysicsMaterialInfo {
-    /// Local orientation matrix (rightm, up, forward, 1)
-    pub orientation_matrix: F32Matrix4x4,
+    /// Local orientation matrix (right, up, forward, 1)
+    pub orientation_matrix: F32ModelMatrix,
     /// Normal vector of the hit surface
     pub normal_vector: F32Vector4,
     unk50: [u8; 8],
@@ -1282,6 +1288,7 @@ pub struct CSPairAnimNode {
 }
 
 #[repr(u32)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 pub enum ThrowNodeState {
     Unk1 = 1,
     Unk2 = 2,
@@ -1386,7 +1393,7 @@ pub struct ChrCtrl {
     pub lock_on_chr_tag_dmypoly_offset: F32Vector4,
     /// Stores the model matrix derived from `CSChrPhysicsModule::ConstructModelMatrix`.
     /// Constructed from `CSChrPhysicsModule::position` and `CSChrPhysicsModule::orientation`.
-    pub physics_model_matrix: F32Matrix4x4,
+    pub physics_model_matrix: F32ModelMatrix,
     /// Stores the `raw_physics_model_matrix` multiplied by itself.
     pub physics_transform_matrix_squared: F32Matrix4x4,
     /// The primary model matrix for the character.
@@ -1398,7 +1405,7 @@ pub struct ChrCtrl {
     /// This matrix is then processed by ChrEasingModule,
     /// and the eased result is stored back into this field. It's the final matrix
     /// propagated to components like `locationMtx44ChrEntity`.
-    pub model_matrix: F32Matrix4x4,
+    pub model_matrix: F32ModelMatrix,
     /// Stores the `model_matrix` multiplied by itself after all modifications.chr_ins
     pub model_matrix_squared: F32Matrix4x4,
     unk2b0: F32Vector4,
@@ -1501,6 +1508,7 @@ pub struct ChrCtrlModifierData {
 }
 
 #[repr(u32)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 pub enum ChrMovementLimit {
     NoLimit = 0,
     /// Set by TAE Event 0 ChrActionFlag (action 91 LIMIT_MOVE_SPEED_TO_DASH)
@@ -1672,9 +1680,20 @@ pub struct PlayerIns {
     /// Set on player spawn and maybe on arena respawn?
     /// Players cannot be hurt if this is above 0.
     pub invincibility_timer_for_net_player: f32,
-    unk67c: [u8; 0x24],
+    /// Durability statuses for player's equipment (weapons and protectors only).
+    /// (DS3 leftover)
+    ///
+    /// See [crate::cs::ChrAsmSlot] for index mapping.
+    pub durability_statuses: [EquipmentDurabilityStatus; 16],
+    unk68c: u8,
+    /// Hand used for attack calculations, set by HKS.
+    pub attack_reference_hand: HandIndex,
+    /// Hand used for guard calculations, set by HKS.
+    pub guard_reference_hand: HandIndex,
+    unk698: u32,
+    unk69c: u32,
     pub player_menu_ctrl: NonNull<CSPlayerMenuCtrl>,
-    unk6b0: [u8; 0x8],
+    unk6a8: [u8; 0x8],
     pub locked_on_enemy: FieldInsHandle,
     pub session_manager_player_entry: OwnedPtr<SessionManagerPlayerEntryBase>,
     /// Position within the current block.
@@ -1697,9 +1716,9 @@ pub struct PlayerIns {
     unk706: u8,
     unk707: u8,
     pub opacity_keyframes_timer: FD4Time,
-    /// When false, chr team type is 14 (Neutral) and chr is an NPC
+    /// When false, chr role is 14 (BattleRoyale) and chr is not an NPC
     /// Will decrease `opacity_keyframes_timer` and set `ChrIns.opacity_keyframes_multiplier` to 0
-    pub enable_neutral_npc_rendering: bool,
+    pub enable_arena_chr_rendering: bool,
     unk718: [u8; 0x27],
 }
 
@@ -1707,6 +1726,13 @@ impl AsRef<ChrIns> for PlayerIns {
     fn as_ref(&self) -> &ChrIns {
         &self.chr_ins
     }
+}
+
+#[repr(u32)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
+pub enum HandIndex {
+    Left = 0,
+    Right = 1,
 }
 
 #[repr(C)]
@@ -1762,23 +1788,45 @@ pub struct PlayerSessionHolder {
 
 #[repr(i32)]
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
-/// Role of character in PvP/PvE.
+/// Type of character in PvP/PvE.
 /// Changes a lot of things, like appearance, what items you can use, etc.
+///
+/// Related to [crate::cs::CharacterTypePropertiesTable] and [crate::cs::MultiplayType].
 pub enum ChrType {
     None = -1,
     Local = 0,
     WhitePhantom = 1,
-    BlackPhantom = 2,
+    Duelist = 2,
     Ghost = 3,
     Ghost1 = 4,
     Npc = 5,
+    Unk6 = 6,
+    Unk7 = 7,
     GrayPhantom = 8,
+    Unk9 = 9,
     BloodstainGhost = 10,
     BonfireGhost = 11,
+    Unk12 = 12,
     Arena = 13,
     MessageGhost = 14,
-    Invader = 15,
-    Invader2 = 16,
+    BloodyFinger = 15,
+    Recusant = 16,
     BluePhantom = 17,
-    Invader3 = 18,
+    FesteringBloodyFinger = 18,
+    WhiteSummonNpc = 19,
+    BloodyFingerNpc = 20,
+    RecusantNpc = 21,
+    Unk22 = 22,
+}
+
+#[repr(C)]
+/// Source of name: RTTI
+pub struct CSChrFallModule {
+    vftable: usize,
+    pub owner: NonNull<ChrIns>,
+    unk10: i64,
+    pub fall_timer: f32,
+    hamari_fall_death_checked: bool,
+    pub force_max_fall_height: bool,
+    pub disable_fall_motion: bool,
 }
