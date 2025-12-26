@@ -32,7 +32,7 @@ impl StatefulDebugDisplay for ItemGetMenuMan {
             .item_id
             .parse::<u32>()
             .ok()
-            .and_then(|i| CategorizedItemID::try_from(i).ok());
+            .and_then(|i| ItemId::try_from(i).ok());
 
         let quantity = state.quantity.parse::<u32>();
 

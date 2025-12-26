@@ -1,301 +1,26 @@
 use std::alloc::{Layout, LayoutError, alloc_zeroed};
-use std::{convert::TryFrom, fmt, mem, ops, ptr, sync::LazyLock};
+use std::{fmt, ops, ptr, sync::LazyLock};
 
 use pelite::pe64::Pe;
-use thiserror::Error;
 
 use shared::{FromStatic, InstanceError, InstanceResult, Program, util::IncompleteArrayField};
 
+use super::ItemId;
 use crate::rva;
-
-#[derive(Error, Debug, Copy, Clone)]
-#[error("not a valid category ID: {0}")]
-pub struct TryFromItemCategoryError(u8);
-
-/// All categories of items that are present in DS3.
-#[repr(u8)]
-#[derive(Debug, Copy, Clone, Eq, PartialEq)]
-pub enum ItemCategory {
-    Weapon = 0,
-    Protector = 1,
-    Accessory = 2,
-    Goods = 4,
-}
-
-impl TryFrom<u8> for ItemCategory {
-    type Error = TryFromItemCategoryError;
-
-    fn try_from(value: u8) -> Result<ItemCategory, Self::Error> {
-        match value {
-            0 => Ok(ItemCategory::Weapon),
-            1 => Ok(ItemCategory::Protector),
-            2 => Ok(ItemCategory::Accessory),
-            4 => Ok(ItemCategory::Goods),
-            _ => Err(TryFromItemCategoryError(value)),
-        }
-    }
-}
-
-/// Like [ItemCategory], but using high bits so it can be bitwise ORed with a
-/// parameter to create a [CategorizedItemID].
-///
-/// This is sometimes used in place of [ItemCategory] in internal APIs.
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Eq, PartialEq)]
-pub enum ItemCategoryHigh {
-    Weapon = 0,
-    Protector = 0x10000000,
-    Accessory = 0x20000000,
-    Goods = 0x40000000,
-}
-
-impl TryFrom<u32> for ItemCategoryHigh {
-    type Error = TryFromItemCategoryError;
-
-    fn try_from(value: u32) -> Result<ItemCategoryHigh, Self::Error> {
-        match value {
-            0 => Ok(ItemCategoryHigh::Weapon),
-            0x10000000 => Ok(ItemCategoryHigh::Protector),
-            0x20000000 => Ok(ItemCategoryHigh::Accessory),
-            0x40000000 => Ok(ItemCategoryHigh::Goods),
-            _ => Err(TryFromItemCategoryError((value >> 28) as u8)),
-        }
-    }
-}
-
-impl From<ItemCategory> for ItemCategoryHigh {
-    fn from(value: ItemCategory) -> ItemCategoryHigh {
-        unsafe { mem::transmute((value as u32) << 28) }
-    }
-}
-
-impl From<ItemCategoryHigh> for ItemCategory {
-    fn from(value: ItemCategoryHigh) -> ItemCategory {
-        unsafe { mem::transmute((value as u32 >> 28) as u8) }
-    }
-}
-
-#[derive(Error, Debug, Copy, Clone)]
-#[error("not a valid item ID: {0}")]
-pub struct TryFromItemIDError(u32);
-
-/// An item ID that includes category information in the higher bits.
-///
-/// A [CategorizedItemID] is considered valid if its upper 4 bits are used
-/// exclusively to represent a valid [ItemCategory]. DS3 does sometimes use
-/// other sentinel values (such as -1), but these should be represented as enums
-/// instead.
-#[repr(transparent)]
-#[derive(Copy, Clone, Eq, PartialEq)]
-pub struct CategorizedItemID(u32);
-
-impl CategorizedItemID {
-    /// Creates a new [CategorizedItemID] from a [u32], or returns [None] if
-    /// it has any of the four high bits is set.
-    pub fn try_new(
-        category: impl Into<ItemCategory>,
-        uncategorized: u32,
-    ) -> Result<CategorizedItemID, TryFromItemIDError> {
-        let base: UncategorizedItemID = uncategorized.try_into()?;
-        Ok(base.categorize(category.into()))
-    }
-
-    /// Creates a new [CategorizedItemID] from a raw ID. This panics if [id] is
-    /// not a valid [CategorizedItemID].
-    ///
-    /// This is intended for creating new constant IDs where you know ahead of
-    /// time that the ID is valid. [try_new] or `try_from` should be used when
-    /// constructing an ID at runtime, since that could fail.
-    pub const fn new_const(id: u32) -> Self {
-        let result = CategorizedItemID(id);
-        result.category(); // Panic if the category isn't valid
-        result
-    }
-
-    /// Returns the numeric value of this ID, including its category
-    /// information.
-    pub const fn value(&self) -> u32 {
-        self.0
-    }
-
-    /// Returns this ID's category.
-    pub const fn category(&self) -> ItemCategory {
-        use ItemCategory::*;
-        match self.0 & 0xF0000000 {
-            0x00000000 => Weapon,
-            0x10000000 => Protector,
-            0x20000000 => Accessory,
-            0x40000000 => Goods,
-            _ => panic!("Unknown category ID"),
-        }
-    }
-
-    /// Returns the uncategorized portion of this item's ID.
-    pub const fn uncategorized(&self) -> UncategorizedItemID {
-        UncategorizedItemID(self.0 & 0x0FFFFFFF)
-    }
-}
-
-impl TryFrom<u32> for CategorizedItemID {
-    type Error = TryFromItemIDError;
-
-    fn try_from(value: u32) -> Result<CategorizedItemID, Self::Error> {
-        // Verify that the top 4 bits are a valid category before constructing
-        // the ID.
-        let Ok(byte): Result<u8, _> = (value >> 28).try_into() else {
-            return Err(TryFromItemIDError(value));
-        };
-        let Ok(_): Result<ItemCategory, _> = byte.try_into() else {
-            return Err(TryFromItemIDError(value));
-        };
-
-        Ok(CategorizedItemID(value))
-    }
-}
-
-impl TryFrom<MaybeInvalidCategorizedItemID> for CategorizedItemID {
-    type Error = TryFromItemIDError;
-
-    fn try_from(value: MaybeInvalidCategorizedItemID) -> Result<CategorizedItemID, Self::Error> {
-        value.0.try_into()
-    }
-}
-
-impl fmt::Debug for CategorizedItemID {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> Result<(), fmt::Error> {
-        if MaybeInvalidCategorizedItemID(self.0).is_valid() {
-            write!(f, "{:?}:{}", self.category(), self.uncategorized().value())
-        } else {
-            // This shouldn't be possible, but if we misunderstand where the
-            // game guarantees valid item IDs we don't want to crash if we try
-            // to debug an invalid ID.
-            write!(f, "<invalid>")
-        }
-    }
-}
-
-/// Like [CategorizedItemID], but may also represent the special invalid value
-/// [MaybeInvalidCategorizedItemID::INVALID].
-///
-/// This would ideally be represented by `Optional<CategorizedItemID>`, but
-/// currently there's no way to ensure that represents `None` with the same
-/// value the game uses to represent an invalid ID.
-#[repr(transparent)]
-#[derive(Copy, Clone, Eq, PartialEq)]
-pub struct MaybeInvalidCategorizedItemID(u32);
-
-impl MaybeInvalidCategorizedItemID {
-    /// The raw ID used by the game to indicate a "null" item ID.
-    pub const INVALID: MaybeInvalidCategorizedItemID = MaybeInvalidCategorizedItemID(0xFFFFFFFF);
-
-    /// If this is a valid ID, returns it as a [CategorizedItemID]. Otherwise,
-    /// returns `None`.
-    pub fn as_valid(&self) -> Option<CategorizedItemID> {
-        // Don't just check against INVALID in case this is loaded from game
-        // memory and has some other invalid bit pattern.
-        CategorizedItemID::try_from(*self).ok()
-    }
-
-    /// Whether this represents a valid [CategorizedItemID].
-    pub const fn is_valid(&self) -> bool {
-        matches!(
-            self.0 & 0xF0000000,
-            0x00000000 | 0x10000000 | 0x20000000 | 0x30000000 | 0x40000000 | 0x80000000
-        )
-    }
-
-    /// Returns the numeric value of this ID, including its category
-    /// information.
-    pub const fn value(&self) -> u32 {
-        self.0
-    }
-}
-
-impl From<u32> for MaybeInvalidCategorizedItemID {
-    /// Converts a [u32] into a [CategorizedItemID].
-    ///
-    /// This normalizes any invalid item IDs into the single
-    /// [MaybeInvalidCategorizedItemID::INVALID] value.
-    fn from(value: u32) -> MaybeInvalidCategorizedItemID {
-        match CategorizedItemID::try_from(value) {
-            Ok(_) => MaybeInvalidCategorizedItemID(value),
-            Err(_) => MaybeInvalidCategorizedItemID::INVALID,
-        }
-    }
-}
-
-impl From<CategorizedItemID> for MaybeInvalidCategorizedItemID {
-    /// Converts a [u32] into a [CategorizedItemID].
-    ///
-    /// This normalizes any invalid item IDs into the single
-    /// [MaybeInvalidCategorizedItemID::INVALID] value.
-    fn from(value: CategorizedItemID) -> MaybeInvalidCategorizedItemID {
-        MaybeInvalidCategorizedItemID(value.0)
-    }
-}
-
-impl fmt::Debug for MaybeInvalidCategorizedItemID {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> Result<(), fmt::Error> {
-        match self.as_valid() {
-            Some(valid) => valid.fmt(f),
-            None => write!(f, "<invalid>"),
-        }
-    }
-}
-
-/// An item ID that doesn't include category information in the higher bits.
-///
-/// An [UncategorizedItemID] is considered valid if its upper 4 bits are all 0.
-/// DS3 does sometimes use other sentinel values (such as -1), but these should
-/// be represented as enums instead.
-#[repr(transparent)]
-#[derive(Debug, Copy, Clone, Eq, PartialEq)]
-pub struct UncategorizedItemID(u32);
-
-impl UncategorizedItemID {
-    /// Returns the numeric value of this ID. This can be used as an index into
-    /// the various item params.
-    pub const fn value(&self) -> u32 {
-        self.0
-    }
-
-    /// Embeds [category] into this ID and returns the result.
-    pub fn categorize(&self, category: impl Into<ItemCategory>) -> CategorizedItemID {
-        CategorizedItemID(self.0 | ItemCategoryHigh::from(category.into()) as u32)
-    }
-}
-
-impl TryFrom<u32> for UncategorizedItemID {
-    type Error = TryFromItemIDError;
-
-    fn try_from(uncategorized: u32) -> Result<UncategorizedItemID, Self::Error> {
-        if uncategorized & 0xF0000000 == 0 {
-            Ok(UncategorizedItemID(uncategorized))
-        } else {
-            Err(TryFromItemIDError(uncategorized))
-        }
-    }
-}
 
 #[repr(C)]
 pub struct MapItemMan {
     // TODO: actual data
 }
 
-static MAP_ITEM_MAN_PTR_VA: LazyLock<Option<u64>> = LazyLock::new(|| {
-    Program::current()
-        .rva_to_va(rva::get().map_item_man_ptr)
-        .ok()
-});
-
 impl FromStatic for MapItemMan {
     /// Returns the singleton instance of `MapItemMan`.
     unsafe fn instance() -> InstanceResult<&'static mut Self> {
-        let Some(va) = *MAP_ITEM_MAN_PTR_VA else {
-            return Err(InstanceError::NotFound);
-        };
-        let pointer = unsafe { *(va as *const *mut Self) };
-        unsafe { pointer.as_mut() }.ok_or(InstanceError::Null)
+        let target = Program::current()
+            .rva_to_va(rva::get().map_item_man_ptr)
+            .map_err(|_| InstanceError::NotFound)? as *const *mut Self;
+
+        unsafe { (*target).as_mut() }.ok_or(InstanceError::Null)
     }
 }
 
@@ -412,8 +137,7 @@ impl ItemBuffer {
 impl From<&[ItemBufferEntry]> for Box<ItemBuffer> {
     fn from(items: &[ItemBufferEntry]) -> Box<ItemBuffer> {
         let mut buffer = ItemBuffer::new(items.len().try_into().unwrap());
-        let slice = buffer.as_mut_slice();
-        slice[..items.len()].clone_from_slice(items);
+        buffer.as_mut_slice().clone_from_slice(items);
         buffer
     }
 }
@@ -443,7 +167,7 @@ impl fmt::Debug for ItemBuffer {
 #[derive(Debug, Clone)]
 pub struct ItemBufferEntry {
     /// The ID of the item that was granted.
-    pub id: CategorizedItemID,
+    pub id: ItemId,
 
     /// The number of this item that the player received.
     pub quantity: u32,
@@ -452,10 +176,10 @@ pub struct ItemBufferEntry {
     pub durability: i32,
 }
 
-impl From<CategorizedItemID> for ItemBufferEntry {
+impl From<ItemId> for ItemBufferEntry {
     /// Creates an [ItemBufferEntry] containing a single full-durability item
     /// with this ID.
-    fn from(id: CategorizedItemID) -> ItemBufferEntry {
+    fn from(id: ItemId) -> ItemBufferEntry {
         ItemBufferEntry {
             id,
             quantity: 1,

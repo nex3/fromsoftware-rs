@@ -3,7 +3,7 @@ use std::ptr::NonNull;
 use pelite::pe64::Pe;
 use shared::{FromStatic, InstanceError, InstanceResult, OwnedPtr, Program};
 
-use super::{CategorizedItemID, ItemCategoryHigh};
+use super::{ItemCategoryHigh, ItemId};
 use crate::rva;
 
 // Source of name: RTTI
@@ -22,7 +22,7 @@ impl ItemGetMenuMan {
     ///
     /// If [in_box] is true, the item will be shown as going into the player's
     /// box.
-    pub fn show_item(&mut self, item: CategorizedItemID, quantity: u32, in_box: bool) {
+    pub fn show_item(&mut self, item: ItemId, quantity: u32, in_box: bool) {
         let show_item: extern "C" fn(&mut ItemGetMenuMan, ItemCategoryHigh, u32, u32, bool) = unsafe {
             std::mem::transmute(
                 Program::current()
@@ -34,7 +34,7 @@ impl ItemGetMenuMan {
         show_item(
             self,
             item.category().into(),
-            item.uncategorized().value(),
+            item.param_id(),
             quantity,
             in_box,
         );

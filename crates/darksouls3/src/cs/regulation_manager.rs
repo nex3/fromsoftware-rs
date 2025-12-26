@@ -12,7 +12,7 @@ use crate::param::{
     EQUIP_PARAM_PROTECTOR_ST, EQUIP_PARAM_WEAPON_ST, EquipParam, LOD_BANK,
     MULTI_ESTUS_FLASK_BONUS_PARAM_ST, ParamDef,
 };
-use crate::sprj::{CategorizedItemID, ItemCategory};
+use crate::sprj::{ItemCategory, ItemId};
 
 #[repr(C)]
 #[shared::singleton("CSRegulationManager")]
@@ -217,52 +217,52 @@ impl CSRegulationManager {
 
     /// Returns a dynamically-dispatched equipment parameter row for the given
     /// item ID, or `None` if the row doesn't exit.
-    pub fn get_equip_param(&self, id: CategorizedItemID) -> Option<&dyn EquipParam> {
+    pub fn get_equip_param(&self, id: ItemId) -> Option<&dyn EquipParam> {
         use ItemCategory::*;
         match id.category() {
             Weapon => self
                 .get_param::<EQUIP_PARAM_WEAPON_ST>()
                 // Round to the nearest 100 in case the ID is for an upgraded
                 // weapon.
-                .get((u64::from(id.uncategorized().value()) / 100) * 100)
+                .get((u64::from(id.param_id()) / 100) * 100)
                 .map(|p| p as &dyn EquipParam),
             Protector => self
                 .get_param::<EQUIP_PARAM_PROTECTOR_ST>()
-                .get(id.uncategorized().value().into())
+                .get(id.param_id().into())
                 .map(|p| p as &dyn EquipParam),
             Accessory => self
                 .get_param::<EQUIP_PARAM_ACCESSORY_ST>()
-                .get(id.uncategorized().value().into())
+                .get(id.param_id().into())
                 .map(|p| p as &dyn EquipParam),
             Goods => self
                 .get_param::<EQUIP_PARAM_GOODS_ST>()
-                .get(id.uncategorized().value().into())
+                .get(id.param_id().into())
                 .map(|p| p as &dyn EquipParam),
         }
     }
 
     /// Returns a dynamically-dispatched mutable equipment parameter row for the
     /// given item ID, or `None` if the row doesn't exit.
-    pub fn get_equip_param_mut(&mut self, id: CategorizedItemID) -> Option<&mut dyn EquipParam> {
+    pub fn get_equip_param_mut(&mut self, id: ItemId) -> Option<&mut dyn EquipParam> {
         use ItemCategory::*;
         match id.category() {
             Weapon => self
                 .get_mut_param::<EQUIP_PARAM_WEAPON_ST>()
                 // Round to the nearest 100 in case the ID is for an upgraded
                 // weapon.
-                .get_mut((u64::from(id.uncategorized().value()) / 100) * 100)
+                .get_mut((u64::from(id.param_id()) / 100) * 100)
                 .map(|p| p as &mut dyn EquipParam),
             Protector => self
                 .get_mut_param::<EQUIP_PARAM_PROTECTOR_ST>()
-                .get_mut(id.uncategorized().value().into())
+                .get_mut(id.param_id().into())
                 .map(|p| p as &mut dyn EquipParam),
             Accessory => self
                 .get_mut_param::<EQUIP_PARAM_ACCESSORY_ST>()
-                .get_mut(id.uncategorized().value().into())
+                .get_mut(id.param_id().into())
                 .map(|p| p as &mut dyn EquipParam),
             Goods => self
                 .get_mut_param::<EQUIP_PARAM_GOODS_ST>()
-                .get_mut(id.uncategorized().value().into())
+                .get_mut(id.param_id().into())
                 .map(|p| p as &mut dyn EquipParam),
         }
     }

@@ -8,7 +8,7 @@ use bitfield::bitfield;
 use shared::{FromStatic, InstanceResult, OwnedPtr, empty::*};
 
 use crate::CxxVec;
-use crate::sprj::{CategorizedItemID, ItemGetMenuMan, MaybeInvalidCategorizedItemID, PlayerIns};
+use crate::sprj::{ItemGetMenuMan, ItemId, OptionalItemId, PlayerIns};
 
 mod gesture;
 
@@ -42,7 +42,7 @@ pub struct PlayerGameData {
 
 impl PlayerGameData {
     /// Grants the player a gesture, similarly to the `AwardGesture` EMEVD command.
-    pub fn grant_gesture(&mut self, gesture_index: u32, item_id: CategorizedItemID) {
+    pub fn grant_gesture(&mut self, gesture_index: u32, item_id: ItemId) {
         self.gesture_data.set_gesture_acquired(gesture_index, true);
         if let Ok(menu_man) = unsafe { ItemGetMenuMan::instance() } {
             menu_man.show_item(item_id, 1, false);
@@ -435,7 +435,7 @@ pub struct EquipInventoryDataListEntry {
 
     /// The raw ID of the item in this inventory slot. This is invalid if the
     /// inventory item has since been removed.
-    pub item_id: CategorizedItemID,
+    pub item_id: ItemId,
 
     /// Quantity of the item we have.
     pub quantity: u32,
@@ -445,8 +445,8 @@ pub struct EquipInventoryDataListEntry {
 
 unsafe impl IsEmpty for EquipInventoryDataListEntry {
     fn is_empty(value: &MaybeEmpty<EquipInventoryDataListEntry>) -> bool {
-        (unsafe { *value.as_non_null().cast::<u32>().offset(1).as_ref() })
-            == MaybeInvalidCategorizedItemID::INVALID.value()
+        !OptionalItemId::from(unsafe { *value.as_non_null().cast::<u32>().offset(1).as_ref() })
+            .is_valid()
     }
 }
 
@@ -454,7 +454,7 @@ unsafe impl IsEmpty for EquipInventoryDataListEntry {
 pub struct ItemIdMapping {
     /// The ID of the item whose mapping this represents. This is invalid if
     /// there aren't currently any items in this bucket.
-    item_id: MaybeInvalidCategorizedItemID,
+    item_id: OptionalItemId,
 
     /// Indices into [InventoryItemsData]'s lists related to this mapping.
     indices: ItemIdMappingIndices,

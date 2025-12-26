@@ -3,7 +3,7 @@ use std::sync::LazyLock;
 use pelite::pe64::Pe;
 use shared::{FromStatic, InstanceError, InstanceResult, OwnedPtr, Program};
 
-use super::{CategorizedItemID, PlayerGameData};
+use super::{ItemId, PlayerGameData};
 use crate::rva;
 
 static GAME_DATA_MAN_PTR_VA: LazyLock<Option<u64>> = LazyLock::new(|| {
@@ -37,7 +37,7 @@ impl GameDataMan {
     /// Gives the player [quantity] instances of [item].
     ///
     /// Note that this won't give more than one copy of certain key items.
-    pub fn give_item_directly(&mut self, item: CategorizedItemID, quantity: u32) {
+    pub fn give_item_directly(&mut self, item: ItemId, quantity: u32) {
         // Because this function comes from the event manager, it takes the
         // LuaEventMan as its first argument rather than GameDataMan. It instead
         // accesses GameDataMan through the global variable. To avoid needing to
@@ -49,28 +49,18 @@ impl GameDataMan {
             unsafe { std::mem::transmute(*LUA_EVENT_MAN_GIVE_ITEM_DIRECTLY_VA) };
 
         // The LuaEventMan isn't actually used.
-        give_item_directly(
-            0,
-            (item.category() as u32) << 28,
-            item.uncategorized().value(),
-            quantity,
-        );
+        give_item_directly(0, (item.category() as u32) << 28, item.param_id(), quantity);
     }
 
     /// Removes [quantity] instances of [item] from the player's inventory.
-    pub fn remove_item(&mut self, item: CategorizedItemID, quantity: u32) {
+    pub fn remove_item(&mut self, item: ItemId, quantity: u32) {
         // As above, this takes LuaEventMan but doesn't use it.
         let rva = Program::current()
             .rva_to_va(rva::get().lua_event_man_remove_item)
             .unwrap();
         let remove_item: extern "C" fn(usize, u32, u32, u32) = unsafe { std::mem::transmute(rva) };
 
-        remove_item(
-            0,
-            (item.category() as u32) << 28,
-            item.uncategorized().value(),
-            quantity,
-        );
+        remove_item(0, (item.category() as u32) << 28, item.param_id(), quantity);
     }
 }
 
