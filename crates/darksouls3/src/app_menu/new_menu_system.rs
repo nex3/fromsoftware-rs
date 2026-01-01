@@ -1,4 +1,4 @@
-use std::ptr::NonNull;
+use std::{borrow::Cow, ptr::NonNull};
 
 use pelite::pe64::Pe;
 
@@ -56,6 +56,10 @@ impl NewMenuSystem {
 }
 
 impl FromStatic for NewMenuSystem {
+    fn name() -> Cow<'static, str> {
+        "NewMenuSystem".into()
+    }
+
     unsafe fn instance() -> fromsoftware_shared::InstanceResult<&'static mut Self> {
         let target = Program::current()
             .rva_to_va(rva::get().app_menu_new_menu_system_ptr)

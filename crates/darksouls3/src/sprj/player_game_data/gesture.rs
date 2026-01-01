@@ -1,3 +1,5 @@
+use std::borrow::Cow;
+
 use bitfield::bitfield;
 
 use shared::{FromStatic, InstanceError, InstanceResult};
@@ -73,6 +75,10 @@ pub struct GestureDataStore {
 }
 
 impl FromStatic for GestureDataStore {
+    fn name() -> Cow<'static, str> {
+        "GestureDataStore".into()
+    }
+
     unsafe fn instance() -> InstanceResult<&'static mut Self> {
         use crate::rva;
         use pelite::pe64::Pe;

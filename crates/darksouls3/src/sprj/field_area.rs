@@ -1,4 +1,4 @@
-use std::ptr::NonNull;
+use std::{borrow::Cow, ptr::NonNull};
 
 use super::WorldRes;
 use shared::{FromStatic, InstanceError, InstanceResult, Program};
@@ -34,6 +34,10 @@ impl FieldArea {
 }
 
 impl FromStatic for FieldArea {
+    fn name() -> Cow<'static, str> {
+        "FieldArea".into()
+    }
+
     unsafe fn instance() -> InstanceResult<&'static mut Self> {
         use crate::rva;
         use pelite::pe64::Pe;

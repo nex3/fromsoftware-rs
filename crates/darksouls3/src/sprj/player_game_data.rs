@@ -1,8 +1,5 @@
-use std::iter;
-use std::num::NonZero;
 use std::ops::{Index, IndexMut};
-use std::ptr::NonNull;
-use std::slice;
+use std::{borrow::Cow, iter, num::NonZero, ptr::NonNull, slice};
 
 use bitfield::bitfield;
 use shared::{FromStatic, InstanceResult, OwnedPtr, empty::*};
@@ -51,6 +48,10 @@ impl PlayerGameData {
 }
 
 impl FromStatic for PlayerGameData {
+    fn name() -> Cow<'static, str> {
+        "PlayerGameData".into()
+    }
+
     /// Returns the singleton instance of `PlayerGameData` for the main player
     /// character, if it exists.
     ///

@@ -1,4 +1,4 @@
-use std::sync::LazyLock;
+use std::{borrow::Cow, sync::LazyLock};
 
 use pelite::pe64::Pe;
 use shared::{FromStatic, InstanceError, InstanceResult};
@@ -33,6 +33,10 @@ static DL_USER_INPUT_MANAGER_PTR_VA: LazyLock<Option<u64>> =
     LazyLock::new(|| Program::current().rva_to_va(0x49644b8).ok());
 
 impl FromStatic for DLUserInputManager {
+    fn name() -> Cow<'static, str> {
+        "DLUserInputManager".into()
+    }
+
     /// Returns the singleton instance of `MapItemMan`.
     unsafe fn instance() -> InstanceResult<&'static mut Self> {
         let Some(va) = *DL_USER_INPUT_MANAGER_PTR_VA else {

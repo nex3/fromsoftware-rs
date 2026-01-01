@@ -1,4 +1,4 @@
-use std::{mem, ptr::NonNull};
+use std::{borrow::Cow, mem, ptr::NonNull};
 
 use pelite::pe64::Pe;
 use shared::empty::{IsEmpty, MaybeEmpty};
@@ -178,6 +178,10 @@ impl MenuMan {
 }
 
 impl FromStatic for MenuMan {
+    fn name() -> Cow<'static, str> {
+        "MenuMan".into()
+    }
+
     unsafe fn instance() -> fromsoftware_shared::InstanceResult<&'static mut Self> {
         let target = Program::current()
             .rva_to_va(rva::get().sprj_menu_man_ptr)

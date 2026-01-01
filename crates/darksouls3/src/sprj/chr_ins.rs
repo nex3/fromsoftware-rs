@@ -1,4 +1,4 @@
-use std::ptr::NonNull;
+use std::{borrow::Cow, ptr::NonNull};
 
 use shared::{
     FromStatic, InstanceError, InstanceResult, OwnedPtr, Subclass, Superclass, UnknownStruct,
@@ -266,6 +266,10 @@ unsafe impl Subclass<ChrIns> for PlayerIns {
 }
 
 impl FromStatic for PlayerIns {
+    fn name() -> Cow<'static, str> {
+        "PlayerIns".into()
+    }
+
     /// Returns the singleton instance of `PlayerIns` for the main player
     /// character, if it exists.
     unsafe fn instance() -> InstanceResult<&'static mut Self> {

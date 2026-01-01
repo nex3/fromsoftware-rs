@@ -1,4 +1,4 @@
-use std::sync::LazyLock;
+use std::{borrow::Cow, sync::LazyLock};
 
 use pelite::pe64::Pe;
 use shared::{FromStatic, InstanceError, InstanceResult, OwnedPtr, Program};
@@ -65,6 +65,10 @@ impl GameDataMan {
 }
 
 impl FromStatic for GameDataMan {
+    fn name() -> Cow<'static, str> {
+        "GameDataMan".into()
+    }
+
     /// Returns the singleton instance of `GameDataMan`.
     unsafe fn instance() -> InstanceResult<&'static mut Self> {
         let Some(va) = *GAME_DATA_MAN_PTR_VA else {

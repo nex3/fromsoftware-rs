@@ -1,4 +1,4 @@
-use std::ptr::NonNull;
+use std::{borrow::Cow, ptr::NonNull};
 
 use pelite::pe64::Pe;
 use shared::{FromStatic, InstanceError, InstanceResult, OwnedPtr, Program};
@@ -42,6 +42,10 @@ impl ItemGetMenuMan {
 }
 
 impl FromStatic for ItemGetMenuMan {
+    fn name() -> Cow<'static, str> {
+        "ItemGetMan".into()
+    }
+
     unsafe fn instance() -> InstanceResult<&'static mut Self> {
         let target = unsafe {
             *(Program::current()
