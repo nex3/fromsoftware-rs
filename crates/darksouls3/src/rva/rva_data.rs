@@ -9,6 +9,7 @@ use super::RvaBundle;
 /// These are populated from `mapper-profile.toml` in the root of this package
 /// using `tools/binary-generator`.
 pub const RVAS: RvaBundle = RvaBundle {
+    app_menu_new_menu_system_ptr: 0x478da40,
     chr_ins_vmt: 0x284f478,
     dluid_keyboard_device_should_block_input: 0x183be70,
     dluid_mouse_device_should_block_input: 0x183c540,
@@ -28,4 +29,5 @@ pub const RVAS: RvaBundle = RvaBundle {
     player_ins_vmt: 0x2857158,
     register_task: 0xf0fa50,
     replay_ghost_ins_vmt: 0x2858aa8,
+    sprj_menu_man_ptr: 0x4763258,
 };

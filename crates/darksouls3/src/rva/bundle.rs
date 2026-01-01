@@ -9,6 +9,7 @@
 /// These are populated from `mapper-profile.toml` in the root of this package
 /// using `tools/binary-generator`.
 pub struct RvaBundle {
+    pub app_menu_new_menu_system_ptr: u32,
     pub chr_ins_vmt: u32,
     pub dluid_keyboard_device_should_block_input: u32,
     pub dluid_mouse_device_should_block_input: u32,
@@ -28,4 +29,5 @@ pub struct RvaBundle {
     pub player_ins_vmt: u32,
     pub register_task: u32,
     pub replay_ghost_ins_vmt: u32,
+    pub sprj_menu_man_ptr: u32,
 }

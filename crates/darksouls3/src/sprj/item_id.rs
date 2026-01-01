@@ -262,7 +262,7 @@ impl fmt::Debug for ItemId {
 
 #[cfg(test)]
 mod tests {
-    use crate::cs::{ItemCategory, OptionalItemId};
+    use crate::sprj::{ItemCategory, OptionalItemId};
 
     #[test]
     fn test_bitfield() {

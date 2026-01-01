@@ -52,6 +52,7 @@ struct DarkSouls3DebugGui {
     world: SingletonDebugger<WorldChrMan>,
     field_area: StaticDebugger<FieldArea>,
     events: SingletonDebugger<SprjEventFlagMan>,
+    menu_man: StaticDebugger<MenuMan>,
     item_get_menu_man: StaticDebugger<ItemGetMenuMan>,
     params: SingletonDebugger<CSRegulationManager>,
 }
@@ -65,6 +66,7 @@ impl DarkSouls3DebugGui {
             world: SingletonDebugger::new(),
             field_area: StaticDebugger::new("FieldArea"),
             events: SingletonDebugger::new(),
+            menu_man: StaticDebugger::new("MenuMan"),
             item_get_menu_man: StaticDebugger::new("ItemGetMenuMan"),
             params: SingletonDebugger::new(),
         }
@@ -107,6 +109,7 @@ impl ImguiRenderLoop for DarkSouls3DebugGui {
                 }
 
                 if let Some(item) = ui.tab_item("Menu") {
+                    self.menu_man.render_debug(&ui);
                     self.item_get_menu_man.render_debug(&ui);
                     item.end();
                 }
