@@ -11,7 +11,7 @@ use tracing_panic::panic_hook;
 
 mod display;
 
-use display::{DebugDisplay, SingletonDebugger, StaticDebugger};
+use display::{DebugDisplay, StaticDebugger};
 
 /// # Safety
 /// This is exposed this way such that libraryloader can call it. Do not call this yourself.
@@ -49,12 +49,12 @@ struct DarkSouls3DebugGui {
     input_blocker: &'static InputBlocker,
     size: [f32; 2],
     scale: f32,
-    world: SingletonDebugger<WorldChrMan>,
+    world: StaticDebugger<WorldChrMan>,
     field_area: StaticDebugger<FieldArea>,
-    events: SingletonDebugger<SprjEventFlagMan>,
+    events: StaticDebugger<SprjEventFlagMan>,
     menu_man: StaticDebugger<MenuMan>,
     item_get_menu_man: StaticDebugger<ItemGetMenuMan>,
-    params: SingletonDebugger<CSRegulationManager>,
+    params: StaticDebugger<CSRegulationManager>,
 }
 
 impl DarkSouls3DebugGui {
@@ -63,12 +63,12 @@ impl DarkSouls3DebugGui {
             input_blocker,
             size: [600., 400.],
             scale: 1.8,
-            world: SingletonDebugger::new(),
-            field_area: StaticDebugger::new("FieldArea"),
-            events: SingletonDebugger::new(),
-            menu_man: StaticDebugger::new("MenuMan"),
-            item_get_menu_man: StaticDebugger::new("ItemGetMenuMan"),
-            params: SingletonDebugger::new(),
+            world: StaticDebugger::new(),
+            field_area: StaticDebugger::new(),
+            events: StaticDebugger::new(),
+            menu_man: StaticDebugger::new(),
+            item_get_menu_man: StaticDebugger::new(),
+            params: StaticDebugger::new(),
         }
     }
 }

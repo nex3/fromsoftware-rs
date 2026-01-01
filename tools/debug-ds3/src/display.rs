@@ -1,4 +1,4 @@
-use fromsoftware_shared::{FromSingleton, FromStatic};
+use fromsoftware_shared::FromStatic;
 use hudhook::imgui::{TreeNodeFlags, Ui};
 
 pub(crate) mod chr;
@@ -34,7 +34,6 @@ pub struct StaticDebugger<T>
 where
     T: StatefulDebugDisplay + FromStatic + 'static,
 {
-    name: String,
     state: T::State,
 }
 
@@ -42,9 +41,8 @@ impl<T> StaticDebugger<T>
 where
     T: StatefulDebugDisplay + FromStatic + 'static,
 {
-    pub fn new(name: impl AsRef<str>) -> Self {
+    pub fn new() -> Self {
         StaticDebugger {
-            name: name.as_ref().to_string(),
             state: Default::default(),
         }
     }
@@ -60,7 +58,7 @@ where
         match singleton {
             Ok(instance) => {
                 if ui.collapsing_header(
-                    format!("{}: {:p}", self.name, instance),
+                    format!("{}: {:p}", T::name(), instance),
                     TreeNodeFlags::empty(),
                 ) {
                     ui.indent();
@@ -69,29 +67,7 @@ where
                     ui.separator();
                 }
             }
-            Err(err) => ui.text(format!("Couldn't load {}: {:?}", self.name, err)),
+            Err(err) => ui.text(format!("Couldn't load {}: {:?}", T::name(), err)),
         }
-    }
-}
-
-pub struct SingletonDebugger<T>(StaticDebugger<T>)
-where
-    T: StatefulDebugDisplay + FromSingleton + 'static;
-
-impl<T> SingletonDebugger<T>
-where
-    T: StatefulDebugDisplay + FromSingleton + 'static,
-{
-    pub fn new() -> Self {
-        SingletonDebugger(StaticDebugger::new(T::name()))
-    }
-}
-
-impl<T> DebugDisplay for SingletonDebugger<T>
-where
-    T: StatefulDebugDisplay + FromSingleton + 'static,
-{
-    fn render_debug(&mut self, ui: &&mut Ui) {
-        DebugDisplay::render_debug(&mut self.0, ui);
     }
 }
