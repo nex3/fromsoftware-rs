@@ -1,9 +1,7 @@
 use std::{borrow::Cow, ptr::NonNull};
 
-use pelite::pe64::Pe;
-
 use crate::{CxxVec, dlut::DLFixedVector, rva};
-use shared::{FromStatic, InstanceError, Program, UnknownStruct};
+use shared::{FromStatic, UnknownStruct};
 
 #[repr(C)]
 pub struct NewMenuSystem {
@@ -61,12 +59,7 @@ impl FromStatic for NewMenuSystem {
     }
 
     unsafe fn instance() -> fromsoftware_shared::InstanceResult<&'static mut Self> {
-        let target = Program::current()
-            .rva_to_va(rva::get().app_menu_new_menu_system_ptr)
-            .map_err(|_| InstanceError::NotFound)?
-            as *const *mut NewMenuSystem;
-
-        unsafe { (*target).as_mut().ok_or(InstanceError::Null) }
+        unsafe { shared::load_static_indirect(rva::get().app_menu_new_menu_system_ptr) }
     }
 }
 

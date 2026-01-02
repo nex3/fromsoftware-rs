@@ -20,8 +20,8 @@ pub enum SystemInitError {
     InvalidRva,
 }
 
-/// Wait for the system to finish initializing by waiting a global hInstance to
-/// be populated for CSWindow. This happens after the CRT init and after
+/// Wait for the system to finish initializing by waiting for a global hInstance
+/// to be populated for CSWindow. This happens after the CRT init and after
 /// duplicate instance checks.
 pub fn wait_for_system_init(module: &Program, timeout: Duration) -> Result<(), SystemInitError> {
     if std::ptr::eq(GLOBAL_HINSTANCE.load(Ordering::Relaxed), 0x0 as _) {

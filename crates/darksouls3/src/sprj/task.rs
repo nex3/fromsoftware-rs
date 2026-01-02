@@ -1,5 +1,4 @@
 use pelite::pe64::Pe;
-use std::sync::LazyLock;
 
 use shared::{OwnedPtr, RecurringTask, SharedTaskImp, program::Program};
 
@@ -13,21 +12,19 @@ pub struct SprjTaskImp {
     pub inner: OwnedPtr<SprjTask>,
 }
 
-static REGISTER_TASK_VA: LazyLock<u64> = LazyLock::new(|| {
-    Program::current()
-        .rva_to_va(rva::get().register_task)
-        .expect("Call target for REGISTER_TASK_VA was not in exe")
-});
-
 // TODO: Track down exactly what DS3's FD4TaskData struct looks like.
 impl SharedTaskImp<SprjTaskGroupIndex, usize> for SprjTaskImp {
     fn register_task_internal(&self, index: SprjTaskGroupIndex, task: &RecurringTask<usize>) {
+        let va = Program::current()
+            .rva_to_va(rva::get().register_task)
+            .expect("Call target for register_task was not in exe");
+
         let register_task: extern "C" fn(
             &SprjTaskImp,
             SprjTaskGroupIndex,
             u64,
             &RecurringTask<usize>,
-        ) = unsafe { std::mem::transmute(*REGISTER_TASK_VA) };
+        ) = unsafe { std::mem::transmute(va) };
         register_task(self, index, 0, task);
     }
 }

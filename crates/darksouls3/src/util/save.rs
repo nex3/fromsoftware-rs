@@ -1,5 +1,4 @@
 use std::io::{Read, Seek, SeekFrom, Write};
-use std::sync::LazyLock;
 
 use ilhook::{x64::*, *};
 use pelite::pe64::Pe;
@@ -12,12 +11,6 @@ use crate::sprj::*;
 /// A magic header string that we write into save data that's modified using
 /// [on_save] so we can tell whether it was modified by our custom code.
 const HEADER: &str = "fromsoftware-rs";
-
-static EQUIP_GAME_DATA_DESERIALIZE_VA: LazyLock<u64> = LazyLock::new(|| {
-    Program::current()
-        .rva_to_va(rva::get().equip_game_data_deserialize)
-        .expect("Call target for EQUIP_GAME_DATA_DESERIALIZE_VA was not in exe")
-});
 
 /// An enum of different circumstances in which a save file can be loaded.
 pub enum OnLoadType<'a> {
@@ -87,21 +80,18 @@ pub unsafe fn on_load<'a, T: Fn(OnLoadType<'_>) + Send + Sync + 'a>(
         1
     };
 
+    let va = Program::current()
+        .rva_to_va(rva::get().equip_game_data_deserialize)
+        .expect("Call target for equip_game_data_deserialize was not in exe");
     unsafe {
         hook_closure_retn(
-            *EQUIP_GAME_DATA_DESERIALIZE_VA as usize,
+            va as usize,
             callback,
             CallbackOption::None,
             HookFlags::empty(),
         )
     }
 }
-
-static EQUIP_GAME_DATA_SERIALIZE_VA: LazyLock<u64> = LazyLock::new(|| {
-    Program::current()
-        .rva_to_va(rva::get().equip_game_data_serialize)
-        .expect("Call target for EQUIP_GAME_DATA_SERIALIZE_VA was not in exe")
-});
 
 /// Registers [callback] to run each time DS3 writes a save. This only counts
 /// "real" saves—there's a fake save file that's used by the main screen to
@@ -147,9 +137,12 @@ pub unsafe fn on_save<'a, T: (Fn() -> Option<Vec<u8>>) + Send + Sync + 'a>(
         original(this, stream)
     };
 
+    let va = Program::current()
+        .rva_to_va(rva::get().equip_game_data_serialize)
+        .expect("Call target for equip_game_data_serialize was not in exe");
     unsafe {
         hook_closure_retn(
-            *EQUIP_GAME_DATA_SERIALIZE_VA as usize,
+            va as usize,
             callback,
             CallbackOption::None,
             HookFlags::empty(),

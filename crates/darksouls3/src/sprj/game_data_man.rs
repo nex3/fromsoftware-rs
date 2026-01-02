@@ -1,16 +1,10 @@
-use std::{borrow::Cow, sync::LazyLock};
+use std::borrow::Cow;
 
 use pelite::pe64::Pe;
-use shared::{FromStatic, InstanceError, InstanceResult, OwnedPtr, Program};
+use shared::{FromStatic, InstanceResult, OwnedPtr, Program};
 
 use super::{ItemId, PlayerGameData};
 use crate::rva;
-
-static GAME_DATA_MAN_PTR_VA: LazyLock<Option<u64>> = LazyLock::new(|| {
-    Program::current()
-        .rva_to_va(rva::get().game_data_man_ptr)
-        .ok()
-});
 
 #[repr(C)]
 /// Source of name: RTTI
@@ -27,17 +21,15 @@ pub struct GameDataMan {
     _unk78: [u8; 0xB8],
 }
 
-static LUA_EVENT_MAN_GIVE_ITEM_DIRECTLY_VA: LazyLock<u64> = LazyLock::new(|| {
-    Program::current()
-        .rva_to_va(rva::get().lua_event_man_give_item_directly)
-        .expect("Call target for LUA_EVENT_MAN_GIVE_ITEM_DIRECTLY_VA was not in exe")
-});
-
 impl GameDataMan {
     /// Gives the player [quantity] instances of [item].
     ///
     /// Note that this won't give more than one copy of certain key items.
     pub fn give_item_directly(&mut self, item: ItemId, quantity: u32) {
+        let va = Program::current()
+            .rva_to_va(rva::get().lua_event_man_give_item_directly)
+            .expect("Call target for lua_event_man_give_item_directly was not in exe");
+
         // Because this function comes from the event manager, it takes the
         // LuaEventMan as its first argument rather than GameDataMan. It instead
         // accesses GameDataMan through the global variable. To avoid needing to
@@ -46,7 +38,7 @@ impl GameDataMan {
         // globally, if we have a mutable reference to it we know it's safe to
         // run code that modifies it through the global variable.
         let give_item_directly: extern "C" fn(usize, u32, u32, u32) =
-            unsafe { std::mem::transmute(*LUA_EVENT_MAN_GIVE_ITEM_DIRECTLY_VA) };
+            unsafe { std::mem::transmute(va) };
 
         // The LuaEventMan isn't actually used.
         give_item_directly(0, (item.category() as u32) << 28, item.param_id(), quantity);
@@ -55,10 +47,10 @@ impl GameDataMan {
     /// Removes [quantity] instances of [item] from the player's inventory.
     pub fn remove_item(&mut self, item: ItemId, quantity: u32) {
         // As above, this takes LuaEventMan but doesn't use it.
-        let rva = Program::current()
+        let va = Program::current()
             .rva_to_va(rva::get().lua_event_man_remove_item)
             .unwrap();
-        let remove_item: extern "C" fn(usize, u32, u32, u32) = unsafe { std::mem::transmute(rva) };
+        let remove_item: extern "C" fn(usize, u32, u32, u32) = unsafe { std::mem::transmute(va) };
 
         remove_item(0, (item.category() as u32) << 28, item.param_id(), quantity);
     }
@@ -71,11 +63,7 @@ impl FromStatic for GameDataMan {
 
     /// Returns the singleton instance of `GameDataMan`.
     unsafe fn instance() -> InstanceResult<&'static mut Self> {
-        let Some(va) = *GAME_DATA_MAN_PTR_VA else {
-            return Err(InstanceError::NotFound);
-        };
-        let pointer = unsafe { *(va as *const *mut Self) };
-        unsafe { pointer.as_mut() }.ok_or(InstanceError::Null)
+        unsafe { shared::load_static_indirect(rva::get().game_data_man_ptr) }
     }
 }
 

@@ -1,8 +1,7 @@
 use std::{borrow::Cow, mem, ptr::NonNull};
 
-use pelite::pe64::Pe;
 use shared::empty::{IsEmpty, MaybeEmpty};
-use shared::{FromStatic, InstanceError, Program, UnknownStruct};
+use shared::{FromStatic, UnknownStruct};
 
 use super::{ItemCategoryHigh, ItemId};
 use crate::{fd4::FD4Time, rva};
@@ -183,11 +182,7 @@ impl FromStatic for MenuMan {
     }
 
     unsafe fn instance() -> fromsoftware_shared::InstanceResult<&'static mut Self> {
-        let target = Program::current()
-            .rva_to_va(rva::get().sprj_menu_man_ptr)
-            .map_err(|_| InstanceError::NotFound)? as *const *mut MenuMan;
-
-        unsafe { (*target).as_mut().ok_or(InstanceError::Null) }
+        unsafe { shared::load_static_indirect(rva::get().sprj_menu_man_ptr) }
     }
 }
 

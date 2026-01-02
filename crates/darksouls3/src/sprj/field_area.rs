@@ -1,7 +1,8 @@
 use std::{borrow::Cow, ptr::NonNull};
 
 use super::WorldRes;
-use shared::{FromStatic, InstanceError, InstanceResult, Program};
+use crate::rva;
+use shared::{FromStatic, InstanceResult};
 
 pub struct FieldArea {
     _vftable: usize,
@@ -39,15 +40,6 @@ impl FromStatic for FieldArea {
     }
 
     unsafe fn instance() -> InstanceResult<&'static mut Self> {
-        use crate::rva;
-        use pelite::pe64::Pe;
-
-        let target = unsafe {
-            *(Program::current()
-                .rva_to_va(rva::get().field_area_ptr)
-                .map_err(|_| InstanceError::NotFound)? as *const *mut Self)
-        };
-
-        unsafe { target.as_mut().ok_or(InstanceError::Null) }
+        unsafe { shared::load_static_indirect(rva::get().field_area_ptr) }
     }
 }

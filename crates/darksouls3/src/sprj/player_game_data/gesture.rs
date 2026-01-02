@@ -2,7 +2,8 @@ use std::borrow::Cow;
 
 use bitfield::bitfield;
 
-use shared::{FromStatic, InstanceError, InstanceResult};
+use crate::rva;
+use shared::{FromStatic, InstanceResult};
 
 bitfield! {
     /// The handle providing information about a single gesture in the player's
@@ -80,15 +81,7 @@ impl FromStatic for GestureDataStore {
     }
 
     unsafe fn instance() -> InstanceResult<&'static mut Self> {
-        use crate::rva;
-        use pelite::pe64::Pe;
-        use shared::Program;
-
-        let target = Program::current()
-            .rva_to_va(rva::get().gesture_data_store)
-            .map_err(|_| InstanceError::NotFound)? as *mut Self;
-
-        unsafe { target.as_mut().ok_or(InstanceError::Null) }
+        unsafe { shared::load_static_direct(rva::get().gesture_data_store) }
     }
 }
 

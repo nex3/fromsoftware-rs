@@ -1,8 +1,4 @@
-use std::{borrow::Cow, sync::LazyLock};
-
-use pelite::pe64::Pe;
-use shared::{FromStatic, InstanceError, InstanceResult};
-use shared::{OwnedPtr, Program};
+use shared::OwnedPtr;
 
 use crate::CxxVec;
 use crate::dlkr::{DLAllocatorRef, DLPlainLightMutex};
@@ -27,22 +23,4 @@ pub struct DLUserInputManager {
     _unk24e: [u8; 0xA],
     _unk258: CxxVec<u64>,
     _unk278: [u8; 0x50],
-}
-
-static DL_USER_INPUT_MANAGER_PTR_VA: LazyLock<Option<u64>> =
-    LazyLock::new(|| Program::current().rva_to_va(0x49644b8).ok());
-
-impl FromStatic for DLUserInputManager {
-    fn name() -> Cow<'static, str> {
-        "DLUserInputManager".into()
-    }
-
-    /// Returns the singleton instance of `MapItemMan`.
-    unsafe fn instance() -> InstanceResult<&'static mut Self> {
-        let Some(va) = *DL_USER_INPUT_MANAGER_PTR_VA else {
-            return Err(InstanceError::NotFound);
-        };
-        let pointer = unsafe { *(va as *const *mut Self) };
-        unsafe { pointer.as_mut() }.ok_or(InstanceError::Null)
-    }
 }
